@@ -1,0 +1,31 @@
+# IDE & System Related Files #
+.buildpath
+.editorconfig
+.project
+.settings
+.DS_Store
+.idea
+.vscode
+
+# OSX #
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows #
+Thumbs.db
+Desktop.ini
+
+
+# Vendor folder / Dependencies
+/vendor
+
+# System Test related files
+src/_support/_generated/*TesterActions.php
+src/_output*
+selenium-server-standalone.jar
+selenium.log
+src/cache
+src/_output
+src/vendor
+composer.phar
