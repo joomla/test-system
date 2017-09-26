@@ -22,10 +22,5 @@
 	"joomla-projects/selenium-server-standalone": "~v3",
     "consolidation/robo": "^1.0.0",
 	"fzaninotto/faker": "^1.6"
-  },
-  "scripts": {
-    "post-install-cmd": [
-      "Joomla\\SystemTesting::setup"
-    ]
   }
 }
