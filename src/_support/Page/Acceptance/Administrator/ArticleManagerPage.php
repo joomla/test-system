@@ -18,6 +18,12 @@ namespace Page\Acceptance\Administrator;
  */
 class ArticleManagerPage extends AdminPage
 {
+	/**
+	 * Drop Down Toggle Element.
+	 *
+	 * @var    array
+	 * @since  __DEPLOY_VERSION__
+	 */
 	public static $dropDownToggle = ['xpath' => "//button[contains(@class, 'dropdown-toggle')]"];
 
 	/**
@@ -79,8 +85,8 @@ class ArticleManagerPage extends AdminPage
 	/**
 	 * Method to create new article
 	 *
-	 * @param   string $title   The article title
-	 * @param   string $content The article content
+	 * @param   string  $title    The article title
+	 * @param   string  $content  The article content
 	 *
 	 * @When    I create new content with field title as :title and content as a :content
 	 *
