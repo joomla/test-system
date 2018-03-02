@@ -26,6 +26,6 @@ class CategoryCest
 	public function Category(AcceptanceTester $I, $scenario)
 	{
 		$I = new CategoryStep($scenario);
-		$I->createCategory($this->randomCategoryTitle);
+		$I->createContentCategory($this->randomCategoryTitle);
 	}
 }

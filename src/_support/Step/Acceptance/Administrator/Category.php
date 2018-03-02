@@ -24,7 +24,7 @@ use Page\Acceptance\Site\FrontPage;
 class Category extends Admin
 {
 
-	public function createCategory($title)
+	public function createContentCategory($title)
 	{
 		$this->amOnPage(CategoryManagerPage::$url);
 		$this->waitForText("Articles: Categories", TIMEOUT, "//h1");

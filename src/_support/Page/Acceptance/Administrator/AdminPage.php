@@ -64,7 +64,7 @@ class AdminPage extends \AcceptanceTester
 	 * @var    array
 	 * @since  3.7.3
 	 */
-	public static $iconSearch = ['class' => 'icon-search'];
+	public static $iconSearch = ['xpath' => "//button[@title='Search']"];
 
 	/**
 	 * Locator for the Tabs in Edit View

@@ -101,6 +101,7 @@ class Admin extends \AcceptanceTester
 		$this->adminPage           = new AdminPage($scenario);
 		$this->articleManagerPage  = new ArticleManagerPage($scenario);
 		$this->userManagerPage     = new UserManagerPage($scenario);
+		$this->categoryManagerPage = new CategoryManagerPage($scenario);
 	}
 
 	/**
