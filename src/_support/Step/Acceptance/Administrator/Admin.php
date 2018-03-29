@@ -29,7 +29,7 @@ class Admin extends \AcceptanceTester
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function login($username = 'admin', $password = 'admin', $force = true)
+	public function login($username = 'admin', $password = 'admin')
 	{
 		$I = $this;
 		if ($I->loadSessionSnapshot('adminLogin'))
