@@ -23,7 +23,7 @@ class LoginPage
 	 * @var    array
 	 * @since  __DEPLOY_VERSION__
 	 */
-	public static $form = ['form-login'];
+	public static $form = ['id' => 'form-login'];
 
 	/**
 	 * Locator for the username field
