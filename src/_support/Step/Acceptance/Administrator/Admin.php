@@ -12,7 +12,6 @@ namespace Step\Acceptance\Administrator;
 use Codeception\Scenario;
 use Page\Acceptance\Administrator\AdminPage;
 use Page\Acceptance\Administrator\ArticleManagerPage;
-use Page\Acceptance\Administrator\UserManagerPage;
 
 /**
  * Acceptance Step object class for admin steps.
@@ -33,60 +32,6 @@ class Admin extends \AcceptanceTester
 	protected $adminPage = null;
 
 	/**
-	 * Article Manager Page Object for this class
-	 *
-	 * @var     null|ArticleManagerPage
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	protected $articleManagerPage = null;
-
-	/**
-	 * Category Manager Page Object for this class
-	 *
-	 * @var     null|CategoryManagerPage
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	protected $categoryManagerPage = null;
-
-	/**
-	 * User Manager Page Object for this class
-	 *
-	 * @var     null|UserManagerPage
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	protected $userManagerPage = null;
-
-	/**
-	 * User Group Page Object for this class
-	 *
-	 * @var     null|UserManagerPage
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	protected $userGroupPage = null;
-
-	/**
-	 * User ACL Page Object for this class
-	 *
-	 * @var     null|UserManagerPage
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	protected $userAclPage = null;
-
-	/**
-	 * Menu Manager Page Object for this class
-	 *
-	 * @var     null|MenuManagerPage
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	protected $menuManagerPage = null;
-
-	/**
 	 * User constructor.
 	 *
 	 * @param   Scenario  $scenario  Scenario object
@@ -98,18 +43,13 @@ class Admin extends \AcceptanceTester
 		parent::__construct($scenario);
 
 		// Initialize Page Objects
-		$this->adminPage           = new AdminPage($scenario);
-		$this->articleManagerPage  = new ArticleManagerPage($scenario);
-		$this->userManagerPage     = new UserManagerPage($scenario);
-		$this->categoryManagerPage = new CategoryManagerPage($scenario);
+		$this->adminPage = new AdminPage($scenario);
 	}
 
 	/**
 	 * Method to confirm message appear
 	 *
-	 * @param   string  $message  The message to be confirm
-	 *
-	 * @Then I should see the :message message
+	 * @param   string $message The message to be confirm
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 *
