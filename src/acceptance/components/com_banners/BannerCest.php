@@ -15,14 +15,13 @@ class BannerCest
 	{
 		$this->faker = Faker\Factory::create();
 		$this->userName = $this->faker->bothify('UserNameCheckoutProductCest ?##?');
-		$this->bannerTitle = "banner";
+		$this->bannerTitle = $this->faker->bothify('banner ##??');
 		$this->randomBannerTitle = $this->faker->bothify('BannerCest ?##?');
 		$this->bannerSuccessMessage = "Banner saved.";
-		$this->bannerPublishSuccessMessage = "banner published.";
-		$this->bannerUnPublishSuccessMessage = "banner unpublished.";
-		$this->bannerCheckinMessage = "banner checked in.";
-		$this->bannerTrashMessage = "banner trashed.";
-		$this->bannerDeleteMessage = "banner deleted.";
+		$this->bannerPublishSuccessMessage = "published.";
+		$this->bannerUnPublishSuccessMessage = "unpublished.";
+		$this->bannerTrashMessage = "trashed.";
+		$this->bannerDeleteMessage = "deleted.";
 	}
 
 	public function _before(AcceptanceTester $I)
@@ -30,14 +29,28 @@ class BannerCest
 		$I->doAdministratorLogin();
 	}
 
-	public function Banner(AcceptanceTester $I, $scenario)
+	public function testCreateBanner(AcceptanceTester $I, $scenario)
 	{
 		$I = new BannerStep($scenario);
 		$I->createBanner($this->bannerTitle, $this->bannerSuccessMessage);
+	}
+
+	public function testModifyBanner(AcceptanceTester $I, $scenario)
+	{
+		$I = new BannerStep($scenario);
 		$I->modifyBanner($this->bannerTitle, $this->randomBannerTitle, $this->bannerSuccessMessage);
+	}
+
+	public function testStatusChangeBanner(AcceptanceTester $I, $scenario)
+	{
+		$I = new BannerStep($scenario);
 		$I->publishBanner($this->randomBannerTitle, $this->bannerPublishSuccessMessage);
 		$I->unpublishBanner($this->randomBannerTitle, $this->bannerUnPublishSuccessMessage);
-		$I->checkInBanner($this->randomBannerTitle, $this->bannerCheckinMessage);
+	}
+
+	public function testTrashBanner(AcceptanceTester $I, $scenario)
+	{
+		$I = new BannerStep($scenario);
 		$I->trashBanner($this->randomBannerTitle, $this->bannerTrashMessage);
 		$I->deleteBanner($this->randomBannerTitle, $this->bannerDeleteMessage);
 	}
