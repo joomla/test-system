@@ -9,9 +9,8 @@
 
 namespace Step\Acceptance\Administrator;
 
-use Codeception\Scenario;
 use Page\Acceptance\Administrator\AdminPage;
-use Page\Acceptance\Administrator\ArticleManagerPage;
+use Page\Acceptance\Administrator\LoginPage;
 
 /**
  * Acceptance Step object class for admin steps.
@@ -23,27 +22,28 @@ use Page\Acceptance\Administrator\ArticleManagerPage;
 class Admin extends \AcceptanceTester
 {
 	/**
-	 * Admin Page Object for this class
+	 * Login in backend
 	 *
-	 * @var     null|ArticleManagerPage
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	protected $adminPage = null;
-
-	/**
-	 * User constructor.
-	 *
-	 * @param   Scenario  $scenario  Scenario object
+	 * @param   string  $username
+	 * @param   string  $password
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function __construct(Scenario $scenario)
+	public function login($username = '', $password = '')
 	{
-		parent::__construct($scenario);
-
-		// Initialize Page Objects
-		$this->adminPage = new AdminPage($scenario);
+		$I = $this;
+		if ($I->loadSessionSnapshot('adminLogin'))
+		{
+			return;
+		}
+		$I->wantTo('login in backend');
+		$I->amOnPage(LoginPage::$url);
+		$I->submitForm(LoginPage::$form, [
+			'username' => empty($username) ? 'admin' : $username,
+			'passwd'   => empty($password) ? 'admin' : $password,
+		]);
+		$I->see('Control Panel', 'h1.page-title');
+		$I->saveSessionSnapshot('adminLogin');
 	}
 
 	/**
