@@ -13,6 +13,7 @@ use Codeception\Scenario;
 use Page\Acceptance\Administrator\AdminPage;
 use Page\Acceptance\Administrator\ArticleManagerPage;
 use Page\Acceptance\Administrator\UserManagerPage;
+use Page\Acceptance\Administrator\CategoryManagerPage;
 
 /**
  * Acceptance Step object class for admin steps.
