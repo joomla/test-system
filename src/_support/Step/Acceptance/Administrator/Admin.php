@@ -9,10 +9,8 @@
 
 namespace Step\Acceptance\Administrator;
 
-use Codeception\Scenario;
 use Page\Acceptance\Administrator\AdminPage;
-use Page\Acceptance\Administrator\ArticleManagerPage;
-use Page\Acceptance\Administrator\UserManagerPage;
+use Page\Acceptance\Administrator\LoginPage;
 
 /**
  * Acceptance Step object class for admin steps.
@@ -24,92 +22,35 @@ use Page\Acceptance\Administrator\UserManagerPage;
 class Admin extends \AcceptanceTester
 {
 	/**
-	 * Admin Page Object for this class
+	 * Login in backend
 	 *
-	 * @var     null|ArticleManagerPage
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	protected $adminPage = null;
-
-	/**
-	 * Article Manager Page Object for this class
-	 *
-	 * @var     null|ArticleManagerPage
+	 * @param   string  $username
+	 * @param   string  $password
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	protected $articleManagerPage = null;
-
-	/**
-	 * Category Manager Page Object for this class
-	 *
-	 * @var     null|CategoryManagerPage
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	protected $categoryManagerPage = null;
-
-	/**
-	 * User Manager Page Object for this class
-	 *
-	 * @var     null|UserManagerPage
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	protected $userManagerPage = null;
-
-	/**
-	 * User Group Page Object for this class
-	 *
-	 * @var     null|UserManagerPage
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	protected $userGroupPage = null;
-
-	/**
-	 * User ACL Page Object for this class
-	 *
-	 * @var     null|UserManagerPage
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	protected $userAclPage = null;
-
-	/**
-	 * Menu Manager Page Object for this class
-	 *
-	 * @var     null|MenuManagerPage
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	protected $menuManagerPage = null;
-
-	/**
-	 * User constructor.
-	 *
-	 * @param   Scenario  $scenario  Scenario object
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	public function __construct(Scenario $scenario)
+	public function login($username = 'admin', $password = 'admin')
 	{
-		parent::__construct($scenario);
-
-		// Initialize Page Objects
-		$this->adminPage           = new AdminPage($scenario);
-		$this->articleManagerPage  = new ArticleManagerPage($scenario);
-		$this->userManagerPage     = new UserManagerPage($scenario);
-		$this->categoryManagerPage = new CategoryManagerPage($scenario);
+		$I = $this;
+		if ($I->loadSessionSnapshot('adminLogin'))
+		{
+			return;
+		}
+		$I->wantTo('login in backend');
+		$I->amOnPage(LoginPage::$url);
+		$I->waitForElement(LoginPage::$form);
+		$I->submitForm(LoginPage::$form, [
+			'username' => $username,
+			'passwd'   => $password,
+		]);
+		$I->see('Control Panel', 'h1.page-title');
+		$I->saveSessionSnapshot('adminLogin');
 	}
 
 	/**
 	 * Method to confirm message appear
 	 *
-	 * @param   string  $message  The message to be confirm
-	 *
-	 * @Then I should see the :message message
+	 * @param   string $message The message to be confirm
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 *
