@@ -2,7 +2,7 @@
 
 ### Abstract
 
-This repo is meant to hold the decoupled com_weblinks component and related code.
+This repo is meant to hold the browser based system test (codeception tests) for Joomla 4.
 
 
 ### Installation
