@@ -9,8 +9,8 @@
 
 use Page\Acceptance\Administrator\MediaManagerPage;
 
-// Test upload via toolbar
 // Test upload via d&d?
+// Test open close infobar
 // Test delete file
 // Test rename file
 // Test navigate using tree
@@ -117,24 +117,42 @@ class MediaCest
 	}
 
 	/**
-	 * Select image and check the information
+	 * Test that it is possible to select an image and see the information in the infobar
 	 *
 	 * @param   AcceptanceTester $I Acceptance Helper Object
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public static function selectImageAndCheckTheInformation(\Step\Acceptance\Administrator\Media $I)
+	public function selectImageAndCheckTheInformation(\Step\Acceptance\Administrator\Media $I)
 	{
 		$I->wantToTest('the media manager overview information method');
 		$I->amOnPage(MediaManagerPage::$url);
-
 		$I->waitForElement(MediaManagerPage::$poweredByImage);
-
 		$I->click(MediaManagerPage::$poweredByImage);
 		$I->openInfobar();
-
 		$I->seeElement(MediaManagerPage::$infoBar);
 		$I->see('powered_by.png',MediaManagerPage::$infoBar);
 		$I->see('image/png', MediaManagerPage::$infoBar);
+	}
+
+	/**
+	 * Test the upload of a single file using toolbar button.
+	 *
+	 * @param   AcceptanceTester $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function uploadSingleFileUsingToolbarButton(\Step\Acceptance\Administrator\Media $I)
+	{
+		$testFileName = 'test-image-1.png';
+
+		$I->wantToTest('the upload of a single file using toolbar button.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->waitForMediaLoaded();
+		$I->uploadFile('com_media/' . $testFileName);
+		$I->seeMessage('Item uploaded.');
+		$I->seeContents([$testFileName]);
+		// Cleanup
+		$I->deleteFile('images/' . $testFileName);
 	}
 }

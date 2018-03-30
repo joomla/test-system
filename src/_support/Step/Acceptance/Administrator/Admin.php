@@ -116,7 +116,7 @@ class Admin extends \AcceptanceTester
 	 *
 	 * @return  void
 	 */
-	public function iShouldSeeTheMessage($message)
+	public function seeMessage($message)
 	{
 		$I = $this;
 

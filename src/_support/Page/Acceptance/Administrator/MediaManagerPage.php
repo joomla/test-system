@@ -89,4 +89,12 @@ class MediaManagerPage extends AdminPage
 	 * @since  __DEPLOY_VERSION__
 	 */
 	public static $poweredByImage = '//div[contains(@class, \'media-browser-item-info\') and normalize-space(text()) = \'powered_by.png\']/parent::div';
+
+	/**
+	 * The hidden file upload field
+	 *
+	 * @var    string
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $fileInputField = 'input[name=\'file\']';
 }

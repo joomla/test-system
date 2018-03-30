@@ -1,5 +1,6 @@
 <?php namespace Step\Acceptance\Administrator;
 
+use Codeception\Configuration;
 use Page\Acceptance\Administrator\MediaManagerPage;
 use PHPUnit_Framework_Exception;
 
@@ -60,5 +61,42 @@ class Media extends Admin
 		{
 			$I->see($content, MediaManagerPage::$items);
 		}
+	}
+
+	/**
+	 * Helper function to upload a file in the current directory
+	 *
+	 * @param  string  $fileName
+	 */
+	public function uploadFile($fileName)
+	{
+		$I = $this;
+		$I->seeElementInDOM(MediaManagerPage::$fileInputField);
+		$I->attachFile(MediaManagerPage::$fileInputField, $fileName);
+	}
+
+	/**
+	 * Delete a file from filesystem
+	 *
+	 * @param  string  $path
+	 */
+	public function deleteFile($path)
+	{
+		$I = $this;
+		$absolutePath = $this->absolutizePath($path);
+		if (!file_exists($absolutePath)) {
+			\PHPUnit\Framework\Assert::fail('file not found');
+		}
+		unlink($absolutePath);
+		$I->comment('Deleted ' . $absolutePath);
+	}
+
+	/**
+	 * @param   string $path
+	 * @return string
+	 */
+	protected function absolutizePath($path)
+	{
+		return Configuration::projectDir() . 'test-install/' . ltrim($path,'/');
 	}
 }
