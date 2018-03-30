@@ -9,7 +9,6 @@
 
 use Page\Acceptance\Administrator\MediaManagerPage;
 
-// Test open close infobar
 // Test delete file
 // Test rename file
 // Test navigate using tree
@@ -147,11 +146,25 @@ class MediaCest
 
 		$I->wantToTest('the upload of a single file using toolbar button.');
 		$I->amOnPage(MediaManagerPage::$url);
-		$I->waitForMediaLoaded();
 		$I->uploadFile('com_media/' . $testFileName);
 		$I->seeMessage('Item uploaded.');
 		$I->seeContents([$testFileName]);
 		// Cleanup
 		$I->deleteFile('images/' . $testFileName);
+	}
+
+	/**
+	 * Test open infobar
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function openInfoBar(\Step\Acceptance\Administrator\Media $I)
+	{
+		$I->wantToTest('that it is possible to open the infobar.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->openInfobar();
+		$I->seeElement(MediaManagerPage::$infoBar);
 	}
 }
