@@ -9,7 +9,6 @@
 
 use Page\Acceptance\Administrator\MediaManagerPage;
 
-// Test upload via d&d?
 // Test open close infobar
 // Test delete file
 // Test rename file
@@ -60,7 +59,7 @@ class MediaCest
 	/**
 	 * Runs before every test
 	 *
-	 * @param   AcceptanceTester $I Acceptance Helper Object
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
 	 */
 	public function _before(AcceptanceTester $I)
 	{
@@ -70,7 +69,7 @@ class MediaCest
 	/**
 	 * Test that it loads without php notices and warnings.
 	 *
-	 * @param   AcceptanceTester $I Acceptance Helper Object
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
@@ -85,7 +84,7 @@ class MediaCest
 	/**
 	 * Test that it shows then joomla default media files and folders
 	 *
-	 * @param   AcceptanceTester $I
+	 * @param   \Step\Acceptance\Administrator\Media $I
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
@@ -101,7 +100,7 @@ class MediaCest
 	/**
 	 * Test that its possible to navigate to a subfolder using double click
 	 *
-	 * @param   AcceptanceTester $I
+	 * @param   \Step\Acceptance\Administrator\Media $I
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
@@ -119,7 +118,7 @@ class MediaCest
 	/**
 	 * Test that it is possible to select an image and see the information in the infobar
 	 *
-	 * @param   AcceptanceTester $I Acceptance Helper Object
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
@@ -138,7 +137,7 @@ class MediaCest
 	/**
 	 * Test the upload of a single file using toolbar button.
 	 *
-	 * @param   AcceptanceTester $I Acceptance Helper Object
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
