@@ -149,7 +149,7 @@ modules:
 error_level: "E_ALL & ~E_STRICT & ~E_DEPRECATED"
 ```
 
-##### 9. Copy the file <tt>acceptance.suite.yml</tt> to the codeception folder.
+##### 9. Copy the file <tt>acceptance.suite.yml</tt> to this repo.
 
 Currently we need the configuation file twice!
 
