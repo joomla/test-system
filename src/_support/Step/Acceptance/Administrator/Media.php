@@ -87,6 +87,18 @@ class Media extends Admin
 	}
 
 	/**
+	 * Click on a link in the media breadcrumb
+	 *
+	 * @param   string  $link
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function clickOnLinkInBreadcrumb($link) {
+		$I = $this;
+		$I->click($link, MediaManagerPage::$mediaBreadcrumb);
+	}
+
+	/**
 	 * Open the item actions menu of an item
 	 *
 	 * @param   string  $itemName

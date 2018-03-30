@@ -9,8 +9,6 @@
 
 use Page\Acceptance\Administrator\MediaManagerPage;
 
-// Test navigate using tree
-// Test navigate using breadcrumb
 // Test it shows infobar
 // Test resize buttons
 // Test table/grid view
@@ -133,6 +131,24 @@ class MediaCest
 		$I->waitForMediaLoaded();
 		$I->seeInCurrentUrl(MediaManagerPage::$url . 'banners');
 		$I->seeContents($this->contents['/banners']);
+	}
+
+	/**
+	 * Test that its possible to navigate to a subfolder using breadcrumb
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function navigateUsingBreadcrumb(\Step\Acceptance\Administrator\Media $I)
+	{
+		$I->wantToTest('that its possible to navigate to a subfolder using breadcrumb.');
+		$I->amOnPage(MediaManagerPage::$url . 'banners');
+		$I->waitForMediaLoaded();
+		$I->clickOnLinkInBreadcrumb('images');
+		$I->waitForMediaLoaded();
+		$I->seeInCurrentUrl(MediaManagerPage::$url);
+		$I->seeContents($this->contents['root']);
 	}
 
 	/**
