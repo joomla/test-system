@@ -1,6 +1,7 @@
 <?php namespace Step\Acceptance\Administrator;
 
 use Page\Acceptance\Administrator\MediaManagerPage;
+use PHPUnit_Framework_Exception;
 
 /**
  * Acceptance Step object class contains suits for Media Manager.
@@ -13,14 +14,37 @@ class Media extends Admin
 {
 	/**
 	 * Helper function to wait for the media manager to load the data
-	 *
-	 * @param AcceptanceTester $I
 	 */
 	public function waitForMediaLoaded()
 	{
 		$I = $this;
 		$I->waitForElement(['class' => 'media-loader']);
 		$I->waitForElementNotVisible(['class' => 'media-loader']);
+	}
+
+	/**
+	 * Helper function to open the media manager info bar
+	 */
+	public function openInfobar() {
+		$I = $this;
+		try {
+			$I->seeElement(MediaManagerPage::$infoBar);
+		} catch (PHPUnit_Framework_Exception $e) {
+			$I->click(MediaManagerPage::$toggleInfoBarButton);
+		}
+	}
+
+	/**
+	 * Helper function to close the media manager info bar
+	 */
+	public function closeInfobar() {
+		$I = $this;
+		try {
+			$I->seeElement(MediaManagerPage::$infoBar);
+			$I->click(MediaManagerPage::$toggleInfoBarButton);
+		} catch (PHPUnit_Framework_Exception $e) {
+			// Do nothing
+		}
 	}
 
 	/**

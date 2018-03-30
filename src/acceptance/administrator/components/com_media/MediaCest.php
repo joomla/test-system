@@ -123,7 +123,7 @@ class MediaCest
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public static function selectImageAndCheckTheInformation(AcceptanceTester $I)
+	public static function selectImageAndCheckTheInformation(\Step\Acceptance\Administrator\Media $I)
 	{
 		$I->wantToTest('the media manager overview information method');
 		$I->amOnPage(MediaManagerPage::$url);
@@ -131,7 +131,7 @@ class MediaCest
 		$I->waitForElement(MediaManagerPage::$poweredByImage);
 
 		$I->click(MediaManagerPage::$poweredByImage);
-		$I->click(MediaManagerPage::$toggleInfoBarButton);
+		$I->openInfobar();
 
 		$I->seeElement(MediaManagerPage::$infoBar);
 		$I->see('powered_by.png',MediaManagerPage::$infoBar);
