@@ -85,13 +85,15 @@ class Media extends Admin
 		$I = $this;
 		$absolutePath = $this->absolutizePath($path);
 		if (!file_exists($absolutePath)) {
-			\PHPUnit\Framework\Assert::fail('file not found');
+			\PHPUnit\Framework\Assert::fail('file not found.');
 		}
 		unlink($absolutePath);
 		$I->comment('Deleted ' . $absolutePath);
 	}
 
 	/**
+	 * Get the absoluute path
+	 *
 	 * @param   string $path
 	 * @return string
 	 */

@@ -9,7 +9,6 @@
 
 use Page\Acceptance\Administrator\MediaManagerPage;
 
-// Test delete file
 // Test rename file
 // Test navigate using tree
 // Test navigate using breadcrumb
@@ -108,7 +107,7 @@ class MediaCest
 		$I->wantToTest('that its possible to navigate to a subfolder using double click.');
 		$I->amOnPage(MediaManagerPage::$url);
 		$I->waitForMediaLoaded();
-		$I->doubleClick(MediaManagerPage::$bannersFolder . MediaManagerPage::$itemPreview);
+		$I->doubleClick(MediaManagerPage::item('banners') . MediaManagerPage::$itemPreview);
 		$I->waitForMediaLoaded();
 		$I->seeInCurrentUrl(MediaManagerPage::$url . 'banners');
 		$I->seeContents($this->contents['/banners']);
@@ -125,8 +124,8 @@ class MediaCest
 	{
 		$I->wantToTest('the media manager overview information method');
 		$I->amOnPage(MediaManagerPage::$url);
-		$I->waitForElement(MediaManagerPage::$poweredByImage);
-		$I->click(MediaManagerPage::$poweredByImage);
+		$I->waitForElement(MediaManagerPage::item('powered_by.png'));
+		$I->click(MediaManagerPage::item('powered_by.png'));
 		$I->openInfobar();
 		$I->seeElement(MediaManagerPage::$infoBar);
 		$I->see('powered_by.png',MediaManagerPage::$infoBar);
@@ -154,7 +153,30 @@ class MediaCest
 	}
 
 	/**
-	 * Test open infobar
+	 * Test toggle info bar
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function deleteSingleFileUsingToolbar(\Step\Acceptance\Administrator\Media $I)
+	{
+		$testFileName = 'test-image-1.png';
+		$testFileItem = MediaManagerPage::item($testFileName);
+
+		$I->wantToTest('that it is possible to delete a single file.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->uploadFile('com_media/' . $testFileName);
+		$I->waitForElement($testFileItem);
+		$I->click($testFileItem);
+		$I->click(MediaManagerPage::$toolbarDeleteButton);
+		$I->seeMessage('Item deleted.');
+		$I->waitForElementNotVisible($testFileItem);
+		$I->dontSeeElement($testFileName);
+	}
+
+	/**
+	 * Test toggle info bar
 	 *
 	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
 	 *
@@ -162,7 +184,7 @@ class MediaCest
 	 */
 	public function toggleInfoBar(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that it is possible to open the infobar.');
+		$I->wantToTest('that it is possible to toggle the infobar.');
 		$I->amOnPage(MediaManagerPage::$url);
 		$I->openInfobar();
 		$I->seeElement(MediaManagerPage::$infoBar);

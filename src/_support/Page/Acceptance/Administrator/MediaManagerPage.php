@@ -72,23 +72,7 @@ class MediaManagerPage extends AdminPage
 	 * @var    string
 	 * @since  __DEPLOY_VERSION__
 	 */
-	public static $itemPreview ='//div[@class=\'media-browser-item-preview\']';
-
-	/**
-	 * Powered by Image
-	 *
-	 * @var    string
-	 * @since  __DEPLOY_VERSION__
-	 */
-	public static $bannersFolder = '//div[contains(@class, \'media-browser-item-info\') and normalize-space(text()) = \'banners\']/parent::div';
-
-	/**
-	 * Powered by Image
-	 *
-	 * @var    string
-	 * @since  __DEPLOY_VERSION__
-	 */
-	public static $poweredByImage = '//div[contains(@class, \'media-browser-item-info\') and normalize-space(text()) = \'powered_by.png\']/parent::div';
+	public static $itemPreview = '//div[@class=\'media-browser-item-preview\']';
 
 	/**
 	 * The hidden file upload field
@@ -97,4 +81,25 @@ class MediaManagerPage extends AdminPage
 	 * @since  __DEPLOY_VERSION__
 	 */
 	public static $fileInputField = 'input[name=\'file\']';
+
+	/**
+	 * The hidden file upload field
+	 *
+	 * @var    string
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $toolbarDeleteButton = '//button[contains(@onclick, \'onClickDelete\')]';
+
+	/**
+	 * Dynamic locator for media item files
+	 *
+	 * @var    string
+	 * @since  __DEPLOY_VERSION__
+	 *
+	 * @return string
+	 */
+	public static function item($name)
+	{
+		return '//div[contains(@class, \'media-browser-item-info\') and normalize-space(text()) = \'' . $name . '\']/parent::div';
+	}
 }
