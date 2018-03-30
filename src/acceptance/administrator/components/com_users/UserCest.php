@@ -22,7 +22,7 @@ class UserCest
 		$this->username = "testUser";
 		$this->password = "test";
 		$this->name = "Test Bot";
-		$this->email = "Testbot@joomlabot.com";
+		$this->email = "Testbot@example.com";
 	}
 
 	/**
