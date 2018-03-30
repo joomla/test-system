@@ -19,11 +19,10 @@ class UserCest
 
 	public function __construct()
 	{
-		$this->faker = Faker\Factory::create();
-		$this->username = $this->faker->userName();
-		$this->password = $this->faker->password();
-		$this->name = $this->faker->name();
-		$this->email = $this->faker->email();
+		$this->username = "testUser";
+		$this->password = "test";
+		$this->name = "Test Bot";
+		$this->email = "Testbot@joomlabot.com";
 	}
 
 	/**
