@@ -160,11 +160,14 @@ class MediaCest
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function openInfoBar(\Step\Acceptance\Administrator\Media $I)
+	public function toggleInfoBar(\Step\Acceptance\Administrator\Media $I)
 	{
 		$I->wantToTest('that it is possible to open the infobar.');
 		$I->amOnPage(MediaManagerPage::$url);
 		$I->openInfobar();
 		$I->seeElement(MediaManagerPage::$infoBar);
+		$I->closeInfobar();
+		$I->waitForElementNotVisible(MediaManagerPage::$infoBar);
+		$I->dontSeeElement(MediaManagerPage::$infoBar);
 	}
 }
