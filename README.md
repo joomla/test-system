@@ -93,7 +93,7 @@ Generating optimized autoload files
 
 ```
 
-Now you see the folder <tt>/var/www/html/joomla-cms/libraries/vendor/joomla/test-system</tt>
+Now you see this repo in the folder <tt>/var/www/html/joomla-cms/libraries/vendor/joomla/test-system</tt>
 
 ##### 7. Optional: Prepare the database
 If you use MySQL or PostgreSQL as database and your user has create database privileges the Database is automatically created by the Joomla installer.
