@@ -7,7 +7,25 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-use Page\Acceptance\Administrator\MediaManagerPage as Page;
+use Page\Acceptance\Administrator\MediaManagerPage;
+
+// Test upload via toolbar
+// Test upload via d&d?
+// Test delete file
+// Test rename file
+// Test navigate using tree
+// Test navigate using breadcrumb
+// Test it shows infobar
+// Test resize buttons
+// Test table/grid view
+// Test checkall
+// Test check multiple items
+// test batch delete
+// Test create new folder
+// Upload the same image twice
+// Rename image to existing image
+// Deep link
+// State is saved
 
 /**
  * Media Manager Tests
@@ -17,42 +35,103 @@ use Page\Acceptance\Administrator\MediaManagerPage as Page;
 class MediaCest
 {
 	/**
-	 * Check Media Manager Overview
+	 * The default contents
 	 *
-	 * @param   AcceptanceTester  $I  Acceptance Helper Object
+	 * @var array
+	 */
+	private $contents = [
+		'root'     => [
+			'banners',
+			'headers',
+			'sampledata',
+			'joomla_black.png',
+			'powered_by.png'
+		],
+		'/banners' => [
+			'banner.jpg',
+			'osmbanner1.png',
+			'osmbanner2.png',
+			'shop-ad.jpg',
+			'shop-ad-books.jpg',
+			'white.png'
+		]
+	];
+
+	/**
+	 * Runs before every test
+	 *
+	 * @param   AcceptanceTester $I Acceptance Helper Object
+	 */
+	public function _before(AcceptanceTester $I)
+	{
+		$I->doAdministratorLogin();
+	}
+
+	/**
+	 * Test that it loads without php notices and warnings.
+	 *
+	 * @param   AcceptanceTester $I Acceptance Helper Object
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function checkMediaManagerOverview(\AcceptanceTester $I)
+	public function loadsWithoutPhpNoticesAndWarnings(AcceptanceTester $I)
 	{
-		$I->comment('I am going to check the media manager overview');
-		$I->doAdministratorLogin();
-
-		$I->amOnPage(Page::$url);
-
-		$I->waitForText(Page::$pageTitleText);
+		$I->wantToTest('that it loads without php notices and warnings.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->waitForText(MediaManagerPage::$pageTitleText);
 		$I->checkForPhpNoticesOrWarnings();
+	}
+
+	/**
+	 * Test that it shows then joomla default media files and folders
+	 *
+	 * @param   AcceptanceTester $I
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function showsDefaultFilesAndFolders(\Step\Acceptance\Administrator\Media $I)
+	{
+		$I->wantToTest('that it shows the joomla default media files and folders.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->waitForMediaLoaded();
+		$I->seeElement(MediaManagerPage::$items);
+		$I->seeContents($this->contents['root']);
+	}
+
+	/**
+	 * Test that its possible to navigate to a subfolder using double click
+	 *
+	 * @param   AcceptanceTester $I
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function navigateUsingDoubleClickOnFolder(\Step\Acceptance\Administrator\Media $I)
+	{
+		$I->wantToTest('that its possible to navigate to a subfolder using double click.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->waitForMediaLoaded();
+		$I->doubleClick(MediaManagerPage::$bannersFolder . MediaManagerPage::$itemPreview);
+		$I->waitForMediaLoaded();
+		$I->seeInCurrentUrl(MediaManagerPage::$url . 'banners');
+		$I->seeContents($this->contents['/banners']);
 	}
 
 	/**
 	 * Select image and check the information
 	 *
-	 * @param   AcceptanceTester  $I  Acceptance Helper Object
+	 * @param   AcceptanceTester $I Acceptance Helper Object
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public static function selectImageAndCheckTheInformation(\AcceptanceTester $I)
+	public static function selectImageAndCheckTheInformation(AcceptanceTester $I)
 	{
-		$I->comment('I am going to test the media manager overview information method');
-		$I->doAdministratorLogin();
-		$I->amOnPage(Page::$url);
+		$I->wantToTest('the media manager overview information method');
+		$I->amOnPage(MediaManagerPage::$url);
 
-		$I->waitForText(Page::$pageTitleText);
+		$I->waitForElement(MediaManagerPage::$poweredByImage);
 
-		$I->click(Page::$poweredByImage);
-
-		$I->click(Page::$buttonInfo);
-		$I->checkForPhpNoticesOrWarnings();
+		$I->click(MediaManagerPage::$poweredByImage);
+		$I->click(MediaManagerPage::$toggleInfoBarButton);
 
 		$I->see('image/png');
 	}

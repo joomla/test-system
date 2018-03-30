@@ -35,18 +35,50 @@ class MediaManagerPage extends AdminPage
 	public static $pageTitleText = 'Media';
 
 	/**
+	 * Page title of the media manager listing page.
+	 *
+	 * @var    array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $container = ['class' => 'media-container'];
+
+	/**
+	 * The media browser items
+	 *
+	 * @var    array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $items = ['class' => 'media-browser-item'];
+
+	/**
+	 * Button that toggles the info bar
+	 *
+	 * @var    array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $toggleInfoBarButton = ['class' => 'media-toolbar-info'];
+
+	/**
+	 * The item preview of a media item
+	 *
+	 * @var    string
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $itemPreview ='//div[@class=\'media-browser-item-preview\']';
+
+	/**
 	 * Powered by Image
 	 *
 	 * @var    string
 	 * @since  __DEPLOY_VERSION__
 	 */
-	public static $poweredByImage = '//div[contains(@class, \'media-browser-item-info\') and normalize-space(text()) = \'powered_by.png\']';
+	public static $bannersFolder = '//div[contains(@class, \'media-browser-item-info\') and normalize-space(text()) = \'banners\']/parent::div';
 
 	/**
-	 * Info button
+	 * Powered by Image
 	 *
-	 * @var    array
+	 * @var    string
 	 * @since  __DEPLOY_VERSION__
 	 */
-	public static $buttonInfo = ['class' => 'media-toolbar-info'];
+	public static $poweredByImage = '//div[contains(@class, \'media-browser-item-info\') and normalize-space(text()) = \'powered_by.png\']/parent::div';
 }
