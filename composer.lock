@@ -1050,16 +1050,16 @@
         },
         {
             "name": "joomla-projects/selenium-server-standalone",
-            "version": "v3.11.0.2",
+            "version": "v3.11.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla-projects/selenium-server-standalone.git",
-                "reference": "1bd359f8b70e782447a07678357978c885e2b346"
+                "reference": "3fe29116325e41cca00b4e64625432983eb2cb18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla-projects/selenium-server-standalone/zipball/1bd359f8b70e782447a07678357978c885e2b346",
-                "reference": "1bd359f8b70e782447a07678357978c885e2b346",
+                "url": "https://api.github.com/repos/joomla-projects/selenium-server-standalone/zipball/3fe29116325e41cca00b4e64625432983eb2cb18",
+                "reference": "3fe29116325e41cca00b4e64625432983eb2cb18",
                 "shasum": ""
             },
             "bin": [
@@ -1095,7 +1095,7 @@
                 "selenium",
                 "testing"
             ],
-            "time": "2018-03-30T08:45:21+00:00"
+            "time": "2018-03-30T09:06:58+00:00"
         },
         {
             "name": "league/container",
