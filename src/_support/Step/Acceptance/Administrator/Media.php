@@ -26,35 +26,6 @@ class Media extends Admin
 	}
 
 	/**
-	 * Helper function to open the media manager info bar
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	public function openInfobar() {
-		$I = $this;
-		try {
-			$I->seeElement(MediaManagerPage::$infoBar);
-		} catch (PHPUnit_Framework_Exception $e) {
-			$I->click(MediaManagerPage::$toggleInfoBarButton);
-		}
-	}
-
-	/**
-	 * Helper function to close the media manager info bar
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	public function closeInfobar() {
-		$I = $this;
-		try {
-			$I->seeElement(MediaManagerPage::$infoBar);
-			$I->click(MediaManagerPage::$toggleInfoBarButton);
-		} catch (PHPUnit_Framework_Exception $e) {
-			// Do nothing
-		}
-	}
-
-	/**
 	 * Helper function that tests that you see contents of a directory
 	 *
 	 * @param array $contents
@@ -104,6 +75,18 @@ class Media extends Admin
 	}
 
 	/**
+	 * Click on a link in the media tree
+	 *
+	 * @param   string  $link
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function clickOnLinkInTree($link) {
+		$I = $this;
+		$I->click($link, MediaManagerPage::$mediaTree);
+	}
+
+	/**
 	 * Open the item actions menu of an item
 	 *
 	 * @param   string  $itemName
@@ -134,6 +117,35 @@ class Media extends Admin
 		$I->openActionsMenuOf($itemName);
 		$I->waitForElementVisible($action);
 		$I->click($action);
+	}
+
+	/**
+	 * Helper function to open the media manager info bar
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function openInfobar() {
+		$I = $this;
+		try {
+			$I->seeElement(MediaManagerPage::$infoBar);
+		} catch (PHPUnit_Framework_Exception $e) {
+			$I->click(MediaManagerPage::$toggleInfoBarButton);
+		}
+	}
+
+	/**
+	 * Helper function to close the media manager info bar
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function closeInfobar() {
+		$I = $this;
+		try {
+			$I->seeElement(MediaManagerPage::$infoBar);
+			$I->click(MediaManagerPage::$toggleInfoBarButton);
+		} catch (PHPUnit_Framework_Exception $e) {
+			// Do nothing
+		}
 	}
 
 	/**

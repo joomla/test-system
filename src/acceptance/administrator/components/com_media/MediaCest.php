@@ -23,6 +23,8 @@ use Page\Acceptance\Administrator\MediaManagerPage;
 // Deep link
 // State is saved
 // Preview
+// Download
+// Open edit
 
 // Currently not possible to test drag and drop upload of files
 
@@ -110,6 +112,24 @@ class MediaCest
 		$I->amOnPage(MediaManagerPage::$url);
 		$I->waitForMediaLoaded();
 		$I->doubleClick(MediaManagerPage::item('banners'));
+		$I->waitForMediaLoaded();
+		$I->seeInCurrentUrl(MediaManagerPage::$url . 'banners');
+		$I->seeContents($this->contents['/banners']);
+	}
+
+	/**
+	 * Test that its possible to navigate to a subfolder using tree
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function navigateUsingTree(\Step\Acceptance\Administrator\Media $I)
+	{
+		$I->wantToTest('that its possible to navigate to a subfolder using tree.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->waitForMediaLoaded();
+		$I->clickOnLinkInTree('banners');
 		$I->waitForMediaLoaded();
 		$I->seeInCurrentUrl(MediaManagerPage::$url . 'banners');
 		$I->seeContents($this->contents['/banners']);

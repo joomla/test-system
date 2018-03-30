@@ -59,6 +59,14 @@ class MediaManagerPage extends AdminPage
 	public static $items = ['class' => 'media-browser-item'];
 
 	/**
+	 * The media tree
+	 *
+	 * @var    array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $mediaTree = ['class' => 'media-tree'];
+
+	/**
 	 * Button that toggles the info bar
 	 *
 	 * @var    array
