@@ -43,6 +43,14 @@ class MediaManagerPage extends AdminPage
 	public static $container = ['class' => 'media-container'];
 
 	/**
+	 * Page title of the media manager listing page.
+	 *
+	 * @var    array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $infoBar = ['class' => 'media-infobar'];
+
+	/**
 	 * The media browser items
 	 *
 	 * @var    array

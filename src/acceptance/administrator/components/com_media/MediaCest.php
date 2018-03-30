@@ -133,6 +133,8 @@ class MediaCest
 		$I->click(MediaManagerPage::$poweredByImage);
 		$I->click(MediaManagerPage::$toggleInfoBarButton);
 
-		$I->see('image/png');
+		$I->seeElement(MediaManagerPage::$infoBar);
+		$I->see('powered_by.png',MediaManagerPage::$infoBar);
+		$I->see('image/png', MediaManagerPage::$infoBar);
 	}
 }
