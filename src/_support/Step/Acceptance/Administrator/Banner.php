@@ -43,9 +43,9 @@ class Banner extends Admin
 		$I = $this;
 		$I->amOnPage(BannerManagerPage::$url);
 		$I->fillField(BannerManagerPage::$searchField, $bannerTitle);
-		$I->Click(BannerManagerPage::$searchButton);
+		$I->click(BannerManagerPage::$filterSearch);
 		$I->checkAllResults();
-		$I->clickToolbarButton('edit');
+		$I->click($bannerTitle);
 		$I->waitForElement(BannerManagerPage::$titleField, TIMEOUT);
 		$I->fillField(BannerManagerPage::$titleField, $updatedTitle);
 		$I->fillField(BannerManagerPage::$aliasField, $updatedTitle);
@@ -59,7 +59,7 @@ class Banner extends Admin
 		$I->amOnPage(BannerManagerPage::$url);
 		$I->waitForElement(BannerManagerPage::$searchField, TIMEOUT);
 		$I->fillField(BannerManagerPage::$searchField, $bannerTitle);
-		$I->Click(BannerManagerPage::$searchButton);
+		$I->Click(BannerManagerPage::$filterSearch);
 		$I->checkAllResults();
 		$I->clickToolbarButton('Publish');
 		$I->assertSuccessMessage($message);
@@ -71,7 +71,7 @@ class Banner extends Admin
 		$I->amOnPage(BannerManagerPage::$url);
 		$I->waitForElement(BannerManagerPage::$searchField, TIMEOUT);
 		$I->fillField(BannerManagerPage::$searchField, $bannerTitle);
-		$I->Click(BannerManagerPage::$searchButton);
+		$I->Click(BannerManagerPage::$filterSearch);
 		$I->checkAllResults();
 		$I->clickToolbarButton('Unpublish');
 		$I->assertSuccessMessage($message);
@@ -83,9 +83,9 @@ class Banner extends Admin
 		$I->amOnPage(BannerManagerPage::$url);
 		$I->waitForElement(BannerManagerPage::$searchField, TIMEOUT);
 		$I->fillField(BannerManagerPage::$searchField, $bannerTitle);
-		$I->Click(BannerManagerPage::$searchButton);
+		$I->Click(BannerManagerPage::$filterSearch);
 		$I->checkAllResults();
-		$I->clickToolbarButton('Check-in');
+		$I->clickToolbarButton('check-in');
 		$I->assertSuccessMessage($message);
 	}
 
@@ -95,7 +95,7 @@ class Banner extends Admin
 		$I->amOnPage(BannerManagerPage::$url);
 		$I->waitForElement(BannerManagerPage::$searchField, TIMEOUT);
 		$I->fillField(BannerManagerPage::$searchField, $bannerTitle);
-		$I->Click(BannerManagerPage::$searchButton);
+		$I->Click(BannerManagerPage::$filterSearch);
 		$I->checkAllResults();
 		$I->clickToolbarButton('Trash');
 		$I->assertSuccessMessage($message);
@@ -108,7 +108,7 @@ class Banner extends Admin
 		$I->waitForElement(BannerManagerPage::$searchField, TIMEOUT);
 		$I->selectOptionInChosenByIdUsingJs('filter_published', "Trashed");
 		$I->fillField(BannerManagerPage::$searchField, $bannerTitle);
-		$I->Click(BannerManagerPage::$searchButton);
+		$I->Click(BannerManagerPage::$filterSearch);
 		$I->checkAllResults();
 		$I->clickToolbarButton('Empty trash');
 		$I->acceptPopup();
