@@ -9,7 +9,6 @@
 
 use Page\Acceptance\Administrator\MediaManagerPage;
 
-// Test rename file
 // Test navigate using tree
 // Test navigate using breadcrumb
 // Test it shows infobar
@@ -23,6 +22,9 @@ use Page\Acceptance\Administrator\MediaManagerPage;
 // Rename image to existing image
 // Deep link
 // State is saved
+// Preview
+
+// Currently not possible to test drag and drop upload of files
 
 /**
  * Media Manager Tests
@@ -107,7 +109,7 @@ class MediaCest
 		$I->wantToTest('that its possible to navigate to a subfolder using double click.');
 		$I->amOnPage(MediaManagerPage::$url);
 		$I->waitForMediaLoaded();
-		$I->doubleClick(MediaManagerPage::item('banners') . MediaManagerPage::$itemPreview);
+		$I->doubleClick(MediaManagerPage::item('banners'));
 		$I->waitForMediaLoaded();
 		$I->seeInCurrentUrl(MediaManagerPage::$url . 'banners');
 		$I->seeContents($this->contents['/banners']);
@@ -191,5 +193,34 @@ class MediaCest
 		$I->closeInfobar();
 		$I->waitForElementNotVisible(MediaManagerPage::$infoBar);
 		$I->dontSeeElement(MediaManagerPage::$infoBar);
+	}
+
+	/**
+	 * Test rename a file
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function renameFile(\Step\Acceptance\Administrator\Media $I)
+	{
+		$testFileName = 'test-image-1.png';
+		$testFileItem = MediaManagerPage::item($testFileName);
+
+		$I->wantToTest('that it is possible to rename a file.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->uploadFile('com_media/' . $testFileName);
+		$I->waitForElement($testFileItem);
+		$I->clickOnActionInMenuOf($testFileName, MediaManagerPage::$renameAction);
+		$I->seeElement(MediaManagerPage::$modalNameField);
+		$I->seeElement(MediaManagerPage::$modalConfirmButton);
+		$I->fillField(MediaManagerPage::$modalNameField, 'test-image-1-renamed');
+		$I->click(MediaManagerPage::$modalConfirmButton);
+		$I->seeMessage('Item renamed.');
+		$I->dontSeeElement($testFileItem);
+		$I->seeElement(MediaManagerPage::item('test-image-1-renamed.png'));
+
+		// Cleanup
+		$I->deleteFile('images/test-image-1-renamed.png');
 	}
 }

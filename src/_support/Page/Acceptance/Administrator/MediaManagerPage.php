@@ -67,14 +67,6 @@ class MediaManagerPage extends AdminPage
 	public static $toggleInfoBarButton = ['class' => 'media-toolbar-info'];
 
 	/**
-	 * The item preview of a media item
-	 *
-	 * @var    string
-	 * @since  __DEPLOY_VERSION__
-	 */
-	public static $itemPreview = '//div[@class=\'media-browser-item-preview\']';
-
-	/**
 	 * The hidden file upload field
 	 *
 	 * @var    string
@@ -91,14 +83,90 @@ class MediaManagerPage extends AdminPage
 	public static $toolbarDeleteButton = '//button[contains(@onclick, \'onClickDelete\')]';
 
 	/**
-	 * Dynamic locator for media item files
+	 * The item actions
 	 *
 	 * @var    string
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $itemActions = ['class' => 'media-browser-actions'];
+
+	/**
+	 * The rename action
+	 *
+	 * @var string
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $renameAction = 'action-rename';
+
+	/**
+	 * The name field of modal forms
+	 *
+	 * @var array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $modalNameField = ['id' => 'name'];
+
+	/**
+	 * The confirm button of modals
+	 *
+	 * @var array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $modalConfirmButton = ['css' => '.modal button.btn-success'];
+
+	/**
+	 * Dynamic locator for media item files
+	 *
+	 * @var    string $name
+	 *
 	 * @since  __DEPLOY_VERSION__
 	 *
 	 * @return string
 	 */
 	public static function item($name)
+	{
+		return self::itemXpath($name);
+	}
+
+	/**
+	 * Dynamic locator for media item action
+	 *
+	 * @var    string $itemName
+	 * @var    string $actionName
+	 *
+	 * @since  __DEPLOY_VERSION__
+	 *
+	 * @return string
+	 */
+	public static function itemActionMenuToggler($itemName)
+	{
+		return self::itemXpath($itemName) . '//a[@class= \'action-toggle\']';
+	}
+
+	/**
+	 * Dynamic locator for media item action
+	 *
+	 * @var    string $itemName
+	 * @var    string $actionName
+	 *
+	 * @since  __DEPLOY_VERSION__
+	 *
+	 * @return string
+	 */
+	public static function itemAction($itemName, $actionName)
+	{
+		return self::itemXpath($itemName) . '//a[@class= \''. $actionName .'\']';
+	}
+
+	/**
+	 * Get the xpath of a media item
+	 *
+	 * @var    string $name
+	 * @since  __DEPLOY_VERSION__
+	 *
+	 * @return string
+	 */
+	protected static function itemXpath($name)
 	{
 		return '//div[contains(@class, \'media-browser-item-info\') and normalize-space(text()) = \'' . $name . '\']/parent::div';
 	}

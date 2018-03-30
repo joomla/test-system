@@ -15,6 +15,8 @@ class Media extends Admin
 {
 	/**
 	 * Helper function to wait for the media manager to load the data
+	 *
+	 * @since   __DEPLOY_VERSION__
 	 */
 	public function waitForMediaLoaded()
 	{
@@ -25,6 +27,8 @@ class Media extends Admin
 
 	/**
 	 * Helper function to open the media manager info bar
+	 *
+	 * @since   __DEPLOY_VERSION__
 	 */
 	public function openInfobar() {
 		$I = $this;
@@ -37,6 +41,8 @@ class Media extends Admin
 
 	/**
 	 * Helper function to close the media manager info bar
+	 *
+	 * @since   __DEPLOY_VERSION__
 	 */
 	public function closeInfobar() {
 		$I = $this;
@@ -52,6 +58,8 @@ class Media extends Admin
 	 * Helper function that tests that you see contents of a directory
 	 *
 	 * @param array $contents
+	 *
+	 * @since   __DEPLOY_VERSION__
 	 */
 	public function seeContents(array $contents = [])
 	{
@@ -67,6 +75,8 @@ class Media extends Admin
 	 * Helper function to upload a file in the current directory
 	 *
 	 * @param  string  $fileName
+	 *
+	 * @since   __DEPLOY_VERSION__
 	 */
 	public function uploadFile($fileName)
 	{
@@ -79,6 +89,8 @@ class Media extends Admin
 	 * Delete a file from filesystem
 	 *
 	 * @param  string  $path
+	 *
+	 * @since   __DEPLOY_VERSION__
 	 */
 	public function deleteFile($path)
 	{
@@ -92,9 +104,45 @@ class Media extends Admin
 	}
 
 	/**
+	 * Open the item actions menu of an item
+	 *
+	 * @param   string  $itemName
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function openActionsMenuOf($itemName)
+	{
+		$I = $this;
+		$toggler = MediaManagerPage::itemActionMenuToggler($itemName);
+		$I->moveMouseOver(MediaManagerPage::item($itemName));
+		$I->seeElement($toggler);
+		$I->click($toggler);
+	}
+
+	/**
+	 * Open the item actions menu and click on one action
+	 *
+	 * @param   string  $itemName
+	 * @param   string  $actionName
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function clickOnActionInMenuOf($itemName, $actionName)
+	{
+		$I = $this;
+		$action = MediaManagerPage::itemAction($itemName,$actionName);
+		$I->openActionsMenuOf($itemName);
+		$I->waitForElementVisible($action);
+		$I->click($action);
+	}
+
+	/**
 	 * Get the absoluute path
 	 *
 	 * @param   string $path
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 *
 	 * @return string
 	 */
 	protected function absolutizePath($path)
