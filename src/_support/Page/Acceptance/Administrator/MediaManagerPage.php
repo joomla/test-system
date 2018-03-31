@@ -147,6 +147,14 @@ class MediaManagerPage extends AdminPage
 	public static $fileInputField = 'input[name=\'file\']';
 
 	/**
+	 * The create folder button in the toolbar
+	 *
+	 * @var    string
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $toolbarCreateFolderButton = '//button[contains(@onclick, \'onClickCreateFolder\')]';
+
+	/**
 	 * The delete button in the toolbar
 	 *
 	 * @var    string
@@ -224,7 +232,15 @@ class MediaManagerPage extends AdminPage
 	 * @var array
 	 * @since  __DEPLOY_VERSION__
 	 */
-	public static $modalNameField = ['id' => 'name'];
+	public static $renameInputField = ['id' => 'name'];
+
+	/**
+	 * The name field of modal forms
+	 *
+	 * @var array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $newFolderInputField = ['id' => 'folder'];
 
 	/**
 	 * The confirm button of modals
@@ -233,6 +249,14 @@ class MediaManagerPage extends AdminPage
 	 * @since  __DEPLOY_VERSION__
 	 */
 	public static $modalConfirmButton = ['css' => '.modal button.btn-success'];
+
+	/**
+	 * The confirm button of modals
+	 *
+	 * @var array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $modalConfirmButtonDisabled = ['css' => '.modal button:disabled.btn-success'];
 
 	/**
 	 * The media browser grid

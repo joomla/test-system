@@ -2,6 +2,7 @@
 
 use Codeception\Configuration;
 use Page\Acceptance\Administrator\MediaManagerPage;
+use Codeception\Util\FileSystem as Util;
 
 /**
  * Acceptance Step object class contains suits for Media Manager.
@@ -70,6 +71,22 @@ class Media extends Admin
 			\PHPUnit\Framework\Assert::fail('file not found.');
 		}
 		unlink($absolutePath);
+		$I->comment('Deleted ' . $absolutePath);
+	}
+
+
+	/**
+	 * Deletes directory with all subdirectories
+	 *
+	 * @param   string  $dirname
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function deleteDir($dirname)
+	{
+		$I = $this;
+		$absolutePath = $this->absolutizePath($dirname);
+		Util::deleteDir($absolutePath);
 		$I->comment('Deleted ' . $absolutePath);
 	}
 

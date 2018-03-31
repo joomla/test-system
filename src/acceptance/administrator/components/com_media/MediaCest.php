@@ -11,6 +11,7 @@ use Page\Acceptance\Administrator\MediaManagerPage;
 
 // Test create new folder
 // Upload the same image twice
+// Create the same folder twice
 // Rename image to existing image
 // Deep link
 // State is saved
@@ -23,7 +24,6 @@ use Page\Acceptance\Administrator\MediaManagerPage;
 
 // Currently not possible to test:
 // * drag and drop upload of files
-// * select multiple items using keywordboard shortcust (press crtl and click an another item)
 
 /**
  * Media Manager Tests
@@ -231,6 +231,35 @@ class MediaCest
 	}
 
 	/**
+	 * Test the upload of a single file using toolbar button.
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function createFolderUsingToolbar(\Step\Acceptance\Administrator\Media $I)
+	{
+		$testFolderName = 'test-folder';
+
+		$I->wantToTest('that it is possible to create a new folder using the toolbar button.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->click(MediaManagerPage::$toolbarCreateFolderButton);
+		$I->seeElement(MediaManagerPage::$newFolderInputField);
+		$I->seeElement(MediaManagerPage::$modalConfirmButtonDisabled);
+		$I->fillField(MediaManagerPage::$newFolderInputField, $testFolderName);
+		$I->waitForElementChange(MediaManagerPage::$modalConfirmButton, function (Facebook\WebDriver\Remote\RemoteWebElement $el)  {
+			return $el->isEnabled();
+		});
+		$I->click(MediaManagerPage::$modalConfirmButton);
+		$I->seeMessage('Folder created.');
+		$I->waitForElement(MediaManagerPage::item($testFolderName));
+		$I->seeElement(MediaManagerPage::item($testFolderName));
+
+		// Cleanup
+		$I->deleteDir('images/' . $testFolderName);
+	}
+
+	/**
 	 * Test toggle info bar
 	 *
 	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
@@ -319,9 +348,9 @@ class MediaCest
 		$I->uploadFile('com_media/' . $testFileName);
 		$I->waitForElement($testFileItem);
 		$I->clickOnActionInMenuOf($testFileName, MediaManagerPage::$renameAction);
-		$I->seeElement(MediaManagerPage::$modalNameField);
+		$I->seeElement(MediaManagerPage::$renameInputField);
 		$I->seeElement(MediaManagerPage::$modalConfirmButton);
-		$I->fillField(MediaManagerPage::$modalNameField, 'test-image-1-renamed');
+		$I->fillField(MediaManagerPage::$renameInputField, 'test-image-1-renamed');
 		$I->click(MediaManagerPage::$modalConfirmButton);
 		$I->seeMessage('Item renamed.');
 		$I->dontSeeElement($testFileItem);
