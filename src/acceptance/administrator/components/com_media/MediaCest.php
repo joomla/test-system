@@ -9,9 +9,7 @@
 
 use Page\Acceptance\Administrator\MediaManagerPage;
 
-// Test create new folder
 // Upload the same image twice
-// Create the same folder twice
 // Rename image to existing image
 // Deep link
 // State is saved
@@ -257,6 +255,30 @@ class MediaCest
 
 		// Cleanup
 		$I->deleteDir('images/' . $testFolderName);
+	}
+
+	/**
+	 * Test the upload of a single file using toolbar button.
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function createExistingFolderUsingToolbar(\Step\Acceptance\Administrator\Media $I)
+	{
+		$testFolderName = 'banners';
+
+		$I->wantToTest('that it is not possible to create an existing folder.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->click(MediaManagerPage::$toolbarCreateFolderButton);
+		$I->seeElement(MediaManagerPage::$newFolderInputField);
+		$I->seeElement(MediaManagerPage::$modalConfirmButtonDisabled);
+		$I->fillField(MediaManagerPage::$newFolderInputField, $testFolderName);
+		$I->waitForElementChange(MediaManagerPage::$modalConfirmButton, function (Facebook\WebDriver\Remote\RemoteWebElement $el)  {
+			return $el->isEnabled();
+		});
+		$I->click(MediaManagerPage::$modalConfirmButton);
+		$I->seeMessage('Error creating folder.');
 	}
 
 	/**
