@@ -10,8 +10,6 @@
 use Page\Acceptance\Administrator\MediaManagerPage;
 use Page\Acceptance\Administrator\MediaManagerFilePage;
 
-// Rename folder
-
 // Currently not possible to test:
 // * drag and drop upload of files
 // * upload existing file (test is skipped)
@@ -453,9 +451,65 @@ class MediaCest
 		$I->fillField(MediaManagerPage::$renameInputField, 'test-image-1');
 		$I->click(MediaManagerPage::$modalConfirmButton);
 		$I->seeSystemMessage('Error renaming file.');
-		$I->dontSeeElement($testFileItem);
 		$I->seeElement($testFileItem1);
 		$I->seeElement($testFileItem2);
+	}
+
+	/**
+	 * Test rename a file
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function renameFolder(\Step\Acceptance\Administrator\Media $I)
+	{
+		$testFolderName = 'test-folder';
+		$testFolderItem = MediaManagerPage::item($testFolderName);
+
+		$I->wantToTest('that it is possible to rename a folder.');
+		$I->amOnPage(MediaManagerPage::$url . $this->testDirectory);
+		$I->createDirectory('images/' . $this->testDirectory . '/' . $testFolderName);
+		$I->waitForElement($testFolderItem);
+		$I->clickOnActionInMenuOf($testFolderName, MediaManagerPage::$renameAction);
+		$I->waitForElement(MediaManagerPage::$renameInputField);
+		$I->seeElement(MediaManagerPage::$renameInputField);
+		$I->seeElement(MediaManagerPage::$modalConfirmButton);
+		$I->fillField(MediaManagerPage::$renameInputField, $testFolderName . '-renamed');
+		$I->click(MediaManagerPage::$modalConfirmButton);
+		$I->seeSystemMessage('Item renamed.');
+		$I->dontSeeElement($testFolderItem);
+		$I->seeElement(MediaManagerPage::item($testFolderName . '-renamed'));
+	}
+
+	/**
+	 * Test rename a folder to the same name as an existing folder
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function renameFolderToExistingFolder(\Step\Acceptance\Administrator\Media $I)
+	{
+		$testFolderName1 = 'test-folder-1';
+		$testFolderName2 = 'test-folder-2';
+		$testFolderItem1 = MediaManagerPage::item($testFolderName1);
+		$testFolderItem2 = MediaManagerPage::item($testFolderName2);
+
+		$I->wantToTest('that it is not possible to rename a folder to a foldername of an existing folder.');
+		$I->amOnPage(MediaManagerPage::$url . $this->testDirectory);
+		$I->createDirectory('images/' . $this->testDirectory . '/' . $testFolderName1);
+		$I->waitForElement($testFolderItem1);
+		$I->createDirectory('images/' . $this->testDirectory . '/' . $testFolderName2);
+		$I->waitForElement($testFolderItem2);
+		$I->clickOnActionInMenuOf($testFolderName2, MediaManagerPage::$renameAction);
+		$I->seeElement(MediaManagerPage::$renameInputField);
+		$I->seeElement(MediaManagerPage::$modalConfirmButton);
+		$I->fillField(MediaManagerPage::$renameInputField, $testFolderName1);
+		$I->click(MediaManagerPage::$modalConfirmButton);
+		$I->seeSystemMessage('Error renaming folder.');
+		$I->seeElement($testFolderItem1);
+		$I->seeElement($testFolderItem2);
 	}
 
 	/**
