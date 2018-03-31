@@ -10,7 +10,6 @@
 use Page\Acceptance\Administrator\MediaManagerPage;
 use Page\Acceptance\Administrator\MediaManagerFilePage;
 
-// Open edit
 // Delete folder
 // See file information
 // See folder information
@@ -307,7 +306,7 @@ class MediaCest
 	}
 
 	/**
-	 * Test the upload of a single file using toolbar button.
+	 * Test create an existing folder.
 	 *
 	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
 	 *
@@ -329,7 +328,7 @@ class MediaCest
 	}
 
 	/**
-	 * Test toggle info bar
+	 * Test delete single file using toolbar
 	 *
 	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
 	 *
@@ -349,6 +348,29 @@ class MediaCest
 		$I->seeSystemMessage('Item deleted.');
 		$I->waitForElementNotVisible($testFileItem);
 		$I->dontSeeElement($testFileName);
+	}
+
+	/**
+	 * Test toggle info bar
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function deleteSingleFolder(\Step\Acceptance\Administrator\Media $I)
+	{
+		$testfolderName = 'test-folder';
+		$testFolderItem = MediaManagerPage::item($testfolderName);
+
+		$I->wantToTest('that it is possible to delete a single folder.');
+		$I->amOnPage(MediaManagerPage::$url . $this->testDirectory);
+		$I->createDirectory('images/' . $this->testDirectory . '/' . $testfolderName);
+		$I->waitForElement($testFolderItem);
+		$I->click($testFolderItem);
+		$I->click(MediaManagerPage::$toolbarDeleteButton);
+		$I->seeSystemMessage('Item deleted.');
+		$I->waitForElementNotVisible($testFolderItem);
+		$I->dontSeeElement($testFolderItem);
 	}
 
 	/**

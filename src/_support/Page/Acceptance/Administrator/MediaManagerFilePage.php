@@ -1,4 +1,3 @@
-<?php namespace Page\Acceptance\Administrator;
 <?php
 /**
  * @package     Joomla.Test
