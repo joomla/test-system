@@ -1,5 +1,5 @@
 <?php
 if (!defined('TIMEOUT'))
 {
-	define('TIMEOUT', 5);
+	define('TIMEOUT', 30);
 }
