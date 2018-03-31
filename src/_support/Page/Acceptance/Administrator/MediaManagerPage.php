@@ -107,6 +107,14 @@ class MediaManagerPage extends AdminPage
 	public static $items = ['class' => 'media-browser-item'];
 
 	/**
+	 * The media browser items selected locator
+	 *
+	 * @var    array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $itemSelected = ['css' => '.media-browser-item.selected'];
+
+	/**
 	 * The media tree
 	 *
 	 * @var    array
@@ -145,6 +153,14 @@ class MediaManagerPage extends AdminPage
 	 * @since  __DEPLOY_VERSION__
 	 */
 	public static $toolbarDeleteButton = '//button[contains(@onclick, \'onClickDelete\')]';
+
+	/**
+	 * The check all button
+	 *
+	 * @var    array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $checkAllButton = ['class' => 'media-toolbar-select-all'];
 
 	/**
 	 * The increase thumbnail size button

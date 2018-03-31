@@ -9,7 +9,6 @@
 
 use Page\Acceptance\Administrator\MediaManagerPage;
 
-// Test table/grid view
 // Test checkall
 // Test check multiple items
 // test batch delete
@@ -298,12 +297,9 @@ class MediaCest
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function toggleListView(\Step\Acceptance\Administrator\Media $I)
+	public function toggleListViewUsingToolbarButton(\Step\Acceptance\Administrator\Media $I)
 	{
-		$testFileName = 'test-image-1.png';
-		$testFileItem = MediaManagerPage::item($testFileName);
-
-		$I->wantToTest('that its possible to toggle the list view (grid/table).');
+		$I->wantToTest('that its possible to toggle the list view (grid/table) using the toolbar button.');
 		$I->amOnPage(MediaManagerPage::$url);
 		$I->waitForMediaLoaded();
 		$I->seeElement(MediaManagerPage::$mediaBrowserGrid);
@@ -314,5 +310,21 @@ class MediaCest
 		$I->seeElement(MediaManagerPage::$mediaBrowserTable);
 		$I->click(MediaManagerPage::$toggleListViewButton);
 		$I->seeElement(MediaManagerPage::$mediaBrowserGrid);
+	}
+
+	/**
+	 * Test check all items
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function checkAllItemsUsingToolbarButton(\Step\Acceptance\Administrator\Media $I)
+	{
+		$I->wantToTest('that its possible to check all items using toolbar button.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->waitForMediaLoaded();
+		$I->click(MediaManagerPage::$checkAllButton);
+		$I->seeNumberOfElements(MediaManagerPage::$itemSelected, count($this->contents['root']));
 	}
 }
