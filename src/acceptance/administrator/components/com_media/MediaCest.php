@@ -9,8 +9,6 @@
 
 use Page\Acceptance\Administrator\MediaManagerPage;
 
-// Test checkall
-// Test check multiple items
 // test batch delete
 // Test create new folder
 // Upload the same image twice
@@ -21,7 +19,9 @@ use Page\Acceptance\Administrator\MediaManagerPage;
 // Download
 // Open edit
 
-// Currently not possible to test drag and drop upload of files
+// Currently not possible to test:
+// * drag and drop upload of files
+// * select multiple items using keywordboard shortcust (press crtl and click an another item)
 
 /**
  * Media Manager Tests
@@ -61,9 +61,17 @@ class MediaCest
 	public function _before(AcceptanceTester $I)
 	{
 		$I->doAdministratorLogin();
+	}
 
+	/**
+	 * Runs after every test
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 */
+	public function _after(AcceptanceTester $I)
+	{
 		// Clear localstorage before every test
-		$I->executeJS(' localStorage.clear();');
+		$I->executeJS('window.sessionStorage.clear();');
 	}
 
 	/**
@@ -214,6 +222,37 @@ class MediaCest
 	}
 
 	/**
+	 * Test check all items
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function deleteMultipleFiles(\Step\Acceptance\Administrator\Media $I)
+	{
+		$testFileName1 = 'test-image-1.png';
+		$testFileName2 = 'test-image-1.jpg';
+		$testFileItem1 = MediaManagerPage::item($testFileName1);
+		$testFileItem2 = MediaManagerPage::item($testFileName2);
+
+		$I->wantToTest('that it is possible to delete a single file.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->uploadFile('com_media/' . $testFileName1);
+		$I->waitForElement($testFileItem1);
+		$I->uploadFile('com_media/' . $testFileName2);
+		$I->waitForElement($testFileItem2);
+		$I->click($testFileItem1);
+		$I->clickHoldingShiftkey($testFileItem2);
+		$I->click(MediaManagerPage::$toolbarDeleteButton);
+		$I->seeMessage('Item deleted.');
+		$I->waitForElementNotVisible($testFileItem1);
+		$I->dontSeeElement($testFileItem1);
+		$I->waitForElementNotVisible($testFileItem2);
+		$I->dontSeeElement($testFileItem);
+	}
+
+
+	/**
 	 * Test toggle info bar
 	 *
 	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
@@ -319,12 +358,12 @@ class MediaCest
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function checkAllItemsUsingToolbarButton(\Step\Acceptance\Administrator\Media $I)
+	public function selectAllItemsUsingToolbarButton(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that its possible to check all items using toolbar button.');
+		$I->wantToTest('that its possible to select all items using toolbar button.');
 		$I->amOnPage(MediaManagerPage::$url);
 		$I->waitForMediaLoaded();
-		$I->click(MediaManagerPage::$checkAllButton);
+		$I->click(MediaManagerPage::$selectAllButton);
 		$I->seeNumberOfElements(MediaManagerPage::$itemSelected, count($this->contents['root']));
 	}
 }

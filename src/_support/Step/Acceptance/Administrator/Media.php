@@ -160,6 +160,27 @@ class Media extends Admin
 	}
 
 	/**
+	 * Click on an element holding shift key
+	 *
+	 * @param   string $xpath  Xpath selector
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function clickHoldingShiftkey($xpath)
+	{
+		$I = $this;
+		$I->executeInSelenium(function(\Facebook\WebDriver\Remote\RemoteWebDriver $webdriver) use ($xpath) {
+			$element = $webdriver->findElement(\Facebook\WebDriver\WebDriverBy::xpath($xpath));
+			$action = new \Facebook\WebDriver\Interactions\WebDriverActions($webdriver);
+			$shiftKey = \Facebook\WebDriver\WebDriverKeys::SHIFT;
+			$action->keyDown(null, $shiftKey)
+				->click($element)
+				->keyUp(null, $shiftKey)
+				->perform();
+		});
+	}
+
+	/**
 	 * Get the absoluute path
 	 *
 	 * @param   string $path

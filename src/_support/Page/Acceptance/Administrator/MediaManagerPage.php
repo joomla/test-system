@@ -155,12 +155,12 @@ class MediaManagerPage extends AdminPage
 	public static $toolbarDeleteButton = '//button[contains(@onclick, \'onClickDelete\')]';
 
 	/**
-	 * The check all button
+	 * The select all button
 	 *
 	 * @var    array
 	 * @since  __DEPLOY_VERSION__
 	 */
-	public static $checkAllButton = ['class' => 'media-toolbar-select-all'];
+	public static $selectAllButton = ['class' => 'media-toolbar-select-all'];
 
 	/**
 	 * The increase thumbnail size button
