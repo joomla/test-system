@@ -15,6 +15,7 @@ use Page\Acceptance\Administrator\MediaManagerPage;
 // Delete folder
 // See file information
 // See folder information
+// Rename folder
 
 // Currently not possible to test:
 // * drag and drop upload of files
@@ -81,7 +82,7 @@ class MediaCest
 		$I->deleteDirectory('images/' . $this->testDirectory);
 
 		// Clear localstorage before every test
-		$I->executeJS('window.sessionStorage.clear("' . MediaManagerPage::$storageKey . '");');
+		$I->executeJS('window.sessionStorage.removeItem("' . MediaManagerPage::$storageKey . '");');
 	}
 
 	/**
@@ -415,6 +416,7 @@ class MediaCest
 		$I->uploadFile('com_media/' . $testFileName);
 		$I->waitForElement($testFileItem);
 		$I->clickOnActionInMenuOf($testFileName, MediaManagerPage::$renameAction);
+		$I->waitForElement(MediaManagerPage::$renameInputField);
 		$I->seeElement(MediaManagerPage::$renameInputField);
 		$I->seeElement(MediaManagerPage::$modalConfirmButton);
 		$I->fillField(MediaManagerPage::$renameInputField, 'test-image-1-renamed');
@@ -530,7 +532,7 @@ class MediaCest
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function syncAppStateWithSessionStorage(\Step\Acceptance\Administrator\Media $I)
+	public function synchronizeAppStateWithSessionStorage(\Step\Acceptance\Administrator\Media $I)
 	{
 		$I->wantToTest('that the application state is synchronized with session storage.');
 		$I->amOnPage(MediaManagerPage::$url);

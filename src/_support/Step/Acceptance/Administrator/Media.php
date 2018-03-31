@@ -21,8 +21,10 @@ class Media extends Admin
 	public function waitForMediaLoaded()
 	{
 		$I = $this;
-		$I->waitForElement(['class' => 'media-loader']);
-		$I->waitForElementNotVisible(['class' => 'media-loader']);
+		$I->waitForElement(MediaManagerPage::$loader);
+		$I->waitForElementNotVisible(MediaManagerPage::$loader);
+		// Add a small timeout to wait for rendering (otherwise it will fail when executed in headless browser)
+		$I->wait(0.1);
 	}
 
 	/**
@@ -38,7 +40,7 @@ class Media extends Admin
 		$I->seeElement(MediaManagerPage::$items);
 		foreach ($contents as $content)
 		{
-			$I->see($content, MediaManagerPage::$items);
+			$I->seeElement(MediaManagerPage::item($content));
 		}
 	}
 

@@ -280,6 +280,14 @@ class MediaManagerPage extends AdminPage
 	 * @var string
 	 * @since  __DEPLOY_VERSION__
 	 */
+	public static $loader = ['class' => 'media-loader'];
+
+	/**
+	 * The key for the app storage
+	 *
+	 * @var string
+	 * @since  __DEPLOY_VERSION__
+	 */
 	public static $storageKey = 'joomla.mediamanager';
 
 	/**
