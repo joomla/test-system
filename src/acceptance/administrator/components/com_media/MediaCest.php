@@ -8,9 +8,8 @@
  */
 
 use Page\Acceptance\Administrator\MediaManagerPage;
+use Page\Acceptance\Administrator\MediaManagerFilePage;
 
-// Preview
-// Download
 // Open edit
 // Delete folder
 // See file information
@@ -20,6 +19,7 @@ use Page\Acceptance\Administrator\MediaManagerPage;
 // Currently not possible to test:
 // * drag and drop upload of files
 // * upload existing file (test is skipped)
+// * download of files
 
 /**
  * Media Manager Tests
@@ -382,24 +382,6 @@ class MediaCest
 	}
 
 	/**
-	 * Test toggle info bar
-	 *
-	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	public function toggleInfoBar(\Step\Acceptance\Administrator\Media $I)
-	{
-		$I->wantToTest('that it is possible to toggle the infobar.');
-		$I->amOnPage(MediaManagerPage::$url);
-		$I->openInfobar();
-		$I->seeElement(MediaManagerPage::$infoBar);
-		$I->closeInfobar();
-		$I->waitForElementNotVisible(MediaManagerPage::$infoBar);
-		$I->dontSeeElement(MediaManagerPage::$infoBar);
-	}
-
-	/**
 	 * Test rename a file
 	 *
 	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
@@ -455,6 +437,117 @@ class MediaCest
 		$I->dontSeeElement($testFileItem);
 		$I->seeElement($testFileItem1);
 		$I->seeElement($testFileItem2);
+	}
+
+	/**
+	 * Test preview using double click on image
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function showPreviewUsingDoubleClickOnImage(\Step\Acceptance\Administrator\Media $I)
+	{
+		$I->wantToTest('that it shows a preview for image when user doubleclicks it.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->waitForMediaLoaded();
+		$I->doubleClick(MediaManagerPage::item('powered_by.png'));
+		$I->waitForElement(MediaManagerPage::$previewModal);
+		$I->seeElement(MediaManagerPage::$previewModal);
+		$I->see('powered_by.png', MediaManagerPage::$previewModal);
+		$I->seeElement(MediaManagerPage::$previewModalImg);
+		$I->seeElement(MediaManagerPage::$previewModalCloseButton);
+	}
+
+	/**
+	 * Test preview using action menu
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function showPreviewUsingClickOnActionMenu(\Step\Acceptance\Administrator\Media $I)
+	{
+		$I->wantToTest('that it is possible to show a preview of an image using button in action menu.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->waitForMediaLoaded();
+		$I->clickOnActionInMenuOf('powered_by.png', MediaManagerPage::$previewAction);
+		$I->waitForElement(MediaManagerPage::$previewModal);
+		$I->seeElement(MediaManagerPage::$previewModal);
+		$I->see('powered_by.png', MediaManagerPage::$previewModal);
+		$I->seeElement(MediaManagerPage::$previewModalImg);
+		$I->seeElement(MediaManagerPage::$previewModalCloseButton);
+	}
+
+	/**
+	 * Test close the preview modal
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function closePreviewModalUsingCloseButton(\Step\Acceptance\Administrator\Media $I)
+	{
+		$I->wantToTest('that its possible to close the preview modal using the close button.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->waitForMediaLoaded();
+		$I->doubleClick(MediaManagerPage::item('powered_by.png'));
+		$I->waitForElement(MediaManagerPage::$previewModal);
+		$I->seeElement(MediaManagerPage::$previewModalCloseButton);
+		$I->click(MediaManagerPage::$previewModalCloseButton);
+		$I->dontSeeElement(MediaManagerPage::$previewModal);
+	}
+
+	/**
+	 * Test close the preview modal
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function closePreviewModalUsingEscapeKey(\Step\Acceptance\Administrator\Media $I)
+	{
+		$I->wantToTest('that its possible to close the preview modal using escape key.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->waitForMediaLoaded();
+		$I->doubleClick(MediaManagerPage::item('powered_by.png'));
+		$I->waitForElement(MediaManagerPage::$previewModal);
+		$I->pressKey('body', \Facebook\WebDriver\WebDriverKeys::ESCAPE);
+		$I->dontSeeElement(MediaManagerPage::$previewModal);
+	}
+
+	/**
+	 * Test rename a file
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function openImageEditorUsingActionMenu(\Step\Acceptance\Administrator\Media $I)
+	{
+		$I->wantToTest('that it is possible to open the image editor using action menu.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->waitForMediaLoaded();
+		$I->clickOnActionInMenuOf('powered_by.png', MediaManagerPage::$editAction);
+		$I->seeInCurrentUrl(MediaManagerFilePage::$url . '&path=local-0:/powered_by.png');
+	}
+
+	/**
+	 * Test toggle info bar
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function toggleInfoBar(\Step\Acceptance\Administrator\Media $I)
+	{
+		$I->wantToTest('that it is possible to toggle the infobar.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->openInfobar();
+		$I->seeElement(MediaManagerPage::$infoBar);
+		$I->closeInfobar();
+		$I->waitForElementNotVisible(MediaManagerPage::$infoBar);
+		$I->dontSeeElement(MediaManagerPage::$infoBar);
 	}
 
 	/**

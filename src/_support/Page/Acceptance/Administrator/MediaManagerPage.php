@@ -227,6 +227,22 @@ class MediaManagerPage extends AdminPage
 	public static $renameAction = 'action-rename';
 
 	/**
+	 * The rename action
+	 *
+	 * @var string
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $previewAction = 'action-preview';
+
+	/**
+	 * The rename action
+	 *
+	 * @var string
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $editAction = 'action-edit';
+
+	/**
 	 * The name field of modal forms
 	 *
 	 * @var array
@@ -257,6 +273,30 @@ class MediaManagerPage extends AdminPage
 	 * @since  __DEPLOY_VERSION__
 	 */
 	public static $modalConfirmButtonDisabled = ['css' => '.modal button:disabled.btn-success'];
+
+	/**
+	 * The preview modal
+	 *
+	 * @var array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $previewModal = ['class' => 'media-preview-modal'];
+
+	/**
+	 * The preview modal image locator
+	 *
+	 * @var array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $previewModalImg = ['css' => '.media-preview-modal img'];
+
+	/**
+	 * The preview modal image locator
+	 *
+	 * @var array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $previewModalCloseButton = ['class' => 'media-preview-close'];
 
 	/**
 	 * The media browser grid
