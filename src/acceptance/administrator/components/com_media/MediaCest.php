@@ -10,9 +10,6 @@
 use Page\Acceptance\Administrator\MediaManagerPage;
 use Page\Acceptance\Administrator\MediaManagerFilePage;
 
-// Delete folder
-// See file information
-// See folder information
 // Rename folder
 
 // Currently not possible to test:
@@ -570,6 +567,42 @@ class MediaCest
 		$I->closeInfobar();
 		$I->waitForElementNotVisible(MediaManagerPage::$infoBar);
 		$I->dontSeeElement(MediaManagerPage::$infoBar);
+	}
+
+	/**
+	 * Test show file information in infobar
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function showFileInformationInInfobar(\Step\Acceptance\Administrator\Media $I)
+	{
+		$I->wantToTest('that it shows basic file information in the infobar.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->waitForMediaLoaded();
+		$I->click(MediaManagerPage::item('powered_by.png'));
+		$I->openInfobar();
+		$I->see('powered_by.png', MediaManagerPage::$infoBar);
+		$I->see('image/png', MediaManagerPage::$infoBar);
+	}
+
+	/**
+	 * Test show folder information in infobar
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function showFolderInformationInInfobar(\Step\Acceptance\Administrator\Media $I)
+	{
+		$I->wantToTest('that it shows basic folder information in the infobar.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->waitForMediaLoaded();
+		$I->click(MediaManagerPage::item('banners'));
+		$I->openInfobar();
+		$I->see('banners', MediaManagerPage::$infoBar);
+		$I->see('directory', MediaManagerPage::$infoBar);
 	}
 
 	/**
