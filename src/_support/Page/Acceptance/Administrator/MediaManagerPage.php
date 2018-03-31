@@ -56,6 +56,54 @@ class MediaManagerPage extends AdminPage
 	 * @var    array
 	 * @since  __DEPLOY_VERSION__
 	 */
+	public static $itemsContainer = ['class' => 'media-browser-items'];
+
+	/**
+	 * The media browser items extra small
+	 *
+	 * @var    array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $itemsContainerExtraSmall = ['class' => 'media-browser-items-xs'];
+
+	/**
+	 * The media browser items small
+	 *
+	 * @var    array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $itemsContainerSmall = ['class' => 'media-browser-items-sm'];
+
+	/**
+	 * The media browser items medium
+	 *
+	 * @var    array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $itemsContainerMedium = ['class' => 'media-browser-items-md'];
+
+	/**
+	 * The media browser items large
+	 *
+	 * @var    array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $itemsContainerLarge = ['class' => 'media-browser-items-lg'];
+
+	/**
+	 * The media browser items extra large
+	 *
+	 * @var    array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $itemsContainerExtraLarge = ['class' => 'media-browser-items-xl'];
+
+	/**
+	 * The media browser items
+	 *
+	 * @var    array
+	 * @since  __DEPLOY_VERSION__
+	 */
 	public static $items = ['class' => 'media-browser-item'];
 
 	/**
@@ -91,12 +139,36 @@ class MediaManagerPage extends AdminPage
 	public static $fileInputField = 'input[name=\'file\']';
 
 	/**
-	 * The hidden file upload field
+	 * The delete button in the toolbar
 	 *
 	 * @var    string
 	 * @since  __DEPLOY_VERSION__
 	 */
 	public static $toolbarDeleteButton = '//button[contains(@onclick, \'onClickDelete\')]';
+
+	/**
+	 * The increase thumbnail size button
+	 *
+	 * @var    array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $increaseThumbnailSizeButton = ['class' => 'media-toolbar-increase-grid-size'];
+
+	/**
+	 * The disabled increase thumbnail size button
+	 *
+	 * @var    array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $increaseThumbnailSizeButtonDisabled = ['class' => 'media-toolbar-increase-grid-size', 'attribute' => ['disabled' => 'disabled']];
+
+	/**
+	 * The increase thumbnail size button
+	 *
+	 * @var    array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $decreaseThumbnailSizeButton = ['class' => 'media-toolbar-decrease-grid-size'];
 
 	/**
 	 * The item actions

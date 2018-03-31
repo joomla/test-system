@@ -9,7 +9,6 @@
 
 use Page\Acceptance\Administrator\MediaManagerPage;
 
-// Test it shows infobar
 // Test resize buttons
 // Test table/grid view
 // Test checkall
@@ -64,6 +63,9 @@ class MediaCest
 	public function _before(AcceptanceTester $I)
 	{
 		$I->doAdministratorLogin();
+
+		// Clear localstorage before every test
+		$I->executeJS(' localStorage.clear();');
 	}
 
 	/**
@@ -258,5 +260,25 @@ class MediaCest
 
 		// Cleanup
 		$I->deleteFile('images/test-image-1-renamed.png');
+	}
+
+	/**
+	 * Test resize the thumbnails
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function resizeThumbnails(\Step\Acceptance\Administrator\Media $I) {
+		$I->wantToTest('that it is possible to resize the thumbnails.');
+		$I->amOnPage(MediaManagerPage::$url);
+
+		$I->wait(20);
+		$I->seeElement(MediaManagerPage::$itemsContainerMedium);
+		$I->click(MediaManagerPage::$increaseThumbnailSizeButton);
+		$I->seeElement(MediaManagerPage::$itemsContainerLarge);
+		$I->click(MediaManagerPage::$increaseThumbnailSizeButton);
+		$I->seeElement(MediaManagerPage::$itemsContainerExtraLarge);
+		$I->seeElement(MediaManagerPage::$increaseThumbnailSizeButtonDisabled);
 	}
 }

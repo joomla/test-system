@@ -2,7 +2,6 @@
 
 use Codeception\Configuration;
 use Page\Acceptance\Administrator\MediaManagerPage;
-use PHPUnit_Framework_Exception;
 
 /**
  * Acceptance Step object class contains suits for Media Manager.
@@ -140,7 +139,7 @@ class Media extends Admin
 		$I = $this;
 		try {
 			$I->seeElement(MediaManagerPage::$infoBar);
-		} catch (PHPUnit_Framework_Exception $e) {
+		} catch (\Exception $e) {
 			$I->click(MediaManagerPage::$toggleInfoBarButton);
 		}
 	}
@@ -155,7 +154,7 @@ class Media extends Admin
 		try {
 			$I->seeElement(MediaManagerPage::$infoBar);
 			$I->click(MediaManagerPage::$toggleInfoBarButton);
-		} catch (PHPUnit_Framework_Exception $e) {
+		} catch (\Exception $e) {
 			// Do nothing
 		}
 	}
