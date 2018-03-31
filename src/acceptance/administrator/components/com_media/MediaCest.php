@@ -9,7 +9,6 @@
 
 use Page\Acceptance\Administrator\MediaManagerPage;
 
-// test batch delete
 // Test create new folder
 // Upload the same image twice
 // Rename image to existing image
@@ -18,6 +17,9 @@ use Page\Acceptance\Administrator\MediaManagerPage;
 // Preview
 // Download
 // Open edit
+// Delete folder
+// See file information
+// See folder information
 
 // Currently not possible to test:
 // * drag and drop upload of files
@@ -106,6 +108,55 @@ class MediaCest
 	}
 
 	/**
+	 * Test that it is possible to select a single file
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function selectSingleFile(\Step\Acceptance\Administrator\Media $I)
+	{
+		$I->wantToTest('that it is possible to select a single file');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->waitForMediaLoaded();
+		$I->click(MediaManagerPage::item('powered_by.png'));
+		$I->seeNumberOfElements(MediaManagerPage::$itemSelected, 1);
+	}
+
+	/**
+	 * Test that it is possible to select a single file
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function selectSingleFolder(\Step\Acceptance\Administrator\Media $I)
+	{
+		$I->wantToTest('that it is possible to select a single folder');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->waitForMediaLoaded();
+		$I->click(MediaManagerPage::item('banners'));
+		$I->seeNumberOfElements(MediaManagerPage::$itemSelected, 1);
+	}
+
+	/**
+	 * Test that it is possible to select an image and see the information in the infobar
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function selectMultipleItems(\Step\Acceptance\Administrator\Media $I)
+	{
+		$I->wantToTest('that it is possible to select multiple');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->waitForMediaLoaded();
+		$I->click(MediaManagerPage::item('banners'));
+		$I->clickHoldingShiftkey(MediaManagerPage::item('powered_by.png'));
+		$I->seeNumberOfElements(MediaManagerPage::$itemSelected, 2);
+	}
+
+	/**
 	 * Test that its possible to navigate to a subfolder using double click
 	 *
 	 * @param   \Step\Acceptance\Administrator\Media $I
@@ -157,25 +208,6 @@ class MediaCest
 		$I->waitForMediaLoaded();
 		$I->seeInCurrentUrl(MediaManagerPage::$url);
 		$I->seeContents($this->contents['root']);
-	}
-
-	/**
-	 * Test that it is possible to select an image and see the information in the infobar
-	 *
-	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	public function selectImageAndCheckTheInformation(\Step\Acceptance\Administrator\Media $I)
-	{
-		$I->wantToTest('the media manager overview information method');
-		$I->amOnPage(MediaManagerPage::$url);
-		$I->waitForElement(MediaManagerPage::item('powered_by.png'));
-		$I->click(MediaManagerPage::item('powered_by.png'));
-		$I->openInfobar();
-		$I->seeElement(MediaManagerPage::$infoBar);
-		$I->see('powered_by.png',MediaManagerPage::$infoBar);
-		$I->see('image/png', MediaManagerPage::$infoBar);
 	}
 
 	/**
@@ -246,9 +278,9 @@ class MediaCest
 		$I->click(MediaManagerPage::$toolbarDeleteButton);
 		$I->seeMessage('Item deleted.');
 		$I->waitForElementNotVisible($testFileItem1);
-		$I->dontSeeElement($testFileItem1);
 		$I->waitForElementNotVisible($testFileItem2);
-		$I->dontSeeElement($testFileItem);
+		$I->dontSeeElement($testFileItem1);
+		$I->dontSeeElement($testFileItem2);
 	}
 
 
