@@ -9,7 +9,6 @@
 
 use Page\Acceptance\Administrator\MediaManagerPage;
 
-// Upload the same image twice
 // Rename image to existing image
 // State is saved
 // Preview
@@ -21,6 +20,7 @@ use Page\Acceptance\Administrator\MediaManagerPage;
 
 // Currently not possible to test:
 // * drag and drop upload of files
+// * upload existing file (test is skipped)
 
 /**
  * Media Manager Tests
@@ -113,7 +113,7 @@ class MediaCest
 	 */
 	public function showsFilesAndFoldersOfASubdirectoryWhenOpenedUsingDeepLink(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that it shows the  media files and folders of a subdirectory.');
+		$I->wantToTest('that it shows the  media files and folders of a subdirectory when opened using deep link.');
 		$I->amOnPage(MediaManagerPage::$url . 'banners');
 		$I->waitForMediaLoaded();
 		$I->seeElement(MediaManagerPage::$items);
@@ -237,6 +237,35 @@ class MediaCest
 		$I->wantToTest('the upload of a single file using toolbar button.');
 		$I->amOnPage(MediaManagerPage::$url);
 		$I->uploadFile('com_media/' . $testFileName);
+		$I->seeSystemMessage('Item uploaded.');
+		$I->seeContents([$testFileName]);
+		// Cleanup
+		$I->deleteFile('images/' . $testFileName);
+	}
+
+	/**
+	 * Test the upload of a single file using toolbar button.
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @skip    We need to skip this test, because of a bug in acceptPopup in chrome.
+	 *          Its throws an Facebook\WebDriver\Exception\UnexpectedAlertOpenException and does not accept the popup
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function uploadExistingFileUsingToolbarButton(\Step\Acceptance\Administrator\Media $I)
+	{
+		$testFileName = 'test-image-1.jpg';
+
+		$I->wantToTest('that it shows a confirmation dialog when uploading existing file.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->uploadFile('com_media/' . $testFileName);
+		$I->seeSystemMessage('Item uploaded.');
+		$I->uploadFile('com_media/' . $testFileName);
+		$I->seeContents([$testFileName]);
+		$I->waitForMediaLoaded();
+		$I->seeInPopup($testFileName . ' already exists. Do you want to replace it?');
+		$I->acceptPopup();
 		$I->seeSystemMessage('Item uploaded.');
 		$I->seeContents([$testFileName]);
 		// Cleanup
