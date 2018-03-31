@@ -275,6 +275,14 @@ class MediaManagerPage extends AdminPage
 	public static $mediaBrowserTable = ['class' => 'media-browser-table'];
 
 	/**
+	 * The key for the app storage
+	 *
+	 * @var string
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $storageKey = 'joomla.mediamanager';
+
+	/**
 	 * Dynamic locator for media item files
 	 *
 	 * @var    string $name

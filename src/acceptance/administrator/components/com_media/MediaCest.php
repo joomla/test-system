@@ -9,7 +9,6 @@
 
 use Page\Acceptance\Administrator\MediaManagerPage;
 
-// State is saved
 // Preview
 // Download
 // Open edit
@@ -82,7 +81,7 @@ class MediaCest
 		$I->deleteDirectory('images/' . $this->testDirectory);
 
 		// Clear localstorage before every test
-		$I->executeJS('window.sessionStorage.clear();');
+		$I->executeJS('window.sessionStorage.clear("' . MediaManagerPage::$storageKey . '");');
 	}
 
 	/**
@@ -522,5 +521,34 @@ class MediaCest
 		$I->waitForMediaLoaded();
 		$I->click(MediaManagerPage::$selectAllButton);
 		$I->seeNumberOfElements(MediaManagerPage::$itemSelected, count($this->contents['root']) + 1);
+	}
+
+	/**
+	 * Test that the app state is synced with session storage
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function syncAppStateWithSessionStorage(\Step\Acceptance\Administrator\Media $I)
+	{
+		$I->wantToTest('that the application state is synchronized with session storage.');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->waitForMediaLoaded();
+		$json = $I->executeJS('return sessionStorage.getItem("' . MediaManagerPage::$storageKey . '")');
+		$I->assertContains('"selectedDirectory":"local-0:/"', $json);
+		$I->assertContains('"showInfoBar":false', $json);
+		$I->assertContains('"listView":"grid"', $json);
+		$I->assertContains('"gridSize":"md"', $json);
+		$I->clickOnLinkInTree('banners');
+		$I->waitForMediaLoaded();
+		$I->openInfobar();
+		$I->click(MediaManagerPage::$increaseThumbnailSizeButton);
+		$I->click(MediaManagerPage::$toggleListViewButton);
+		$json = $I->executeJS('return sessionStorage.getItem("' . MediaManagerPage::$storageKey . '")');
+		$I->assertContains('"selectedDirectory":"local-0:/banners"', $json);
+		$I->assertContains('"showInfoBar":true', $json);
+		$I->assertContains('"listView":"table"', $json);
+		$I->assertContains('"gridSize":"lg"', $json);
 	}
 }
