@@ -16,6 +16,15 @@ use Page\Acceptance\Administrator;
  */
 class UserCest
 {
+
+	public function __construct()
+	{
+		$this->username = "testUser";
+		$this->password = "test";
+		$this->name = "Test Bot";
+		$this->email = "Testbot@example.com";
+	}
+
 	/**
 	 * Create a user
 	 *
@@ -40,9 +49,9 @@ class UserCest
 		$I->waitForElement(Administrator\UserManagerPage::$accountDetailsTab);
 		$I->checkForPhpNoticesOrWarnings();
 
-		$this->fillUserForm($I, \Shared\UserCredentials::$name, \Shared\UserCredentials::$username, \Shared\UserCredentials::$password, \Shared\UserCredentials::$email);
+		$this->fillUserForm($I, $this->name, $this->username, $this->password, $this->email);
 
-		$I->click(Administrator\UserManagerPage::$saveButton);
+		$I->clickToolbarButton("Save");
 		$I->waitForText(Administrator\UserManagerPage::$pageTitleText);
 		$I->see(Administrator\UserManagerPage::$successMessage, Administrator\AdminPage::$systemMessageContainer);
 
@@ -69,14 +78,14 @@ class UserCest
 		$I->waitForText(Administrator\UserManagerPage::$pageTitleText);
 
 		$I->click(Administrator\UserManagerPage::$userCheckbox);
-		$I->click(Administrator\UserManagerPage::$editButton);
+		$I->click($this->name);
 
 		$I->waitForElement(Administrator\UserManagerPage::$accountDetailsTab);
 		$I->checkForPhpNoticesOrWarnings();
 
-		$this->fillUserForm($I, \Shared\UserCredentials::$name, \Shared\UserCredentials::$username, \Shared\UserCredentials::$password, \Shared\UserCredentials::$email);
+		$this->fillUserForm($I, $this->name, $this->username, $this->password, $this->email);
 
-		$I->click(Administrator\UserManagerPage::$saveButton);
+		$I->clickToolbarButton("Save");
 		$I->waitForText(Administrator\UserManagerPage::$pageTitleText);
 
 		$I->see(Administrator\UserManagerPage::$successMessage, Administrator\AdminPage::$systemMessageContainer);
