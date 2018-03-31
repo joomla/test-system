@@ -11,7 +11,6 @@ use Page\Acceptance\Administrator\MediaManagerPage;
 
 // Upload the same image twice
 // Rename image to existing image
-// Deep link
 // State is saved
 // Preview
 // Download
@@ -103,6 +102,22 @@ class MediaCest
 		$I->waitForMediaLoaded();
 		$I->seeElement(MediaManagerPage::$items);
 		$I->seeContents($this->contents['root']);
+	}
+
+	/**
+	 * Test that it shows then joomla default media files and folders
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function showsFilesAndFoldersOfASubdirectoryWhenOpenedUsingDeepLink(\Step\Acceptance\Administrator\Media $I)
+	{
+		$I->wantToTest('that it shows the  media files and folders of a subdirectory.');
+		$I->amOnPage(MediaManagerPage::$url . 'banners');
+		$I->waitForMediaLoaded();
+		$I->seeElement(MediaManagerPage::$items);
+		$I->seeContents($this->contents['/banners']);
 	}
 
 	/**
@@ -222,7 +237,7 @@ class MediaCest
 		$I->wantToTest('the upload of a single file using toolbar button.');
 		$I->amOnPage(MediaManagerPage::$url);
 		$I->uploadFile('com_media/' . $testFileName);
-		$I->seeMessage('Item uploaded.');
+		$I->seeSystemMessage('Item uploaded.');
 		$I->seeContents([$testFileName]);
 		// Cleanup
 		$I->deleteFile('images/' . $testFileName);
@@ -249,7 +264,7 @@ class MediaCest
 			return $el->isEnabled();
 		});
 		$I->click(MediaManagerPage::$modalConfirmButton);
-		$I->seeMessage('Folder created.');
+		$I->seeSystemMessage('Folder created.');
 		$I->waitForElement(MediaManagerPage::item($testFolderName));
 		$I->seeElement(MediaManagerPage::item($testFolderName));
 
@@ -278,7 +293,7 @@ class MediaCest
 			return $el->isEnabled();
 		});
 		$I->click(MediaManagerPage::$modalConfirmButton);
-		$I->seeMessage('Error creating folder.');
+		$I->seeSystemMessage('Error creating folder.');
 	}
 
 	/**
@@ -299,7 +314,7 @@ class MediaCest
 		$I->waitForElement($testFileItem);
 		$I->click($testFileItem);
 		$I->click(MediaManagerPage::$toolbarDeleteButton);
-		$I->seeMessage('Item deleted.');
+		$I->seeSystemMessage('Item deleted.');
 		$I->waitForElementNotVisible($testFileItem);
 		$I->dontSeeElement($testFileName);
 	}
@@ -327,7 +342,7 @@ class MediaCest
 		$I->click($testFileItem1);
 		$I->clickHoldingShiftkey($testFileItem2);
 		$I->click(MediaManagerPage::$toolbarDeleteButton);
-		$I->seeMessage('Item deleted.');
+		$I->seeSystemMessage('Item deleted.');
 		$I->waitForElementNotVisible($testFileItem1);
 		$I->waitForElementNotVisible($testFileItem2);
 		$I->dontSeeElement($testFileItem1);
@@ -374,7 +389,7 @@ class MediaCest
 		$I->seeElement(MediaManagerPage::$modalConfirmButton);
 		$I->fillField(MediaManagerPage::$renameInputField, 'test-image-1-renamed');
 		$I->click(MediaManagerPage::$modalConfirmButton);
-		$I->seeMessage('Item renamed.');
+		$I->seeSystemMessage('Item renamed.');
 		$I->dontSeeElement($testFileItem);
 		$I->seeElement(MediaManagerPage::item('test-image-1-renamed.png'));
 
