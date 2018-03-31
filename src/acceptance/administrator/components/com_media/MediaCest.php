@@ -272,13 +272,23 @@ class MediaCest
 	public function resizeThumbnails(\Step\Acceptance\Administrator\Media $I) {
 		$I->wantToTest('that it is possible to resize the thumbnails.');
 		$I->amOnPage(MediaManagerPage::$url);
-
-		$I->wait(20);
+		$I->waitForMediaLoaded();
+		// Resize to max
 		$I->seeElement(MediaManagerPage::$itemsContainerMedium);
 		$I->click(MediaManagerPage::$increaseThumbnailSizeButton);
 		$I->seeElement(MediaManagerPage::$itemsContainerLarge);
 		$I->click(MediaManagerPage::$increaseThumbnailSizeButton);
 		$I->seeElement(MediaManagerPage::$itemsContainerExtraLarge);
 		$I->seeElement(MediaManagerPage::$increaseThumbnailSizeButtonDisabled);
+		// Resize to min
+		$I->click(MediaManagerPage::$decreaseThumbnailSizeButton);
+		$I->seeElement(MediaManagerPage::$itemsContainerLarge);
+		$I->click(MediaManagerPage::$decreaseThumbnailSizeButton);
+		$I->seeElement(MediaManagerPage::$itemsContainerMedium);
+		$I->click(MediaManagerPage::$decreaseThumbnailSizeButton);
+		$I->seeElement(MediaManagerPage::$itemsContainerSmall);
+		$I->click(MediaManagerPage::$decreaseThumbnailSizeButton);
+		$I->seeElement(MediaManagerPage::$itemsContainerExtraSmall);
+		$I->seeElement(MediaManagerPage::$decreaseThumbnailSizeButtonDisabled);
 	}
 }

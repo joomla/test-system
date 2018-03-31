@@ -155,20 +155,28 @@ class MediaManagerPage extends AdminPage
 	public static $increaseThumbnailSizeButton = ['class' => 'media-toolbar-increase-grid-size'];
 
 	/**
-	 * The disabled increase thumbnail size button
+	 * The disabled increase thumbnail size button disabled
 	 *
 	 * @var    array
 	 * @since  __DEPLOY_VERSION__
 	 */
-	public static $increaseThumbnailSizeButtonDisabled = ['class' => 'media-toolbar-increase-grid-size', 'attribute' => ['disabled' => 'disabled']];
+	public static $increaseThumbnailSizeButtonDisabled = ['css' => '.media-toolbar-increase-grid-size.disabled'];
 
 	/**
-	 * The increase thumbnail size button
+	 * The decrease thumbnail size button
 	 *
 	 * @var    array
 	 * @since  __DEPLOY_VERSION__
 	 */
 	public static $decreaseThumbnailSizeButton = ['class' => 'media-toolbar-decrease-grid-size'];
+
+	/**
+	 * The decrease thumbnail size button disabled
+	 *
+	 * @var    array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $decreaseThumbnailSizeButtonDisabled = ['css' => '.media-toolbar-decrease-grid-size.disabled'];
 
 	/**
 	 * The item actions
