@@ -9,7 +9,6 @@
 
 use Page\Acceptance\Administrator\MediaManagerPage;
 
-// Rename image to existing image
 // State is saved
 // Preview
 // Download
@@ -53,13 +52,23 @@ class MediaCest
 	];
 
 	/**
+	 * The name of the test directory, which gets deleted after each test
+	 *
+	 * @var string
+	 */
+	private $testDirectory = 'test-dir';
+
+	/**
 	 * Runs before every test
 	 *
 	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
 	 */
-	public function _before(AcceptanceTester $I)
+	public function _before(\Step\Acceptance\Administrator\Media $I)
 	{
 		$I->doAdministratorLogin();
+
+		// Create the test directory
+		$I->createDirectory('images/' . $this->testDirectory);
 	}
 
 	/**
@@ -67,8 +76,11 @@ class MediaCest
 	 *
 	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
 	 */
-	public function _after(AcceptanceTester $I)
+	public function _after(\Step\Acceptance\Administrator\Media $I)
 	{
+		// Delete the test directory
+		$I->deleteDirectory('images/' . $this->testDirectory);
+
 		// Clear localstorage before every test
 		$I->executeJS('window.sessionStorage.clear();');
 	}
@@ -235,12 +247,10 @@ class MediaCest
 		$testFileName = 'test-image-1.png';
 
 		$I->wantToTest('the upload of a single file using toolbar button.');
-		$I->amOnPage(MediaManagerPage::$url);
+		$I->amOnPage(MediaManagerPage::$url . $this->testDirectory);
 		$I->uploadFile('com_media/' . $testFileName);
 		$I->seeSystemMessage('Item uploaded.');
 		$I->seeContents([$testFileName]);
-		// Cleanup
-		$I->deleteFile('images/' . $testFileName);
 	}
 
 	/**
@@ -258,7 +268,7 @@ class MediaCest
 		$testFileName = 'test-image-1.jpg';
 
 		$I->wantToTest('that it shows a confirmation dialog when uploading existing file.');
-		$I->amOnPage(MediaManagerPage::$url);
+		$I->amOnPage(MediaManagerPage::$url . $this->testDirectory);
 		$I->uploadFile('com_media/' . $testFileName);
 		$I->seeSystemMessage('Item uploaded.');
 		$I->uploadFile('com_media/' . $testFileName);
@@ -268,8 +278,6 @@ class MediaCest
 		$I->acceptPopup();
 		$I->seeSystemMessage('Item uploaded.');
 		$I->seeContents([$testFileName]);
-		// Cleanup
-		$I->deleteFile('images/' . $testFileName);
 	}
 
 	/**
@@ -284,7 +292,7 @@ class MediaCest
 		$testFolderName = 'test-folder';
 
 		$I->wantToTest('that it is possible to create a new folder using the toolbar button.');
-		$I->amOnPage(MediaManagerPage::$url);
+		$I->amOnPage(MediaManagerPage::$url . $this->testDirectory);
 		$I->click(MediaManagerPage::$toolbarCreateFolderButton);
 		$I->seeElement(MediaManagerPage::$newFolderInputField);
 		$I->seeElement(MediaManagerPage::$modalConfirmButtonDisabled);
@@ -296,9 +304,6 @@ class MediaCest
 		$I->seeSystemMessage('Folder created.');
 		$I->waitForElement(MediaManagerPage::item($testFolderName));
 		$I->seeElement(MediaManagerPage::item($testFolderName));
-
-		// Cleanup
-		$I->deleteDir('images/' . $testFolderName);
 	}
 
 	/**
@@ -310,14 +315,12 @@ class MediaCest
 	 */
 	public function createExistingFolderUsingToolbar(\Step\Acceptance\Administrator\Media $I)
 	{
-		$testFolderName = 'banners';
-
 		$I->wantToTest('that it is not possible to create an existing folder.');
 		$I->amOnPage(MediaManagerPage::$url);
 		$I->click(MediaManagerPage::$toolbarCreateFolderButton);
 		$I->seeElement(MediaManagerPage::$newFolderInputField);
 		$I->seeElement(MediaManagerPage::$modalConfirmButtonDisabled);
-		$I->fillField(MediaManagerPage::$newFolderInputField, $testFolderName);
+		$I->fillField(MediaManagerPage::$newFolderInputField, $this->testDirectory);
 		$I->waitForElementChange(MediaManagerPage::$modalConfirmButton, function (Facebook\WebDriver\Remote\RemoteWebElement $el)  {
 			return $el->isEnabled();
 		});
@@ -338,7 +341,7 @@ class MediaCest
 		$testFileItem = MediaManagerPage::item($testFileName);
 
 		$I->wantToTest('that it is possible to delete a single file.');
-		$I->amOnPage(MediaManagerPage::$url);
+		$I->amOnPage(MediaManagerPage::$url . $this->testDirectory);
 		$I->uploadFile('com_media/' . $testFileName);
 		$I->waitForElement($testFileItem);
 		$I->click($testFileItem);
@@ -363,7 +366,7 @@ class MediaCest
 		$testFileItem2 = MediaManagerPage::item($testFileName2);
 
 		$I->wantToTest('that it is possible to delete a single file.');
-		$I->amOnPage(MediaManagerPage::$url);
+		$I->amOnPage(MediaManagerPage::$url . $this->testDirectory);
 		$I->uploadFile('com_media/' . $testFileName1);
 		$I->waitForElement($testFileItem1);
 		$I->uploadFile('com_media/' . $testFileName2);
@@ -377,7 +380,6 @@ class MediaCest
 		$I->dontSeeElement($testFileItem1);
 		$I->dontSeeElement($testFileItem2);
 	}
-
 
 	/**
 	 * Test toggle info bar
@@ -410,7 +412,7 @@ class MediaCest
 		$testFileItem = MediaManagerPage::item($testFileName);
 
 		$I->wantToTest('that it is possible to rename a file.');
-		$I->amOnPage(MediaManagerPage::$url);
+		$I->amOnPage(MediaManagerPage::$url . $this->testDirectory);
 		$I->uploadFile('com_media/' . $testFileName);
 		$I->waitForElement($testFileItem);
 		$I->clickOnActionInMenuOf($testFileName, MediaManagerPage::$renameAction);
@@ -421,9 +423,37 @@ class MediaCest
 		$I->seeSystemMessage('Item renamed.');
 		$I->dontSeeElement($testFileItem);
 		$I->seeElement(MediaManagerPage::item('test-image-1-renamed.png'));
+	}
 
-		// Cleanup
-		$I->deleteFile('images/test-image-1-renamed.png');
+	/**
+	 * Test rename a file to the same name as an existing file
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function renameFileToExistingFile(\Step\Acceptance\Administrator\Media $I)
+	{
+		$testFileName1 = 'test-image-1.png';
+		$testFileName2 = 'test-image-2.png';
+		$testFileItem1 = MediaManagerPage::item($testFileName1);
+		$testFileItem2 = MediaManagerPage::item($testFileName2);
+
+		$I->wantToTest('that it is not possible to rename a file to a filename of an existing file.');
+		$I->amOnPage(MediaManagerPage::$url . $this->testDirectory);
+		$I->uploadFile('com_media/' . $testFileName1);
+		$I->waitForElement($testFileItem1);
+		$I->uploadFile('com_media/' . $testFileName2);
+		$I->waitForElement($testFileItem2);
+		$I->clickOnActionInMenuOf($testFileName2, MediaManagerPage::$renameAction);
+		$I->seeElement(MediaManagerPage::$renameInputField);
+		$I->seeElement(MediaManagerPage::$modalConfirmButton);
+		$I->fillField(MediaManagerPage::$renameInputField, 'test-image-1');
+		$I->click(MediaManagerPage::$modalConfirmButton);
+		$I->seeSystemMessage('Error renaming file.');
+		$I->dontSeeElement($testFileItem);
+		$I->seeElement($testFileItem1);
+		$I->seeElement($testFileItem2);
 	}
 
 	/**
@@ -491,6 +521,6 @@ class MediaCest
 		$I->amOnPage(MediaManagerPage::$url);
 		$I->waitForMediaLoaded();
 		$I->click(MediaManagerPage::$selectAllButton);
-		$I->seeNumberOfElements(MediaManagerPage::$itemSelected, count($this->contents['root']));
+		$I->seeNumberOfElements(MediaManagerPage::$itemSelected, count($this->contents['root']) + 1);
 	}
 }

@@ -74,6 +74,20 @@ class Media extends Admin
 		$I->comment('Deleted ' . $absolutePath);
 	}
 
+	/**
+	 * Deletes directory with all subdirectories
+	 *
+	 * @param   string  $dirname
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function createDirectory($dirname)
+	{
+		$I = $this;
+		$absolutePath = $this->absolutizePath($dirname);
+		@mkdir($absolutePath);
+		$I->comment('Created ' . $absolutePath);
+	}
 
 	/**
 	 * Deletes directory with all subdirectories
@@ -82,7 +96,7 @@ class Media extends Admin
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function deleteDir($dirname)
+	public function deleteDirectory($dirname)
 	{
 		$I = $this;
 		$absolutePath = $this->absolutizePath($dirname);
