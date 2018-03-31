@@ -179,6 +179,14 @@ class MediaManagerPage extends AdminPage
 	public static $decreaseThumbnailSizeButtonDisabled = ['css' => '.media-toolbar-decrease-grid-size.disabled'];
 
 	/**
+	 * The disabled increase thumbnail size button disabled
+	 *
+	 * @var    array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $toggleListViewButton = ['class' => 'media-toolbar-list-view'];
+
+	/**
 	 * The item actions
 	 *
 	 * @var    string
@@ -209,6 +217,22 @@ class MediaManagerPage extends AdminPage
 	 * @since  __DEPLOY_VERSION__
 	 */
 	public static $modalConfirmButton = ['css' => '.modal button.btn-success'];
+
+	/**
+	 * The media browser grid
+	 *
+	 * @var array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $mediaBrowserGrid = ['class' => 'media-browser-grid'];
+
+	/**
+	 * The media browser table
+	 *
+	 * @var array
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $mediaBrowserTable = ['class' => 'media-browser-table'];
 
 	/**
 	 * Dynamic locator for media item files

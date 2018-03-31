@@ -9,7 +9,6 @@
 
 use Page\Acceptance\Administrator\MediaManagerPage;
 
-// Test resize buttons
 // Test table/grid view
 // Test checkall
 // Test check multiple items
@@ -290,5 +289,30 @@ class MediaCest
 		$I->click(MediaManagerPage::$decreaseThumbnailSizeButton);
 		$I->seeElement(MediaManagerPage::$itemsContainerExtraSmall);
 		$I->seeElement(MediaManagerPage::$decreaseThumbnailSizeButtonDisabled);
+	}
+
+	/**
+	 * Test table view
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function toggleListView(\Step\Acceptance\Administrator\Media $I)
+	{
+		$testFileName = 'test-image-1.png';
+		$testFileItem = MediaManagerPage::item($testFileName);
+
+		$I->wantToTest('that its possible to toggle the list view (grid/table).');
+		$I->amOnPage(MediaManagerPage::$url);
+		$I->waitForMediaLoaded();
+		$I->seeElement(MediaManagerPage::$mediaBrowserGrid);
+		$I->seeElement(MediaManagerPage::$toggleListViewButton);
+		$I->click(MediaManagerPage::$toggleListViewButton);
+		$I->dontSeeElement(MediaManagerPage::$increaseThumbnailSizeButton);
+		$I->dontSeeElement(MediaManagerPage::$decreaseThumbnailSizeButton);
+		$I->seeElement(MediaManagerPage::$mediaBrowserTable);
+		$I->click(MediaManagerPage::$toggleListViewButton);
+		$I->seeElement(MediaManagerPage::$mediaBrowserGrid);
 	}
 }
