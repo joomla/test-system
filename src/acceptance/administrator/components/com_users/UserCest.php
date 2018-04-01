@@ -38,6 +38,7 @@ class UserCest
 	{
 		$I->comment('I am going to create a user');
 		$I->doAdministratorLogin();
+		$this->toggleSendMail($I);
 
 		$I->amOnPage(Administrator\UserManagerPage::$url);
 		$I->checkForPhpNoticesOrWarnings();
@@ -114,5 +115,30 @@ class UserCest
 		$I->fillField(Administrator\UserManagerPage::$passwordField, $password);
 		$I->fillField(Administrator\UserManagerPage::$password2Field, $password);
 		$I->fillField(Administrator\UserManagerPage::$emailField, $email);
+	}
+	
+	/**
+	 * Method to set Send Email to "NO"
+	 *
+	 * @param   AcceptanceTester  $I         The AcceptanceTester Object
+	 *
+	 * @since   4.0
+	 *
+	 * @return  void  The user's form will be filled with given detail
+	 */
+	protected function toggleSendMail($I)
+	{
+		$I->amOnPage('/administrator/index.php?option=com_config');
+		$I->waitForText('Global Configuration', TIMEOUT, ['css' => '.page-title']);
+		$I->comment('I open the Server Tab');
+		$I->click(['link' => 'Server']);
+		$I->comment('I wait for error reporting dropdown');
+		$I->click(['xpath' => "//input[@type='radio' and @value=0 and @name='jform[mailonline]']"]);
+		$I->comment('I click on save');
+		$I->click(['id' => 'toolbar-apply']);
+		$I->comment('I wait for global configuration being saved');
+		$I->waitForText('Global Configuration', TIMEOUT, ['css' => '.page-title']);
+		$I->see('Configuration saved.', ['id' => 'system-message-container']);
+
 	}
 }
