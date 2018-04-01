@@ -1,8 +1,7 @@
 <?php namespace Step\Acceptance\Administrator;
 
-use Codeception\Configuration;
-use Page\Acceptance\Administrator\MediaManagerPage;
 use Codeception\Util\FileSystem as Util;
+use Page\Acceptance\Administrator\MediaManagerPage;
 
 /**
  * Acceptance Step object class contains suits for Media Manager.
@@ -47,7 +46,7 @@ class Media extends Admin
 	/**
 	 * Helper function to upload a file in the current directory
 	 *
-	 * @param  string  $fileName
+	 * @param  string $fileName
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
@@ -61,15 +60,16 @@ class Media extends Admin
 	/**
 	 * Delete a file from filesystem
 	 *
-	 * @param  string  $path
+	 * @param  string $path
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
 	public function deleteFile($path)
 	{
-		$I = $this;
+		$I            = $this;
 		$absolutePath = $this->absolutizePath($path);
-		if (!file_exists($absolutePath)) {
+		if (!file_exists($absolutePath))
+		{
 			\PHPUnit\Framework\Assert::fail('file not found.');
 		}
 		unlink($absolutePath);
@@ -79,13 +79,13 @@ class Media extends Admin
 	/**
 	 * Deletes directory with all subdirectories
 	 *
-	 * @param   string  $dirname
+	 * @param   string $dirname
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
 	public function createDirectory($dirname)
 	{
-		$I = $this;
+		$I            = $this;
 		$absolutePath = $this->absolutizePath($dirname);
 		@mkdir($absolutePath);
 		$I->comment('Created ' . $absolutePath);
@@ -94,13 +94,13 @@ class Media extends Admin
 	/**
 	 * Deletes directory with all subdirectories
 	 *
-	 * @param   string  $dirname
+	 * @param   string $dirname
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
 	public function deleteDirectory($dirname)
 	{
-		$I = $this;
+		$I            = $this;
 		$absolutePath = $this->absolutizePath($dirname);
 		Util::deleteDir($absolutePath);
 		$I->comment('Deleted ' . $absolutePath);
@@ -109,11 +109,12 @@ class Media extends Admin
 	/**
 	 * Click on a link in the media tree
 	 *
-	 * @param   string  $link
+	 * @param   string $link
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function clickOnLinkInTree($link) {
+	public function clickOnLinkInTree($link)
+	{
 		$I = $this;
 		$I->click($link, MediaManagerPage::$mediaTree);
 	}
@@ -121,11 +122,12 @@ class Media extends Admin
 	/**
 	 * Click on a link in the media breadcrumb
 	 *
-	 * @param   string  $link
+	 * @param   string $link
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function clickOnLinkInBreadcrumb($link) {
+	public function clickOnLinkInBreadcrumb($link)
+	{
 		$I = $this;
 		$I->click($link, MediaManagerPage::$mediaBreadcrumb);
 	}
@@ -133,13 +135,13 @@ class Media extends Admin
 	/**
 	 * Open the item actions menu of an item
 	 *
-	 * @param   string  $itemName
+	 * @param   string $itemName
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
 	public function openActionsMenuOf($itemName)
 	{
-		$I = $this;
+		$I       = $this;
 		$toggler = MediaManagerPage::itemActionMenuToggler($itemName);
 		$I->moveMouseOver(MediaManagerPage::item($itemName));
 		$I->seeElement($toggler);
@@ -149,15 +151,15 @@ class Media extends Admin
 	/**
 	 * Open the item actions menu and click on one action
 	 *
-	 * @param   string  $itemName
-	 * @param   string  $actionName
+	 * @param   string $itemName
+	 * @param   string $actionName
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
 	public function clickOnActionInMenuOf($itemName, $actionName)
 	{
-		$I = $this;
-		$action = MediaManagerPage::itemAction($itemName,$actionName);
+		$I      = $this;
+		$action = MediaManagerPage::itemAction($itemName, $actionName);
 		$I->openActionsMenuOf($itemName);
 		$I->waitForElementVisible($action);
 		$I->click($action);
@@ -168,11 +170,15 @@ class Media extends Admin
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function openInfobar() {
+	public function openInfobar()
+	{
 		$I = $this;
-		try {
+		try
+		{
 			$I->seeElement(MediaManagerPage::$infoBar);
-		} catch (\Exception $e) {
+		}
+		catch (\Exception $e)
+		{
 			$I->click(MediaManagerPage::$toggleInfoBarButton);
 		}
 	}
@@ -182,12 +188,16 @@ class Media extends Admin
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function closeInfobar() {
+	public function closeInfobar()
+	{
 		$I = $this;
-		try {
+		try
+		{
 			$I->seeElement(MediaManagerPage::$infoBar);
 			$I->click(MediaManagerPage::$toggleInfoBarButton);
-		} catch (\Exception $e) {
+		}
+		catch (\Exception $e)
+		{
 			// Do nothing
 		}
 	}
@@ -195,16 +205,16 @@ class Media extends Admin
 	/**
 	 * Click on an element holding shift key
 	 *
-	 * @param   string $xpath  Xpath selector
+	 * @param   string $xpath Xpath selector
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
 	public function clickHoldingShiftkey($xpath)
 	{
 		$I = $this;
-		$I->executeInSelenium(function(\Facebook\WebDriver\Remote\RemoteWebDriver $webdriver) use ($xpath) {
-			$element = $webdriver->findElement(\Facebook\WebDriver\WebDriverBy::xpath($xpath));
-			$action = new \Facebook\WebDriver\Interactions\WebDriverActions($webdriver);
+		$I->executeInSelenium(function (\Facebook\WebDriver\Remote\RemoteWebDriver $webdriver) use ($xpath) {
+			$element  = $webdriver->findElement(\Facebook\WebDriver\WebDriverBy::xpath($xpath));
+			$action   = new \Facebook\WebDriver\Interactions\WebDriverActions($webdriver);
 			$shiftKey = \Facebook\WebDriver\WebDriverKeys::SHIFT;
 			$action->keyDown(null, $shiftKey)
 				->click($element)
@@ -224,6 +234,15 @@ class Media extends Admin
 	 */
 	protected function absolutizePath($path)
 	{
-		return Configuration::projectDir() . 'test-install/' . ltrim($path,'/');
+		try
+		{
+			$cmsPath = $this->getSuiteConfiguration()['modules']['config']['Helper\Acceptance']['cmsPath'];
+
+			return rtrim($cmsPath, '/') . '/' . ltrim($path, '/');
+		}
+		catch (\Exception $e)
+		{
+			throw new \Exception('cmsPath is not defined in acceptance.suite.yml.');
+		}
 	}
 }
