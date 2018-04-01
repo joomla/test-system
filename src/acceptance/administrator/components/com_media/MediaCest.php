@@ -250,10 +250,10 @@ class MediaCest
 	/**
 	 * Test the upload of a single file using toolbar button.
 	 *
-	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
-	 *
 	 * @skip    We need to skip this test, because of a bug in acceptPopup in chrome.
 	 *          Its throws an Facebook\WebDriver\Exception\UnexpectedAlertOpenException and does not accept the popup
+	 *
+	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
@@ -302,6 +302,8 @@ class MediaCest
 
 	/**
 	 * Test create an existing folder.
+	 *
+	 * @skip    Skipping until bug is resolved in media manager
 	 *
 	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
 	 *
@@ -428,6 +430,8 @@ class MediaCest
 	/**
 	 * Test rename a file to the same name as an existing file
 	 *
+	 * @skip    Skipping until bug is resolved in media manager
+	 *
 	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
 	 *
 	 * @since   __DEPLOY_VERSION__
@@ -484,6 +488,8 @@ class MediaCest
 
 	/**
 	 * Test rename a folder to the same name as an existing folder
+	 *
+	 * @skip    Skipping until bug is resolved in media manager
 	 *
 	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
 	 *
