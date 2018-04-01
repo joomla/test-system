@@ -13,9 +13,8 @@ class CategoryCest
 {
 	public function __construct()
 	{
-		$this->faker = Faker\Factory::create();
 		$this->articleTitle = "Article One";
-		$this->randomCategoryTitle = $this->faker->bothify('CategoryCest ?##?');
+		$this->categoryTitle = 'Category title';
 	}
 
 	public function _before(AcceptanceTester $I)
@@ -26,6 +25,6 @@ class CategoryCest
 	public function Category(AcceptanceTester $I, $scenario)
 	{
 		$I = new CategoryStep($scenario);
-		$I->createContentCategory($this->randomCategoryTitle);
+		$I->createContentCategory($this->categoryTitle);
 	}
 }
