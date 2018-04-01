@@ -13,10 +13,8 @@ class ArticleCest
 {
 	public function __construct()
 	{
-		$this->faker = Faker\Factory::create();
-		$this->articleTitle = "Article One";
-		$this->randomArticleTitle = $this->faker->bothify('ArticleCest ?##?');
-		$this->randomArticleContent = $this->faker->bothify('Article Content ###?');
+		$this->articleTitle = 'Article title';
+		$this->articleContent = 'Article content';
 		$this->articleAccessLevel = "Registered";
 	}
 
@@ -28,10 +26,10 @@ class ArticleCest
 	public function Article(AcceptanceTester $I, $scenario)
 	{
 		$I = new ContentStep($scenario);
-		$I->createArticle($this->randomArticleTitle, $this->randomArticleContent);
-		$I->featureArticle($this->randomArticleTitle);
-		$I->setArticleAccessLevel($this->randomArticleTitle, $this->articleAccessLevel);
-		$I->unPublishArticle($this->randomArticleTitle);
-		$I->trashArticle($this->randomArticleTitle);
+		$I->createArticle($this->articleTitle, $this->articleContent);
+		$I->featureArticle($this->articleTitle);
+		$I->setArticleAccessLevel($this->articleTitle, $this->articleAccessLevel);
+		$I->unPublishArticle($this->articleTitle);
+		$I->trashArticle($this->articleTitle);
 	}
 }
