@@ -18,7 +18,6 @@ modules:
             capabilities:
               chromeOptions:
                 args: ["--headless", "--disable-gpu", "--no-sandbox", "window-size=1920x1080"]
-                binary: "/usr/bin/google-chrome"
             username: 'admin'                      # UserName for the Administrator
             password: 'admin'                      # Password for the Administrator
             database host: 'mysql'             # place where the Application is Hosted #server Address
