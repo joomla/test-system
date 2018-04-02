@@ -275,13 +275,13 @@ class MediaCest
 	}
 
 	/**
-	 * Test the upload of a single file using toolbar button.
+	 * Test the create folder using toolbar button.
 	 *
 	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function createFolderUsingToolbar(\Step\Acceptance\Administrator\Media $I)
+	public function createFolderUsingToolbarButton(\Step\Acceptance\Administrator\Media $I)
 	{
 		$testFolderName = 'test-folder';
 
