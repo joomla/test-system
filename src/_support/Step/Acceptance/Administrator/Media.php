@@ -1,6 +1,7 @@
 <?php namespace Step\Acceptance\Administrator;
 
 use Codeception\Util\FileSystem as Util;
+use Facebook\WebDriver\Exception\NoSuchElementException;
 use Page\Acceptance\Administrator\MediaManagerPage;
 
 /**
@@ -20,10 +21,17 @@ class Media extends Admin
 	public function waitForMediaLoaded()
 	{
 		$I = $this;
-		$I->waitForElement(MediaManagerPage::$loader);
-		$I->waitForElementNotVisible(MediaManagerPage::$loader);
-		// Add a small timeout to wait for rendering (otherwise it will fail when executed in headless browser)
-		$I->wait(0.2);
+		try {
+			// Try to wait for the loader (using a very short timeout)
+			$I->waitForElement(MediaManagerPage::$itemsContainer, 5);
+			$I->waitForElementNotVisible(MediaManagerPage::$loader, 5);
+			// Add a small timeout to wait for rendering (otherwise it will fail when executed in headless browser)
+			$I->wait(0.2);
+		} catch (NoSuchElementException $e) {
+			// Continue if we cant find the loader within 5 seconds.
+			// In most cases this means that the loader appeared and disappeared so quickly, that selenium was not able to notice it.
+			// Unfortunately we currently dont have any better technique to detect when vue components are loaded/upaded
+		}
 	}
 
 	/**
