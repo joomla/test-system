@@ -10,10 +10,9 @@
 use Page\Acceptance\Administrator\MediaManagerPage;
 use Page\Acceptance\Administrator\MediaManagerFilePage;
 
-// Currently not possible to test:
-// * drag and drop upload of files
-// * upload existing file (test is skipped)
-// * download of files
+// TODO test d&d upload of files
+// TODO test download of files
+// TODO enable skipped tests
 
 /**
  * Media Manager Tests
