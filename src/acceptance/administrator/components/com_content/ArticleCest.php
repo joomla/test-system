@@ -73,10 +73,8 @@ class ArticleCest
 		$I->createArticle($this->articleTitle, $this->articleContent);
 	}
 
-	public function Article(AcceptanceTester $I, $scenario)
+	public function Article(\Step\Acceptance\Administrator\Content $I)
 	{
-		$I = new ContentStep($scenario);
-
 		$I->featureArticle($this->articleTitle);
 		$I->setArticleAccessLevel($this->articleTitle, $this->articleAccessLevel);
 		$I->unPublishArticle($this->articleTitle);
