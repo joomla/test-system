@@ -22,7 +22,6 @@ class Media extends Admin
 	{
 		$I = $this;
 		try {
-			// Try to wait for the loader (using a very short timeout)
 			$I->waitForElement(MediaManagerPage::$loader, 5);
 			$I->waitForElementNotVisible(MediaManagerPage::$loader, 5);
 			// Add a small timeout to wait for rendering (otherwise it will fail when executed in headless browser)
