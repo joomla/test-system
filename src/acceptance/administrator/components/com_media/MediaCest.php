@@ -3,10 +3,9 @@
  * @package     Joomla.Tests
  * @subpackage  Acceptance.tests
  *
- * @copyright   Copyright (C) 2005 - 2017 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
-
 use Page\Acceptance\Administrator\MediaManagerPage;
 use Page\Acceptance\Administrator\MediaManagerFilePage;
 
@@ -55,6 +54,8 @@ class MediaCest
 	 * Runs before every test
 	 *
 	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
 	 */
 	public function _before(\Step\Acceptance\Administrator\Media $I)
 	{
@@ -68,6 +69,8 @@ class MediaCest
 	 * Runs after every test
 	 *
 	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 *
+	 * @since   __DEPLOY_VERSION__
 	 */
 	public function _after(\Step\Acceptance\Administrator\Media $I)
 	{
@@ -81,7 +84,7 @@ class MediaCest
 	/**
 	 * Test that it loads without php notices and warnings.
 	 *
-	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
+	 * @param   AcceptanceTester $I Acceptance Helper Object
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
