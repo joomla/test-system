@@ -19,6 +19,14 @@ namespace Page\Acceptance\Administrator;
 class ArticleManagerPage extends AdminPage
 {
 	/**
+	 * Link to the article listing page.
+	 *
+	 * @var    string
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $url = "/administrator/index.php?option=com_content&view=articles";
+
+	/**
 	 * Drop Down Toggle Element.
 	 *
 	 * @var    array
@@ -41,14 +49,6 @@ class ArticleManagerPage extends AdminPage
 	 * @since  __DEPLOY_VERSION__
 	 */
 	public static $toggleEditor = "Toggle editor";
-
-	/**
-	 * Link to the article listing page.
-	 *
-	 * @var    string
-	 * @since  __DEPLOY_VERSION__
-	 */
-	public static $url = "/administrator/index.php?option=com_content&view=articles";
 
 	/**
 	 * Locator for article's name field
