@@ -7,34 +7,15 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 use Page\Acceptance\Administrator\ArticleManagerPage;
+use Page\Acceptance\Administrator\ArticleFormPage;
 
 /**
- * Article Tests
+ * Article Manager Tests
+ *
+ * @since    __DEPLOY_VERSION__
  */
-class ArticleCest
+class ArticleManagerCest
 {
-
-	/**
-	 * Titel of the dummy article
-	 *
-	 * @var string
-	 */
-	private $articleTitle = 'Article title';
-
-	/**
-	 * Content of the dummy article
-	 *
-	 * @var string
-	 */
-	private $articleContent = 'Article content';
-
-	/**
-	 * Accesss level of the dummy article
-	 *
-	 * @var string
-	 */
-	private $articleAccessLevel = 'Registered';
-
 	/**
 	 * Runs before every test
 	 *
@@ -67,10 +48,13 @@ class ArticleCest
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function createANewArticle(\Step\Acceptance\Administrator\Content $I)
+	public function createNewArticleUsingToolbarButton(\Step\Acceptance\Administrator\Content $I)
 	{
-		$I->wantToTest('that it is possible to create a new article.');
-		$I->createArticle($this->articleTitle, $this->articleContent);
+		$I->wantToTest('that it is possible to create a new articles using "new" toolbar button.');
+		$I->amOnPage(ArticleManagerPage::$url);
+		$I->waitForElement(ArticleManagerPage::$pageTitle);
+		$I->clickToolbarButton('New');
+		$I->seeInCurrentUrl(ArticleFormPage::$url);
 	}
 
 	public function Article(\Step\Acceptance\Administrator\Content $I)
