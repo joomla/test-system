@@ -3,7 +3,7 @@
  * @package     Joomla.Test
  * @subpackage  AcceptanceTester.Step
  *
- * @copyright   Copyright (C) 2005 - 2016 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -20,17 +20,29 @@ use Page\Acceptance\Administrator\ArticleManagerPage;
  */
 class Content extends Admin
 {
-
+	/**
+	 * Helper function to create a new Article
+	 *
+	 * @param   string  $title
+	 * @param   string  $body
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
 	public function createArticle($title, $body)
 	{
 		$I = $this;
 		$I->amOnPage(ArticleManagerPage::$url);
 		$I->waitForElement(ArticleManagerPage::$filterSearch, TIMEOUT);
 		$I->clickToolbarButton('New');
-		$this->articleManagerPage->fillContentCreateForm($title, $body);
+		$I->fillField(ArticleManagerPage::$title, $title);
+		$I->scrollTo(['css' => 'div.toggle-editor']);
+		$I->click(ArticleManagerPage::$toggleEditor);
+		$I->fillField(ArticleManagerPage::$content, $content);
 		$I->click(ArticleManagerPage::$dropDownToggle);
 		$I->clickToolbarButton('Save & Close');
 		$I->articleManagerPage->seeItemIsCreated($title);
+
+
 	}
 
 	public function featureArticle($title)

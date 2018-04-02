@@ -81,26 +81,4 @@ class ArticleManagerPage extends AdminPage
 	 * @since  __DEPLOY_VERSION__
 	 */
 	public static $seeUnpublished = ['xpath' => "//table[@id='articleList']//*//span[@class='icon-unpublish']"];
-
-	/**
-	 * Method to create new article
-	 *
-	 * @param   string  $title    The article title
-	 * @param   string  $content  The article content
-	 *
-	 * @When    I create new content with field title as :title and content as a :content
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 *
-	 * @return  void
-	 */
-	public function fillContentCreateForm($title, $content)
-	{
-		$I = $this;
-
-		$I->fillField(self::$title, $title);
-		$I->scrollTo(['css' => 'div.toggle-editor']);
-		$I->click(self::$toggleEditor);
-		$I->fillField(self::$content, $content);
-	}
 }
