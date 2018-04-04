@@ -60,7 +60,7 @@ class JoomlaDb extends Db
 	}
 
 	/**
-	 * Ass an entry in the database
+	 * See an entry in the database
 	 *
 	 * @param   string  $table     Table
 	 * @param   array   $criteria  Criteria
