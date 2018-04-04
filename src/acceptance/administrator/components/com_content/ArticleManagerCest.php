@@ -6,8 +6,9 @@
  * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
-use Page\Acceptance\Administrator\ArticleManagerPage;
+
 use Page\Acceptance\Administrator\ArticleFormPage;
+use Page\Acceptance\Administrator\ArticleManagerPage;
 
 /**
  * Article Manager Tests
@@ -57,11 +58,33 @@ class ArticleManagerCest
 		$I->seeInCurrentUrl(ArticleFormPage::$url);
 	}
 
+	/**
+	 * Test display articles
+	 *
+	 * @param   \Step\Acceptance\Administrator\Content $I
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function seeArticlesInList(\Step\Acceptance\Administrator\Content $I)
+	{
+		$I->wantToTest('that articles are displayed in the list.');
+
+		$I->haveInDatabase('content', [
+			'title'     => 'Test Article',
+			'introtext' => 'Test Article Introtext',
+			'fulltext'  => 'Test Article Fulltext',
+			'state'     => 1,
+		]);
+
+		$I->amOnPage(ArticleManagerPage::$url);
+		$I->see('Test Article');
+	}
+
 	public function Article(\Step\Acceptance\Administrator\Content $I)
 	{
-		$I->featureArticle($this->articleTitle);
-		$I->setArticleAccessLevel($this->articleTitle, $this->articleAccessLevel);
-		$I->unPublishArticle($this->articleTitle);
-		$I->trashArticle($this->articleTitle);
+//		$I->featureArticle($this->articleTitle);
+//		$I->setArticleAccessLevel($this->articleTitle, $this->articleAccessLevel);
+//		$I->unPublishArticle($this->articleTitle);
+//		$I->trashArticle($this->articleTitle);
 	}
 }
