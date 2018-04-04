@@ -43,7 +43,7 @@ class JoomlaDb extends Db
 
 	/**
 	 * Inserts an SQL record into a database. This record will be
-	 * erased after the test.
+	 * erased after each test.
 	 *
 	 * @param   string  $table  Table
 	 * @param   array   $data   Data
@@ -60,7 +60,7 @@ class JoomlaDb extends Db
 	}
 
 	/**
-	 * Find an entry in the database
+	 * See an entry in the database
 	 *
 	 * @param   string  $table     Table
 	 * @param   array   $criteria  Criteria
@@ -69,7 +69,7 @@ class JoomlaDb extends Db
 	 *
 	 * @since   3.7.3
 	 */
-	public function findInDatabase($table, $criteria = [])
+	public function seeInDatabase($table, $criteria = [])
 	{
 		$table = $this->addPrefix($table);
 

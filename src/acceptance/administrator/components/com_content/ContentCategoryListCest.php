@@ -9,11 +9,13 @@
 use Step\Acceptance\Administrator\Category as CategoryStep;
 use Page\Acceptance\Administrator\CategoryManagerPage;
 
-class CategoryCest
+/**
+ * Tests for com_content category list view
+ */
+class ContentCategoryListCest
 {
 	public function __construct()
 	{
-		$this->articleTitle = "Article One";
 		$this->categoryTitle = 'Category title';
 	}
 

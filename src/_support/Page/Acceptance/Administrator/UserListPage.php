@@ -10,13 +10,13 @@
 namespace Page\Acceptance\Administrator;
 
 /**
- * Acceptance Page object class to define user manager page objects.
+ * Acceptance Page object class to user list page.
  *
  * @package  Page\Acceptance\Administrator
  *
  * @since    3.7.3
  */
-class UserManagerPage extends AdminPage
+class UserListPage extends AdminListPage
 {
 	/**
 	 * Url to user manager listing page.

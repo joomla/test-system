@@ -7,9 +7,9 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-use Page\Acceptance\Administrator\MenuManagerPage as MenuPage;
-use Page\Acceptance\Administrator\MenuEditPage as EditPage;
-use Page\Acceptance\Administrator\AdminPage as AdminPage;
+use Page\Acceptance\Administrator\MenuListPage;
+use Page\Acceptance\Administrator\MenuFormPage;
+use Page\Acceptance\Administrator\AdminPage;
 
 /**
  * Administrator Menu Tests
@@ -32,22 +32,21 @@ class MenuCest
 		$I->comment('I am going to create a menu');
 		$I->doAdministratorLogin();
 
-		$I->amOnPage(MenuPage::$url);
+		$I->amOnPage(MenuListPage::$url);
 		$I->checkForPhpNoticesOrWarnings();
 
-		$I->waitForText(MenuPage::$pageTitleText);
+		$I->waitForText(MenuListPage::$pageTitleText);
 		$I->click(['id' => "menu-collapse"]);
 
 		$I->clickToolbarButton('new');
-		$I->waitForText(EditPage::$pageTitleText);
+		$I->waitForText(MenuFormPage::$pageTitleText);
 		$I->checkForPhpNoticesOrWarnings();
 
 		$this->fillMenuInformation($I, 'Test Menu');
 
 		$I->clickToolbarButton('save');
-		$I->waitForText(MenuPage::$pageTitleText);
+		$I->waitForText(MenuListPage::$pageTitleText);
 		$I->checkForPhpNoticesOrWarnings();
-
 	}
 
 
@@ -65,8 +64,8 @@ class MenuCest
 	 */
 	protected function fillMenuInformation($I, $title, $type = 'Test', $description = 'Automated Testing')
 	{
-		$I->fillField(EditPage::$fieldTitle, $title);
-		$I->fillField(EditPage::$fieldMenuType, $type);
-		$I->fillField(EditPage::$fieldMenuDescription, $description);
+		$I->fillField(MenuFormPage::$fieldTitle, $title);
+		$I->fillField(MenuFormPage::$fieldMenuType, $type);
+		$I->fillField(MenuFormPage::$fieldMenuDescription, $description);
 	}
 }

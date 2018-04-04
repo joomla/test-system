@@ -9,6 +9,7 @@ modules:
         - Asserts
         - JoomlaBrowser
         - Helper\Acceptance
+        - Helper\JoomlaDb
     config:
         JoomlaBrowser:
             url: 'http://localhost/test-install'     # the url that points to the joomla installation at /tests/system/joomla-cms
@@ -29,6 +30,11 @@ modules:
             sample data: 'Default English (GB) Sample Data'    # Default Sample Data
             admin email: 'admin@mydomain.com'      # email Id of the Admin
             language: 'English (United Kingdom)'   # Language in which you want the Application to be Installed
+        Helper\JoomlaDb:
+            dsn: 'mysql:host=127.0.0.1;dbname=test_joomla'
+            user: 'root'
+            password: 'joomla_ut'
+            prefix: 'jos_'
         Helper\Acceptance:
             url: 'http://localhost/test-install'   # the url that points to the joomla installation at /tests/system/joomla-cms - we need it twice here
             MicrosoftEdgeInsiders: false           # set this to true, if you are on Windows Insiders

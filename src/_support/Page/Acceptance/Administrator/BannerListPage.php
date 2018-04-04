@@ -9,13 +9,13 @@
 namespace Page\Acceptance\Administrator;
 
 /**
- * Acceptance Page object class to define Control Panel page objects.
+ * Acceptance Page object class for banner list page.
  *
  * @package  Page\Acceptance\Administrator
  *
  * @since    __DEPLOY_VERSION__
  */
-class BannerManagerPage extends AdminPage
+class BannerListPage extends AdminListPage
 {
 	public static $url = "/administrator/index.php?option=com_banners";
 
