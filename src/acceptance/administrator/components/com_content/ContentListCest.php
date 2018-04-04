@@ -7,15 +7,15 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-use Page\Acceptance\Administrator\ArticleFormPage;
-use Page\Acceptance\Administrator\ArticleManagerPage;
+use Page\Acceptance\Administrator\ContentFormPage;
+use Page\Acceptance\Administrator\ContentListPage;
 
 /**
- * Article Manager Tests
+ * Tests for com_content list view
  *
  * @since    __DEPLOY_VERSION__
  */
-class ArticleManagerCest
+class ContentListCest
 {
 	/**
 	 * Runs before every test
@@ -37,8 +37,8 @@ class ArticleManagerCest
 	public function loadsWithoutPhpNoticesAndWarnings(AcceptanceTester $I)
 	{
 		$I->wantToTest('that it loads without php notices and warnings.');
-		$I->amOnPage(ArticleManagerPage::$url);
-		$I->waitForElement(ArticleManagerPage::$filterSearch);
+		$I->amOnPage(ContentListPage::$url);
+		$I->waitForElement(ContentListPage::$filterSearch);
 		$I->checkForPhpNoticesOrWarnings();
 	}
 
@@ -52,10 +52,10 @@ class ArticleManagerCest
 	public function createNewArticleUsingToolbarButton(\Step\Acceptance\Administrator\Content $I)
 	{
 		$I->wantToTest('that it is possible to create a new articles using "new" toolbar button.');
-		$I->amOnPage(ArticleManagerPage::$url);
-		$I->waitForElement(ArticleManagerPage::$pageTitle);
+		$I->amOnPage(ContentListPage::$url);
+		$I->waitForElement(ContentListPage::$pageTitle);
 		$I->clickToolbarButton('New');
-		$I->seeInCurrentUrl(ArticleFormPage::$url);
+		$I->seeInCurrentUrl(ContentFormPage::$url);
 	}
 
 	/**
@@ -76,7 +76,7 @@ class ArticleManagerCest
 		];
 		$I->haveInDatabase('content', $testArticle);
 
-		$I->amOnPage(ArticleManagerPage::$url);
+		$I->amOnPage(ContentListPage::$url);
 		$I->see($testArticle['title']);
 		$I->see('Alias: ' . $testArticle['alias']);
 	}
@@ -107,7 +107,7 @@ class ArticleManagerCest
 //		];
 //		$I->haveInDatabase('content', $testArticle);
 //
-//		$I->amOnPage(ArticleManagerPage::$url);
+//		$I->amOnPage(ContentListPage::$url);
 //		$I->see($testArticle['title']);
 //		$I->see('Alias: ' . $testArticle['alias']);
 //	}

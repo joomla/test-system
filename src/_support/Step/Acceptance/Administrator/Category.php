@@ -10,9 +10,7 @@
 namespace Step\Acceptance\Administrator;
 
 use Behat\Gherkin\Node\TableNode;
-use Page\Acceptance\Administrator\CategoryManagerPage;
-use Page\Acceptance\Administrator\MenuManagerPage;
-use Page\Acceptance\Site\FrontPage;
+use Page\Acceptance\Administrator\ContentCategoryListPage;
 
 /**
  * Acceptance Step object class contains suits for Category Manager.
@@ -26,13 +24,17 @@ class Category extends Admin
 
 	public function createContentCategory($title)
 	{
-		$this->amOnPage(CategoryManagerPage::$url);
+		$this->amOnPage(ContentCategoryListPage::$url);
 		$this->waitForText("Articles: Categories", TIMEOUT, "//h1");
 		$this->clickToolbarButton("New");
-		$this->waitForElement(CategoryManagerPage::$title);
-		$this->fillField(CategoryManagerPage::$title, $title);
-		$this->click(CategoryManagerPage::$dropDownToggle);
+		$this->waitForElement(ContentCategoryListPage::$title);
+		$this->fillField(ContentCategoryListPage::$title, $title);
+		$this->click(ContentCategoryListPage::$dropDownToggle);
 		$this->clickToolbarButton("Save & Close");
-		$this->categoryManagerPage->seeItemIsCreated($title);
+		// Qucikfix: we need to refactor the test
+		$this->seeInDatabase('categories', [
+			'title' => $title,
+			'extension' => 'com_content',
+		]);
 	}
 }

@@ -10,16 +10,14 @@
 namespace Page\Acceptance\Administrator;
 
 /**
- * Acceptance Page object class to define category manager page objects.
+ * Acceptance Page object for content category list page.
  *
  * @package  Page\Acceptance\Administrator
  *
  * @since    __DEPLOY_VERSION__
  */
-class CategoryManagerPage extends AdminPage
+class ContentCategoryListPage extends AdminListPage
 {
-	public static $dropDownToggle = ['xpath' => "//button[contains(@class, 'dropdown-toggle')]"];
-
 	/**
 	 * Link to the article category listing url.
 	 *
@@ -27,6 +25,8 @@ class CategoryManagerPage extends AdminPage
 	 * @since  __DEPLOY_VERSION__
 	 */
 	public static $url = '/administrator/index.php?option=com_categories&view=categories&extension=com_content';
+
+	public static $dropDownToggle = ['xpath' => "//button[contains(@class, 'dropdown-toggle')]"];
 
 	/**
 	 * Locator for category name field

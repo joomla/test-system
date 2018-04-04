@@ -7,7 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-use Page\Acceptance\Administrator;
+use Page\Acceptance\UserListPage;
 
 /**
  * Administrator User Tests
@@ -40,21 +40,21 @@ class UserCest
 		$I->doAdministratorLogin();
 		$this->toggleSendMail($I);
 
-		$I->amOnPage(Administrator\UserManagerPage::$url);
+		$I->amOnPage(UserListPage::$url);
 		$I->checkForPhpNoticesOrWarnings();
 
-		$I->waitForText(Administrator\UserManagerPage::$pageTitleText);
+		$I->waitForText(UserListPage::$pageTitleText);
 
-		$I->click(Administrator\UserManagerPage::$newButton);
+		$I->click(UserListPage::$newButton);
 
-		$I->waitForElement(Administrator\UserManagerPage::$accountDetailsTab);
+		$I->waitForElement(UserListPage::$accountDetailsTab);
 		$I->checkForPhpNoticesOrWarnings();
 
 		$this->fillUserForm($I, $this->name, $this->username, $this->password, $this->email);
 
 		$I->clickToolbarButton("Save");
-		$I->waitForText(Administrator\UserManagerPage::$pageTitleText);
-		$I->see(Administrator\UserManagerPage::$successMessage, Administrator\AdminPage::$systemMessageContainer);
+		$I->waitForText(UserListPage::$pageTitleText);
+		$I->see(UserListPage::$successMessage, AdminPage::$systemMessageContainer);
 
 		$I->checkForPhpNoticesOrWarnings();
 	}
@@ -75,21 +75,21 @@ class UserCest
 		$I->comment('I am going to edit a user');
 		$I->doAdministratorLogin();
 
-		$I->amOnPage(Administrator\UserManagerPage::$url);
-		$I->waitForText(Administrator\UserManagerPage::$pageTitleText);
+		$I->amOnPage(UserListPage::$url);
+		$I->waitForText(UserListPage::$pageTitleText);
 
-		$I->click(Administrator\UserManagerPage::$userCheckbox);
+		$I->click(UserListPage::$userCheckbox);
 		$I->click($this->name);
 
-		$I->waitForElement(Administrator\UserManagerPage::$accountDetailsTab);
+		$I->waitForElement(UserListPage::$accountDetailsTab);
 		$I->checkForPhpNoticesOrWarnings();
 
 		$this->fillUserForm($I, $this->name, $this->username, $this->password, $this->email);
 
 		$I->clickToolbarButton("Save");
-		$I->waitForText(Administrator\UserManagerPage::$pageTitleText);
+		$I->waitForText(UserListPage::$pageTitleText);
 
-		$I->see(Administrator\UserManagerPage::$successMessage, Administrator\AdminPage::$systemMessageContainer);
+		$I->see(UserListPage::$successMessage, AdminPage::$systemMessageContainer);
 		$I->checkForPhpNoticesOrWarnings();
 	}
 
@@ -108,13 +108,13 @@ class UserCest
 	 */
 	protected function fillUserForm($I, $name, $username, $password, $email)
 	{
-		$I->click(Administrator\UserManagerPage::$accountDetailsTab);
-		$I->waitForElementVisible(Administrator\UserManagerPage::$nameField, 30);
-		$I->fillField(Administrator\UserManagerPage::$nameField, $name);
-		$I->fillField(Administrator\UserManagerPage::$usernameField, $username);
-		$I->fillField(Administrator\UserManagerPage::$passwordField, $password);
-		$I->fillField(Administrator\UserManagerPage::$password2Field, $password);
-		$I->fillField(Administrator\UserManagerPage::$emailField, $email);
+		$I->click(UserListPage::$accountDetailsTab);
+		$I->waitForElementVisible(UserListPage::$nameField, 30);
+		$I->fillField(UserListPage::$nameField, $name);
+		$I->fillField(UserListPage::$usernameField, $username);
+		$I->fillField(UserListPage::$passwordField, $password);
+		$I->fillField(UserListPage::$password2Field, $password);
+		$I->fillField(UserListPage::$emailField, $email);
 	}
 	
 	/**

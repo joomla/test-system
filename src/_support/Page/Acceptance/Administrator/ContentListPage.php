@@ -10,13 +10,13 @@
 namespace Page\Acceptance\Administrator;
 
 /**
- * Acceptance Page object class to define Content Manager page objects.
+ * Acceptance Page object class for article list page.
  *
  * @package  Page\Acceptance\Administrator
  *
  * @since    __DEPLOY_VERSION__
  */
-class ArticleManagerPage extends AdminPage
+class ContentListPage extends AdminListPage
 {
 	/**
 	 * Link to the article listing page.

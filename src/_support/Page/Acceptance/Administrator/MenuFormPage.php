@@ -10,13 +10,13 @@
 namespace Page\Acceptance\Administrator;
 
 /**
- * Acceptance Page object class to menu objects.
+ * Acceptance Page object for menu form pages.
  *
  * @package  Page\Acceptance\Administrator
  *
  * @since    __DEPLOY_VERSION__
  */
-class MenuEditPage extends AdminPage
+class MenuFormPage extends AdminFormPage
 {
 	/**
 	 * Url to menu create page.

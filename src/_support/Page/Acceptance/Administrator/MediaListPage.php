@@ -10,13 +10,13 @@
 namespace Page\Acceptance\Administrator;
 
 /**
- * Acceptance Page object class to media manager page objects.
+ * Acceptance Page object class for media manager list page.
  *
  * @package  Page\Acceptance\Administrator
  *
  * @since    __DEPLOY_VERSION__
  */
-class MediaManagerPage extends AdminPage
+class MediaListPage extends AdminListPage
 {
 	/**
 	 * Url to media manager listing page.

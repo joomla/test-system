@@ -1,7 +1,7 @@
 <?php namespace Step\Acceptance\Administrator;
 
 use Codeception\Util\FileSystem as Util;
-use Page\Acceptance\Administrator\MediaManagerPage;
+use Page\Acceptance\Administrator\MediaListPage;
 
 /**
  * Acceptance Step object class contains suits for Media Manager.
@@ -20,8 +20,8 @@ class Media extends Admin
 	public function waitForMediaLoaded()
 	{
 		$I = $this;
-		$I->waitForElement(MediaManagerPage::$loader);
-		$I->waitForElementNotVisible(MediaManagerPage::$loader);
+		$I->waitForElement(MediaListPage::$loader);
+		$I->waitForElementNotVisible(MediaListPage::$loader);
 		// Add a small timeout to wait for rendering (otherwise it will fail when executed in headless browser)
 		$I->wait(0.2);
 	}
@@ -36,10 +36,10 @@ class Media extends Admin
 	public function seeContents(array $contents = [])
 	{
 		$I = $this;
-		$I->seeElement(MediaManagerPage::$items);
+		$I->seeElement(MediaListPage::$items);
 		foreach ($contents as $content)
 		{
-			$I->seeElement(MediaManagerPage::item($content));
+			$I->seeElement(MediaListPage::item($content));
 		}
 	}
 
@@ -53,8 +53,8 @@ class Media extends Admin
 	public function uploadFile($fileName)
 	{
 		$I = $this;
-		$I->seeElementInDOM(MediaManagerPage::$fileInputField);
-		$I->attachFile(MediaManagerPage::$fileInputField, $fileName);
+		$I->seeElementInDOM(MediaListPage::$fileInputField);
+		$I->attachFile(MediaListPage::$fileInputField, $fileName);
 	}
 
 	/**
@@ -63,6 +63,8 @@ class Media extends Admin
 	 * @param  string $path
 	 *
 	 * @since   __DEPLOY_VERSION__
+	 *
+	 * @todo extract to JoomlaFilesystem
 	 */
 	public function deleteFile($path)
 	{
@@ -82,6 +84,8 @@ class Media extends Admin
 	 * @param   string $dirname
 	 *
 	 * @since   __DEPLOY_VERSION__
+	 *
+	 * @todo extract to JoomlaFilesystem
 	 */
 	public function createDirectory($dirname)
 	{
@@ -97,6 +101,8 @@ class Media extends Admin
 	 * @param   string $dirname
 	 *
 	 * @since   __DEPLOY_VERSION__
+	 *
+	 * @todo extract to JoomlaFilesystem
 	 */
 	public function deleteDirectory($dirname)
 	{
@@ -116,7 +122,7 @@ class Media extends Admin
 	public function clickOnLinkInTree($link)
 	{
 		$I = $this;
-		$I->click($link, MediaManagerPage::$mediaTree);
+		$I->click($link, MediaListPage::$mediaTree);
 	}
 
 	/**
@@ -129,7 +135,7 @@ class Media extends Admin
 	public function clickOnLinkInBreadcrumb($link)
 	{
 		$I = $this;
-		$I->click($link, MediaManagerPage::$mediaBreadcrumb);
+		$I->click($link, MediaListPage::$mediaBreadcrumb);
 	}
 
 	/**
@@ -142,8 +148,8 @@ class Media extends Admin
 	public function openActionsMenuOf($itemName)
 	{
 		$I       = $this;
-		$toggler = MediaManagerPage::itemActionMenuToggler($itemName);
-		$I->moveMouseOver(MediaManagerPage::item($itemName));
+		$toggler = MediaListPage::itemActionMenuToggler($itemName);
+		$I->moveMouseOver(MediaListPage::item($itemName));
 		$I->seeElement($toggler);
 		$I->click($toggler);
 	}
@@ -159,7 +165,7 @@ class Media extends Admin
 	public function clickOnActionInMenuOf($itemName, $actionName)
 	{
 		$I      = $this;
-		$action = MediaManagerPage::itemAction($itemName, $actionName);
+		$action = MediaListPage::itemAction($itemName, $actionName);
 		$I->openActionsMenuOf($itemName);
 		$I->waitForElementVisible($action);
 		$I->click($action);
@@ -175,11 +181,11 @@ class Media extends Admin
 		$I = $this;
 		try
 		{
-			$I->seeElement(MediaManagerPage::$infoBar);
+			$I->seeElement(MediaListPage::$infoBar);
 		}
 		catch (\Exception $e)
 		{
-			$I->click(MediaManagerPage::$toggleInfoBarButton);
+			$I->click(MediaListPage::$toggleInfoBarButton);
 		}
 	}
 
@@ -193,8 +199,8 @@ class Media extends Admin
 		$I = $this;
 		try
 		{
-			$I->seeElement(MediaManagerPage::$infoBar);
-			$I->click(MediaManagerPage::$toggleInfoBarButton);
+			$I->seeElement(MediaListPage::$infoBar);
+			$I->click(MediaListPage::$toggleInfoBarButton);
 		}
 		catch (\Exception $e)
 		{
@@ -229,6 +235,8 @@ class Media extends Admin
 	 * @param   string $path
 	 *
 	 * @since   __DEPLOY_VERSION__
+	 *
+	 * @todo extract to JoomlaFilesystem
 	 *
 	 * @return string
 	 */

@@ -10,13 +10,13 @@
 namespace Page\Acceptance\Administrator;
 
 /**
- * Acceptance Page object class to define Content Manager page objects.
+ * Acceptance Page object class for content form page.
  *
  * @package  Page\Acceptance\Administrator
  *
  * @since    __DEPLOY_VERSION__
  */
-class ArticleFormPage extends AdminPage
+class ContentFormPage extends AdminFormPage
 {
 	/**
 	 * Link to the article form page.
