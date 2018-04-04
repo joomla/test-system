@@ -277,13 +277,13 @@ class MediaListCest
 	}
 
 	/**
-	 * Test the upload of a single file using toolbar button.
+	 * Test the create folder using toolbar button.
 	 *
 	 * @param   \Step\Acceptance\Administrator\Media $I Acceptance Helper Object
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function createFolderUsingToolbar(\Step\Acceptance\Administrator\Media $I)
+	public function createFolderUsingToolbarButton(\Step\Acceptance\Administrator\Media $I)
 	{
 		$testFolderName = 'test-folder';
 
@@ -362,8 +362,8 @@ class MediaListCest
 		$testFolderItem = MediaListPage::item($testfolderName);
 
 		$I->wantToTest('that it is possible to delete a single folder.');
-		$I->amOnPage(MediaListPage::$url . $this->testDirectory);
 		$I->createDirectory('images/' . $this->testDirectory . '/' . $testfolderName);
+		$I->amOnPage(MediaListPage::$url . $this->testDirectory);
 		$I->waitForElement($testFolderItem);
 		$I->click($testFolderItem);
 		$I->click(MediaListPage::$toolbarDeleteButton);
@@ -474,8 +474,8 @@ class MediaListCest
 		$testFolderItem = MediaListPage::item($testFolderName);
 
 		$I->wantToTest('that it is possible to rename a folder.');
-		$I->amOnPage(MediaListPage::$url . $this->testDirectory);
 		$I->createDirectory('images/' . $this->testDirectory . '/' . $testFolderName);
+		$I->amOnPage(MediaListPage::$url . $this->testDirectory);
 		$I->waitForElement($testFolderItem);
 		$I->clickOnActionInMenuOf($testFolderName, MediaListPage::$renameAction);
 		$I->waitForElement(MediaListPage::$renameInputField);
@@ -507,8 +507,9 @@ class MediaListCest
 		$I->wantToTest('that it is not possible to rename a folder to a foldername of an existing folder.');
 		$I->amOnPage(MediaListPage::$url . $this->testDirectory);
 		$I->createDirectory('images/' . $this->testDirectory . '/' . $testFolderName1);
-		$I->waitForElement($testFolderItem1);
 		$I->createDirectory('images/' . $this->testDirectory . '/' . $testFolderName2);
+		$I->amOnPage(MediaListPage::$url . $this->testDirectory);
+		$I->waitForElement($testFolderItem1);
 		$I->waitForElement($testFolderItem2);
 		$I->clickOnActionInMenuOf($testFolderName2, MediaListPage::$renameAction);
 		$I->seeElement(MediaListPage::$renameInputField);
