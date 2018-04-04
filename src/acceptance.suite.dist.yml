@@ -31,7 +31,7 @@ modules:
             admin email: 'admin@mydomain.com'      # email Id of the Admin
             language: 'English (United Kingdom)'   # Language in which you want the Application to be Installed
         Helper\JoomlaDb:
-            dsn: 'mysql:host=127.0.0.1;dbname=test_joomla'
+            dsn: 'mysql:host=mysql;dbname=test_joomla'
             user: 'root'
             password: 'joomla_ut'
             prefix: 'jos_'
