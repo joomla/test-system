@@ -28,13 +28,13 @@ class UserListCest
 	/**
 	 * Create a user
 	 *
-	 * @param   AcceptanceTester  $I  The AcceptanceTester Object
+	 * @param   \Step\Acceptance\Administrator\Admin  $I The AcceptanceTester Object
 	 *
 	 * @since   3.7.3
 	 *
 	 * @return  void
 	 */
-	public function createUser(\AcceptanceTester $I)
+	public function createUser(\Step\Acceptance\Administrator\Admin $I)
 	{
 		$I->comment('I am going to create a user');
 		$I->doAdministratorLogin();
@@ -54,7 +54,7 @@ class UserListCest
 
 		$I->clickToolbarButton("Save");
 		$I->waitForText(UserListPage::$pageTitleText);
-		$I->see(UserListPage::$successMessage, AdminPage::$systemMessageContainer);
+		$I->seeSystemMessage(UserListPage::$successMessage);
 
 		$I->checkForPhpNoticesOrWarnings();
 	}
@@ -62,7 +62,7 @@ class UserListCest
 	/**
 	 * Edit a user
 	 *
-	 * @param   AcceptanceTester  $I  The AcceptanceTester Object
+	 * @param   \Step\Acceptance\Administrator\Admin $I  The AcceptanceTester Object
 	 *
 	 * @since   3.7.3
 	 *
@@ -70,7 +70,7 @@ class UserListCest
 	 *
 	 * @return  void
 	 */
-	public function editUser(\AcceptanceTester $I)
+	public function editUser(\Step\Acceptance\Administrator\Admin $I)
 	{
 		$I->comment('I am going to edit a user');
 		$I->doAdministratorLogin();
@@ -89,7 +89,7 @@ class UserListCest
 		$I->clickToolbarButton("Save");
 		$I->waitForText(UserListPage::$pageTitleText);
 
-		$I->see(UserListPage::$successMessage, AdminPage::$systemMessageContainer);
+		$I->seeSystemMessage(UserListPage::$successMessage);
 		$I->checkForPhpNoticesOrWarnings();
 	}
 
