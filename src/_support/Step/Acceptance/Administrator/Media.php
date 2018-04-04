@@ -205,7 +205,7 @@ class Media extends Admin
 		catch (\Exception $e)
 		{
 			$I->click(MediaListPage::$toggleInfoBarButton);
-			$I->waitForElementVisible(MediaManagerPage::$infoBar);
+			$I->waitForElementVisible(MediaListPage::$infoBar);
 		}
 	}
 
@@ -221,7 +221,7 @@ class Media extends Admin
 		{
 			$I->seeElement(MediaListPage::$infoBar);
 			$I->click(MediaListPage::$toggleInfoBarButton);
-			$I->waitForElementNotVisible(MediaManagerPage::$infoBar);
+			$I->waitForElementNotVisible(MediaListPage::$infoBar);
 		}
 		catch (\Exception $e)
 		{
