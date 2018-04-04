@@ -7,14 +7,14 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-use Page\Acceptance\UserListPage;
+use Page\Acceptance\Administrator\UserListPage;
 
 /**
  * Administrator User Tests
  *
  * @since  3.7.3
  */
-class UserCest
+class UserListCest
 {
 
 	public function __construct()
