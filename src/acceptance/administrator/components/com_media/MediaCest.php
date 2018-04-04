@@ -360,8 +360,8 @@ class MediaCest
 		$testFolderItem = MediaManagerPage::item($testfolderName);
 
 		$I->wantToTest('that it is possible to delete a single folder.');
-		$I->amOnPage(MediaManagerPage::$url . $this->testDirectory);
 		$I->createDirectory('images/' . $this->testDirectory . '/' . $testfolderName);
+		$I->amOnPage(MediaManagerPage::$url . $this->testDirectory);
 		$I->waitForElement($testFolderItem);
 		$I->click($testFolderItem);
 		$I->click(MediaManagerPage::$toolbarDeleteButton);
@@ -472,8 +472,8 @@ class MediaCest
 		$testFolderItem = MediaManagerPage::item($testFolderName);
 
 		$I->wantToTest('that it is possible to rename a folder.');
-		$I->amOnPage(MediaManagerPage::$url . $this->testDirectory);
 		$I->createDirectory('images/' . $this->testDirectory . '/' . $testFolderName);
+		$I->amOnPage(MediaManagerPage::$url . $this->testDirectory);
 		$I->waitForElement($testFolderItem);
 		$I->clickOnActionInMenuOf($testFolderName, MediaManagerPage::$renameAction);
 		$I->waitForElement(MediaManagerPage::$renameInputField);
@@ -503,10 +503,10 @@ class MediaCest
 		$testFolderItem2 = MediaManagerPage::item($testFolderName2);
 
 		$I->wantToTest('that it is not possible to rename a folder to a foldername of an existing folder.');
-		$I->amOnPage(MediaManagerPage::$url . $this->testDirectory);
 		$I->createDirectory('images/' . $this->testDirectory . '/' . $testFolderName1);
-		$I->waitForElement($testFolderItem1);
 		$I->createDirectory('images/' . $this->testDirectory . '/' . $testFolderName2);
+		$I->amOnPage(MediaManagerPage::$url . $this->testDirectory);
+		$I->waitForElement($testFolderItem1);
 		$I->waitForElement($testFolderItem2);
 		$I->clickOnActionInMenuOf($testFolderName2, MediaManagerPage::$renameAction);
 		$I->seeElement(MediaManagerPage::$renameInputField);

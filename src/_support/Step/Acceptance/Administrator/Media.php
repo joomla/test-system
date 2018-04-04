@@ -21,15 +21,18 @@ class Media extends Admin
 	public function waitForMediaLoaded()
 	{
 		$I = $this;
-		try {
-			$I->waitForElement(MediaManagerPage::$loader, 5);
-			$I->waitForElementNotVisible(MediaManagerPage::$loader, 5);
+		try
+		{
+			$I->waitForElement(MediaManagerPage::$loader, 3);
+			$I->waitForElementNotVisible(MediaManagerPage::$loader);
 			// Add a small timeout to wait for rendering (otherwise it will fail when executed in headless browser)
 			$I->wait(0.2);
-		} catch (NoSuchElementException $e) {
-			// Continue if we cant find the loader within 5 seconds.
-			// In most cases this means that the loader appeared and disappeared so quickly, that selenium was not able to notice it.
-			// Unfortunately we currently dont have any better technique to detect when vue components are loaded/upaded
+		}
+		catch (NoSuchElementException $e)
+		{
+			// Continue if we cant find the loader within 3 seconds.
+			// In most cases this means that the loader disappeared so quickly, that selenium was not able to see it.
+			// Unfortunately we currently dont have any better technique to detect when vue components are loaded/updated
 		}
 	}
 
@@ -84,17 +87,26 @@ class Media extends Admin
 	}
 
 	/**
-	 * Deletes directory with all subdirectories
+	 * Create a new directory on filesystem
 	 *
-	 * @param   string $dirname
+	 * @param   string  $dirname
+	 * @param   integer $mode
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function createDirectory($dirname)
+	public function createDirectory($dirname, $mode = 0755)
 	{
 		$I            = $this;
 		$absolutePath = $this->absolutizePath($dirname);
-		@mkdir($absolutePath);
+		$oldUmask     = @umask(0);
+		@mkdir($absolutePath, $mode, true);
+		// This was adjusted to make drone work: codeception is executed as root, joomla runs as www-data
+		// so we have to run chown after creating new directpries
+		if (!empty($user = $this->getLocalUser()))
+		{
+			@chown($absolutePath, $user);
+		}
+		@umask($oldUmask);
 		$I->comment('Created ' . $absolutePath);
 	}
 
@@ -187,6 +199,7 @@ class Media extends Admin
 		catch (\Exception $e)
 		{
 			$I->click(MediaManagerPage::$toggleInfoBarButton);
+			$I->waitForElementVisible(MediaManagerPage::$infoBar);
 		}
 	}
 
@@ -202,6 +215,7 @@ class Media extends Admin
 		{
 			$I->seeElement(MediaManagerPage::$infoBar);
 			$I->click(MediaManagerPage::$toggleInfoBarButton);
+			$I->waitForElementNotVisible(MediaManagerPage::$infoBar);
 		}
 		catch (\Exception $e)
 		{
@@ -241,11 +255,37 @@ class Media extends Admin
 	 */
 	protected function absolutizePath($path)
 	{
+		return rtrim($this->getCmsPath(), '/') . '/' . ltrim($path, '/');
+	}
+
+	/**
+	 * Get the local user from the configuration from suite configuration
+	 *
+	 * @return string
+	 */
+	protected function getLocalUser()
+	{
 		try
 		{
-			$cmsPath = $this->getSuiteConfiguration()['modules']['config']['Helper\Acceptance']['cmsPath'];
+			return $this->getSuiteConfiguration()['modules']['config']['Helper\Acceptance']['localUser'];
+		}
+		catch (\Exception $e)
+		{
+			return '';
+		}
+	}
 
-			return rtrim($cmsPath, '/') . '/' . ltrim($path, '/');
+	/**
+	 * Get thee cms path from suite configuration
+	 *
+	 * @return string
+	 * @throws \Exception
+	 */
+	protected function getCmsPath()
+	{
+		try
+		{
+			return $this->getSuiteConfiguration()['modules']['config']['Helper\Acceptance']['cmsPath'];
 		}
 		catch (\Exception $e)
 		{
