@@ -55,7 +55,7 @@ class ContentListPage extends AdminListPage
 	}
 
 	/**
-	 * Dynamic locator for article item checkbox
+	 * Dynamic locator for inline publish button
 	 *
 	 * @var    string $title
 	 *
@@ -66,6 +66,20 @@ class ContentListPage extends AdminListPage
 	public static function itemPublishButton($title)
 	{
 		return self::itemXpath($title) . '//a[contains(@class, \'data-state-0\')]';
+	}
+
+	/**
+	 * Dynamic locator for inline unpublish button
+	 *
+	 * @var    string $title
+	 *
+	 * @since  __DEPLOY_VERSION__
+	 *
+	 * @return string
+	 */
+	public static function itemUnPublishButton($title)
+	{
+		return self::itemXpath($title) . '//a[contains(@class, \'data-state-1\')]';
 	}
 
 	/**

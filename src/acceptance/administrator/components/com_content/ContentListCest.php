@@ -115,7 +115,7 @@ class ContentListCest
 	 */
 	public function publishArticleUsingInlineButton(\Step\Acceptance\Administrator\Content $I)
 	{
-		$I->wantToTest('that its possible to publish an article using the toolbar publish button');
+		$I->wantToTest('that its possible to publish an article using the inline publish button');
 
 		$testArticle = $this->article(['state' => 0]);
 		$I->haveInDatabase($this->tableName, $testArticle);
@@ -126,8 +126,46 @@ class ContentListCest
 		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['state' => 1]));
 	}
 
-	// TODO unpublish article using toolbar button
-	// TODO unpublish article using inline button
+	/**
+	 * Test unpublish an article using the toolbar publish button
+	 *
+	 * @param   \Step\Acceptance\Administrator\Content $Iw
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function unpublishArticleUsingToolbarButton(\Step\Acceptance\Administrator\Content $I)
+	{
+		$I->wantToTest('that its possible to unpublish an article using the toolbar publish button');
+
+		$testArticle = $this->article(['state' => 1]);
+		$I->haveInDatabase($this->tableName, $testArticle);
+
+		$I->amOnPage(ContentListPage::$url);
+		$I->seeElement(ContentListPage::item($testArticle['title']));
+		$I->selectItemFromList($testArticle['title']);
+		$I->clickToolbarButton('unpublish');
+		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['state' => 0]));
+	}
+
+	/**
+	 * Test unpublish an article using the toolbar publish button
+	 *
+	 * @param   \Step\Acceptance\Administrator\Content $Iw
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function unpublishArticleUsingInlineButton(\Step\Acceptance\Administrator\Content $I)
+	{
+		$I->wantToTest('that its possible to unpublish an article using the inline publish button');
+
+		$testArticle = $this->article(['state' => 1]);
+		$I->haveInDatabase($this->tableName, $testArticle);
+
+		$I->amOnPage(ContentListPage::$url);
+		$I->seeElement(ContentListPage::item($testArticle['title']));
+		$I->click(ContentListPage::itemUnPublishButton($testArticle['title']));
+		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['state' => 0]));
+	}
 
 	/**
 	 * Test feature articles
