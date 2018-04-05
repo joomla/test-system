@@ -18,6 +18,13 @@ use Page\Acceptance\Administrator\ContentListPage;
 class ContentListCest
 {
 	/**
+	 * The name of the com_content table
+	 *
+	 * @var string
+	 */
+	protected $tableName = 'content';
+
+	/**
 	 * Runs before every test
 	 *
 	 * @param AcceptanceTester $I
@@ -69,12 +76,8 @@ class ContentListCest
 	{
 		$I->wantToTest('that articles are displayed in the list.');
 
-		$testArticle = [
-			'title'     => 'Test Article',
-			'alias'     => 'test-article',
-			'state'     => 1,
-		];
-		$I->haveInDatabase('content', $testArticle);
+		$testArticle = $this->article();
+		$I->haveInDatabase($this->tableName, $testArticle);
 
 		$I->amOnPage(ContentListPage::$url);
 		$I->see($testArticle['title']);
@@ -85,7 +88,7 @@ class ContentListCest
 	/**
 	 * Test publish an article using the toolbar publish button
 	 *
-	 * @param   \Step\Acceptance\Administrator\Content $I
+	 * @param   \Step\Acceptance\Administrator\Content $Iw
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
@@ -93,22 +96,36 @@ class ContentListCest
 	{
 		$I->wantToTest('that its possible to publish an article using the toolbar publish button');
 
-		$testArticle = [
-			'title'     => 'Test Article',
-			'alias'     => 'test-article',
-			'state'     => 0,
-		];
-		$I->haveInDatabase('content', $testArticle);
+		$testArticle = $this->article(['state' => 0]);
+		$I->haveInDatabase($this->tableName, $testArticle);
 
 		$I->amOnPage(ContentListPage::$url);
 		$I->seeElement(ContentListPage::item($testArticle['title']));
 		$I->selectItemFromList($testArticle['title']);
 		$I->clickToolbarButton('publish');
-		$I->seeInDatabase(array_merge($testArticle, ['state' => 1]));
+		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['state' => 1]));
 	}
 
-	// TODO publish article using toolbar button
-	// TODO publish article using inline button
+	/**
+	 * Test publish an article using the toolbar publish button
+	 *
+	 * @param   \Step\Acceptance\Administrator\Content $Iw
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function publishArticleUsingInlineButton(\Step\Acceptance\Administrator\Content $I)
+	{
+		$I->wantToTest('that its possible to publish an article using the toolbar publish button');
+
+		$testArticle = $this->article(['state' => 0]);
+		$I->haveInDatabase($this->tableName, $testArticle);
+
+		$I->amOnPage(ContentListPage::$url);
+		$I->seeElement(ContentListPage::item($testArticle['title']));
+		$I->click(ContentListPage::itemPublishButton($testArticle['title']));
+		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['state' => 1]));
+	}
+
 	// TODO unpublish article using toolbar button
 	// TODO unpublish article using inline button
 
@@ -176,11 +193,30 @@ class ContentListCest
 
 	// Paginate articles
 
-	public function Article(\Step\Acceptance\Administrator\Content $I)
+	public function ArticleOld(\Step\Acceptance\Administrator\Content $I)
 	{
 //		$I->featureArticle($this->articleTitle);
 //		$I->setArticleAccessLevel($this->articleTitle, $this->articleAccessLevel);
 //		$I->unPublishArticle($this->articleTitle);
 //		$I->trashArticle($this->articleTitle);
+	}
+
+	/**
+	 * Create an article
+	 *
+	 * @param array $attributes
+	 *
+	 * @return array
+	 */
+	protected function article(array $attributes = []): array
+	{
+		$default = [
+			'title'   => 'Test Article',
+			'alias'   => 'test-article',
+			'state'   => 1,
+			'created' => (new DateTime())->format('Y-m-d H:i:s'),
+		];
+
+		return array_merge($default, $attributes);
 	}
 }

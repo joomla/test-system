@@ -10,7 +10,7 @@
 namespace Page\Acceptance\Administrator;
 
 /**
- * Acceptance Page object class for article list page.
+ * Acceptance Page object class for content list page.
  *
  * @package  Page\Acceptance\Administrator
  *
@@ -27,58 +27,56 @@ class ContentListPage extends AdminListPage
 	public static $url = "/administrator/index.php?option=com_content&view=articles";
 
 	/**
-	 * Drop Down Toggle Element.
+	 * Dynamic locator for article items
 	 *
-	 * @var    array
+	 * @var    string $title
+	 *
 	 * @since  __DEPLOY_VERSION__
+	 *
+	 * @return string
 	 */
-	public static $dropDownToggle = ['xpath' => "//button[contains(@class, 'dropdown-toggle')]"];
+	public static function item($title)
+	{
+		return self::itemXpath($title);
+	}
 
 	/**
-	 * Page object for content body editor field.
+	 * Dynamic locator for article item checkbox
 	 *
-	 * @var    array
+	 * @var    string $title
+	 *
 	 * @since  __DEPLOY_VERSION__
+	 *
+	 * @return string
 	 */
-	public static $content = ['id' => 'jform_articletext'];
+	public static function itemCheckBox($title)
+	{
+		return self::itemXpath($title) . '//input[@name=\'cid[]\']';
+	}
 
 	/**
-	 * Page object for the toggle button.
+	 * Dynamic locator for article item checkbox
 	 *
-	 * @var    string
+	 * @var    string $title
+	 *
 	 * @since  __DEPLOY_VERSION__
+	 *
+	 * @return string
 	 */
-	public static $toggleEditor = "Toggle editor";
+	public static function itemPublishButton($title)
+	{
+		return self::itemXpath($title) . '//a[contains(@class, \'data-state-0\')]';
+	}
 
 	/**
-	 * Locator for article's name field
+	 * Dynamic locator for media item action
 	 *
-	 * @var    array
-	 * @since  __DEPLOY_VERSION__
-	 */
-	public static $seeName = ['xpath' => "//table[@id='articleList']//tr[1]//td[4]"];
-
-	/**
-	 * Locator for article's featured icon
+	 * @param string $title
 	 *
-	 * @var    array
-	 * @since  __DEPLOY_VERSION__
+	 * @return string
 	 */
-	public static $seeFeatured = ['xpath' => "//table[@id='articleList']//*//span[@class='icon-featured']"];
-
-	/**
-	 * Locator for article's name field
-	 *
-	 * @var    array
-	 * @since  __DEPLOY_VERSION__
-	 */
-	public static $seeAccessLevel = ['xpath' => "//table[@id='articleList']//tr[1]//td[5]"];
-
-	/**
-	 * Locator for article's unpublish icon
-	 *
-	 * @var    array
-	 * @since  __DEPLOY_VERSION__
-	 */
-	public static $seeUnpublished = ['xpath' => "//table[@id='articleList']//*//span[@class='icon-unpublish']"];
+	protected static function itemXpath($title)
+	{
+		return '//a[@title = \'Edit ' . $title . '\']/ancestor::tr';
+	}
 }
