@@ -49,20 +49,17 @@ class ContentListCest
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function createNewArticleUsingToolbarButton(\Step\Acceptance\Administrator\Content $I)
+	public function openCreateNewArticleFormUsingToolbarButton(\Step\Acceptance\Administrator\Content $I)
 	{
-		$I->wantToTest('that it is possible to create a new articles using "new" toolbar button.');
+		$I->wantToTest('that it is possible to open the create new article form using the "new" toolbar button.');
 		$I->amOnPage(ContentListPage::$url);
 		$I->waitForElement(ContentListPage::$pageTitle);
-		$I->clickToolbarButton('New');
+		$I->clickToolbarButton('new');
 		$I->seeInCurrentUrl(ContentFormPage::$url);
 	}
 
 	/**
 	 * Test display articles
-	 *
-	 * @skip    Fix: [PDOException] SQLSTATE[22007]: Invalid datetime format: 1292 Incorrect datetime value: '0000-00-00 00:00:00' for column 'created' at row 1
-	 *          on drone
 	 *
 	 * @param   \Step\Acceptance\Administrator\Content $I
 	 *
@@ -73,15 +70,41 @@ class ContentListCest
 		$I->wantToTest('that articles are displayed in the list.');
 
 		$testArticle = [
-			'title'   => 'Test Article',
-			'alias'   => 'test-article',
-			'state'   => 1,
+			'title'     => 'Test Article',
+			'alias'     => 'test-article',
+			'state'     => 1,
 		];
 		$I->haveInDatabase('content', $testArticle);
 
 		$I->amOnPage(ContentListPage::$url);
 		$I->see($testArticle['title']);
+		$I->seeElement(ContentListPage::item($testArticle['title']));
 		$I->see('Alias: ' . $testArticle['alias']);
+	}
+
+	/**
+	 * Test publish an article using the toolbar publish button
+	 *
+	 * @param   \Step\Acceptance\Administrator\Content $I
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function publishArticleUsingToolbarButton(\Step\Acceptance\Administrator\Content $I)
+	{
+		$I->wantToTest('that its possible to publish an article using the toolbar publish button');
+
+		$testArticle = [
+			'title'     => 'Test Article',
+			'alias'     => 'test-article',
+			'state'     => 0,
+		];
+		$I->haveInDatabase('content', $testArticle);
+
+		$I->amOnPage(ContentListPage::$url);
+		$I->seeElement(ContentListPage::item($testArticle['title']));
+		$I->selectItemFromList($testArticle['title']);
+		$I->clickToolbarButton('publish');
+		$I->seeInDatabase(array_merge($testArticle, ['state' => 1]));
 	}
 
 	// TODO publish article using toolbar button
