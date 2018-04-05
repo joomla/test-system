@@ -65,7 +65,7 @@ class ContentListPage extends AdminListPage
 	 */
 	public static function itemPublishButton($title)
 	{
-		return self::itemXpath($title) . '//a[contains(@class, \'data-state-0\')]';
+		return self::itemXpath($title) . '//span[@class=\'icon-unpublish\']/parent::a';
 	}
 
 	/**
@@ -79,7 +79,35 @@ class ContentListPage extends AdminListPage
 	 */
 	public static function itemUnPublishButton($title)
 	{
-		return self::itemXpath($title) . '//a[contains(@class, \'data-state-1\')]';
+		return self::itemXpath($title) . '//span[@class=\'icon-publish\']/parent::a';
+	}
+
+	/**
+	 * Dynamic locator for inline feature button
+	 *
+	 * @var    string $title
+	 *
+	 * @since  __DEPLOY_VERSION__
+	 *
+	 * @return string
+	 */
+	public static function itemFeatureButton($title)
+	{
+		return self::itemXpath($title) . '//span[@class=\'icon-unfeatured\']/parent::a';
+	}
+
+	/**
+	 * Dynamic locator for inline feature button
+	 *
+	 * @var    string $title
+	 *
+	 * @since  __DEPLOY_VERSION__
+	 *
+	 * @return string
+	 */
+	public static function itemUnFeatureButton($title)
+	{
+		return self::itemXpath($title) . '//span[@class=\'icon-featured\']/parent::a';
 	}
 
 	/**

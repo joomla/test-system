@@ -107,7 +107,7 @@ class ContentListCest
 	}
 
 	/**
-	 * Test publish an article using the toolbar publish button
+	 * Test publish an article using the inline publish button
 	 *
 	 * @param   \Step\Acceptance\Administrator\Content $Iw
 	 *
@@ -148,7 +148,7 @@ class ContentListCest
 	}
 
 	/**
-	 * Test unpublish an article using the toolbar publish button
+	 * Test unpublish an article using the inline publish button
 	 *
 	 * @param   \Step\Acceptance\Administrator\Content $Iw
 	 *
@@ -168,34 +168,87 @@ class ContentListCest
 	}
 
 	/**
-	 * Test feature articles
+	 * Test feature article using toolbar button
 	 *
 	 * @param   \Step\Acceptance\Administrator\Content $I
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-//	public function markArticleAsFeaturedUsingToolbarButton(\Step\Acceptance\Administrator\Content $I)
-//	{
-//		$I->wantToTest('that it is possible to mark an article as featured using toolbar button.');
-//
-//		$testArticle = [
-//			'title'     => 'Test Article',
-//			'alias'     => 'test-article',
-//			'introtext' => 'Test Article Introtext',
-//			'fulltext'  => 'Test Article Fulltext',
-//			'state'     => 1,
-//			'featured'  => 0
-//		];
-//		$I->haveInDatabase('content', $testArticle);
-//
-//		$I->amOnPage(ContentListPage::$url);
-//		$I->see($testArticle['title']);
-//		$I->see('Alias: ' . $testArticle['alias']);
-//	}
+	public function featureArticledUsingToolbarButton(\Step\Acceptance\Administrator\Content $I)
+	{
+		$I->wantToTest('that it is possible to feature an article using toolbar button.');
 
-	// TODO Feature article using inline button
-	// TODO Unfeature article using toolbar button
-	// TODO Unfeature article using inline button
+		$testArticle = $this->article(['featured'  => 0]);
+		$I->haveInDatabase('content', $testArticle);
+
+		$I->amOnPage(ContentListPage::$url);
+		$I->seeElement(ContentListPage::item($testArticle['title']));
+		$I->selectItemFromList($testArticle['title']);
+		$I->clickToolbarButton('feature');
+		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['featured' => 1]));
+	}
+
+	/**
+	 * Test feature article using inline button
+	 *
+	 * @param   \Step\Acceptance\Administrator\Content $I
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function featureArticledUsingInlineButton(\Step\Acceptance\Administrator\Content $I)
+	{
+		$I->wantToTest('that it is possible to feature an article using inline button.');
+
+		$testArticle = $this->article(['featured'  => 0]);
+		$I->haveInDatabase('content', $testArticle);
+
+		$I->amOnPage(ContentListPage::$url);
+		$I->seeElement(ContentListPage::item($testArticle['title']));
+		$I->click(ContentListPage::itemFeatureButton($testArticle['title']));
+		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['featured' => 1]));
+	}
+
+	/**
+	 * Test feature article using toolbar button
+	 *
+	 * @param   \Step\Acceptance\Administrator\Content $I
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function unfeatureArticledUsingToolbarButton(\Step\Acceptance\Administrator\Content $I)
+	{
+		$I->wantToTest('that it is possible to unfeature an article using toolbar button.');
+
+		$testArticle = $this->article(['featured'  => 1]);
+		$I->haveInDatabase('content', $testArticle);
+
+		$I->amOnPage(ContentListPage::$url);
+		$I->seeElement(ContentListPage::item($testArticle['title']));
+		$I->selectItemFromList($testArticle['title']);
+		// TODO add this method to JoomlaBrowser::clickToolbarButton('unfeatured')
+		$I->click(['id' => "toolbar-unfeatured"]);
+		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['featured' => 0]));
+	}
+
+	/**
+	 * Test feature article using inline button
+	 *
+	 * @param   \Step\Acceptance\Administrator\Content $I
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function unfeatureArticledUsingInlineButton(\Step\Acceptance\Administrator\Content $I)
+	{
+		$I->wantToTest('that it is possible to unfeature an article using inline button.');
+
+		$testArticle = $this->article(['featured'  => 1]);
+		$I->haveInDatabase('content', $testArticle);
+
+		$I->amOnPage(ContentListPage::$url);
+		$I->seeElement(ContentListPage::item($testArticle['title']));
+		$I->click(ContentListPage::itemUnFeatureButton($testArticle['title']));
+		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['featured' => 0]));
+	}
 
 	// TODO archive an article
 
@@ -249,10 +302,11 @@ class ContentListCest
 	protected function article(array $attributes = []): array
 	{
 		$default = [
-			'title'   => 'Test Article',
-			'alias'   => 'test-article',
-			'state'   => 1,
-			'created' => (new DateTime())->format('Y-m-d H:i:s'),
+			'title'    => 'Test Article',
+			'alias'    => 'test-article',
+			'state'    => 1,
+			'created'  => (new DateTime())->format('Y-m-d H:i:s'),
+			'featured' => 0,
 		];
 
 		return array_merge($default, $attributes);
