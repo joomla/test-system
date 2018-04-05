@@ -286,9 +286,7 @@ class ContentListCest
 
 	public function ArticleOld(\Step\Acceptance\Administrator\Content $I)
 	{
-//		$I->featureArticle($this->articleTitle);
 //		$I->setArticleAccessLevel($this->articleTitle, $this->articleAccessLevel);
-//		$I->unPublishArticle($this->articleTitle);
 //		$I->trashArticle($this->articleTitle);
 	}
 
