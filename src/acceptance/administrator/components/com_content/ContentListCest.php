@@ -294,7 +294,7 @@ class ContentListCest
 	}
 
 	/**
-	 * Check an article in using toolbar button
+	 * Test check an article in using toolbar button
 	 *
 	 * @param Admin           $I
 	 * @param ContentListPage $contentListPage
@@ -324,7 +324,7 @@ class ContentListCest
 	}
 
 	/**
-	 * Check an article in using inline button
+	 * Test check an article in using inline button
 	 *
 	 * @param Admin           $I
 	 * @param ContentListPage $contentListPage
@@ -350,7 +350,33 @@ class ContentListCest
 		]));
 	}
 
-	// TODO changeLanguageOfMultipleArticles
+	/**
+	 * Test change language of multiple articles
+	 *
+	 * @param Admin           $I
+	 * @param ContentListPage $contentListPage
+	 */
+	public function batchChangeLanguageOfMultipleArticles(Admin $I, ContentListPage $contentListPage)
+	{
+		$changeToLanguage = 'en-GB';
+
+		$testArticle1 = $this->article(['title' => 'Test Article 1', 'alias' => 'test-article-1', 'language' => '*']);
+		$testArticle2 = $this->article(['title' => 'Test Article 2', 'alias' => 'test-article-2', 'language' => '*']);
+		$I->haveInDatabase($this->tableName, $testArticle1);
+		$I->haveInDatabase($this->tableName, $testArticle2);
+
+		$I->amOnPage(ContentListPage::$url);
+		$contentListPage->selectItemFromList($testArticle1['title']);
+		$contentListPage->selectItemFromList($testArticle2['title']);
+		// TODO fix in JoomlaBrowser
+		$I->click('Batch', ['css' => '.btn-toolbar.d-flex']);
+		$I->wait(1); // Wait for the modal become visible
+		// TODO move locators to page object
+		$I->selectOption('batch[language_id]', $changeToLanguage);
+		$I->click('Process');
+		$I->seeInDatabase($this->tableName,  array_merge( $testArticle1, ['language' => $changeToLanguage]));
+		$I->seeInDatabase($this->tableName,  array_merge( $testArticle2, ['language' => $changeToLanguage]));
+	}
 
 	// TODO add Tags to multiple articles
 
@@ -365,6 +391,8 @@ class ContentListCest
 	// Change order of articles
 
 	// Test toolbar options without selection
+
+	// TODO batch toollbar options with only one selection
 
 	// Search articles
 	// Search by id
