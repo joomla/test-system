@@ -22,7 +22,7 @@ class ContentListCest
 	 *
 	 * @var string
 	 */
-	protected $tableName = 'content';
+	protected $tableName = '#__content';
 
 	/**
 	 * Runs before every test
@@ -104,6 +104,7 @@ class ContentListCest
 		$I->selectItemFromList($testArticle['title']);
 		$I->clickToolbarButton('publish');
 		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['state' => 1]));
+		$I->seeSystemMessage('1 article published.');
 	}
 
 	/**
@@ -124,6 +125,7 @@ class ContentListCest
 		$I->seeElement(ContentListPage::item($testArticle['title']));
 		$I->click(ContentListPage::itemPublishButton($testArticle['title']));
 		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['state' => 1]));
+		$I->seeSystemMessage('1 article published.');
 	}
 
 	/**
@@ -145,6 +147,7 @@ class ContentListCest
 		$I->selectItemFromList($testArticle['title']);
 		$I->clickToolbarButton('unpublish');
 		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['state' => 0]));
+		$I->seeSystemMessage('1 article unpublished.');
 	}
 
 	/**
@@ -165,6 +168,7 @@ class ContentListCest
 		$I->seeElement(ContentListPage::item($testArticle['title']));
 		$I->click(ContentListPage::itemUnPublishButton($testArticle['title']));
 		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['state' => 0]));
+		$I->seeSystemMessage('1 article unpublished.');
 	}
 
 	/**
@@ -178,14 +182,15 @@ class ContentListCest
 	{
 		$I->wantToTest('that it is possible to feature an article using toolbar button.');
 
-		$testArticle = $this->article(['featured'  => 0]);
-		$I->haveInDatabase('content', $testArticle);
+		$testArticle = $this->article(['featured' => 0]);
+		$I->haveInDatabase($this->tableName, $testArticle);
 
 		$I->amOnPage(ContentListPage::$url);
 		$I->seeElement(ContentListPage::item($testArticle['title']));
 		$I->selectItemFromList($testArticle['title']);
 		$I->clickToolbarButton('feature');
 		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['featured' => 1]));
+		$I->seeSystemMessage('1 article featured.');
 	}
 
 	/**
@@ -199,13 +204,14 @@ class ContentListCest
 	{
 		$I->wantToTest('that it is possible to feature an article using inline button.');
 
-		$testArticle = $this->article(['featured'  => 0]);
-		$I->haveInDatabase('content', $testArticle);
+		$testArticle = $this->article(['featured' => 0]);
+		$I->haveInDatabase($this->tableName, $testArticle);
 
 		$I->amOnPage(ContentListPage::$url);
 		$I->seeElement(ContentListPage::item($testArticle['title']));
 		$I->click(ContentListPage::itemFeatureButton($testArticle['title']));
 		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['featured' => 1]));
+		$I->seeSystemMessage('1 article featured.');
 	}
 
 	/**
@@ -219,8 +225,8 @@ class ContentListCest
 	{
 		$I->wantToTest('that it is possible to unfeature an article using toolbar button.');
 
-		$testArticle = $this->article(['featured'  => 1]);
-		$I->haveInDatabase('content', $testArticle);
+		$testArticle = $this->article(['featured' => 1]);
+		$I->haveInDatabase($this->tableName, $testArticle);
 
 		$I->amOnPage(ContentListPage::$url);
 		$I->seeElement(ContentListPage::item($testArticle['title']));
@@ -228,6 +234,7 @@ class ContentListCest
 		// TODO add this method to JoomlaBrowser::clickToolbarButton('unfeatured')
 		$I->click(['id' => "toolbar-unfeatured"]);
 		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['featured' => 0]));
+		$I->seeSystemMessage('1 article unfeatured.');
 	}
 
 	/**
@@ -241,13 +248,14 @@ class ContentListCest
 	{
 		$I->wantToTest('that it is possible to unfeature an article using inline button.');
 
-		$testArticle = $this->article(['featured'  => 1]);
-		$I->haveInDatabase('content', $testArticle);
+		$testArticle = $this->article(['featured' => 1]);
+		$I->haveInDatabase($this->tableName, $testArticle);
 
 		$I->amOnPage(ContentListPage::$url);
 		$I->seeElement(ContentListPage::item($testArticle['title']));
 		$I->click(ContentListPage::itemUnFeatureButton($testArticle['title']));
 		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['featured' => 0]));
+		$I->seeSystemMessage('1 article unfeatured.');
 	}
 
 	// TODO archive an article
@@ -299,12 +307,23 @@ class ContentListCest
 	 */
 	protected function article(array $attributes = []): array
 	{
+		$now = (new DateTime())->format('Y-m-d H:i:s');
+
 		$default = [
-			'title'    => 'Test Article',
-			'alias'    => 'test-article',
-			'state'    => 1,
-			'created'  => (new DateTime())->format('Y-m-d H:i:s'),
-			'featured' => 0,
+			'title'     => 'Test Article',
+			'alias'     => 'test-article',
+			'introtext' => 'Test Article Introtext',
+			'fulltext'  => 'Test Article Fulltext',
+			'state'     => 1,
+			'created'   => $now,
+			'images'    => '',
+			'urls'      => '',
+			'attribs'   => '',
+			'metakey'   => '',
+			'metadesc'  => '',
+			'metadata'  => '',
+			'featured'  => 0,
+			'language'  => '*'
 		];
 
 		return array_merge($default, $attributes);

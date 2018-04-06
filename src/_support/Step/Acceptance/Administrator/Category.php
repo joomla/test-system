@@ -32,7 +32,7 @@ class Category extends Admin
 		$this->click(ContentCategoryListPage::$dropDownToggle);
 		$this->clickToolbarButton("Save & Close");
 		// Qucikfix: we need to refactor the test
-		$this->seeInDatabase('categories', [
+		$this->seeInDatabase('#__categories', [
 			'title' => $title,
 			'extension' => 'com_content',
 		]);
