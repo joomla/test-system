@@ -6,16 +6,17 @@
  * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
-use Step\Acceptance\Administrator\Admin;
+
 use Page\Acceptance\Administrator\Components\Content\ContentFormPage;
 use Page\Acceptance\Administrator\Components\Content\ContentListPage;
+use Step\Acceptance\Administrator\Admin;
 
 /**
  * Tests for com_content list view
  */
 class ContentListCest
 {
-	const ARTICLE_STATE_ALL= '*';
+	const ARTICLE_STATE_ALL = '*';
 	const ARTICLE_STATE_NONE = null;
 	const ARTICLE_STATE_TRASHED = -2;
 	const ARTICLE_STATE_UNPUBLISHED = 0;
@@ -76,8 +77,6 @@ class ContentListCest
 	 */
 	public function seeArticlesInList(Admin $I)
 	{
-		$I->wantToTest('that articles are displayed in the list.');
-
 		$testArticle = $this->article();
 		$I->haveInDatabase($this->tableName, $testArticle);
 
@@ -90,18 +89,17 @@ class ContentListCest
 	/**
 	 * Test publish an article using the toolbar publish button
 	 *
-	 * @param Admin $I
+	 * @param Admin           $I
+	 * @param ContentListPage $contentListPage
 	 */
-	public function publishArticleUsingToolbarButton(Admin $I)
+	public function publishArticleUsingToolbarButton(Admin $I, ContentListPage $contentListPage)
 	{
-		$I->wantToTest('that its possible to publish an article using the toolbar publish button');
-
 		$testArticle = $this->article(['state' => self::ARTICLE_STATE_UNPUBLISHED]);
 		$I->haveInDatabase($this->tableName, $testArticle);
 
 		$I->amOnPage(ContentListPage::$url);
 		$I->seeElement(ContentListPage::item($testArticle['title']));
-		$I->selectItemFromList($testArticle['title']);
+		$contentListPage->selectItemFromList($testArticle['title']);
 		$I->clickToolbarButton('publish');
 		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['state' => self::ARTICLE_STATE_PUBLISHED]));
 		$I->seeSystemMessage('1 article published.');
@@ -114,8 +112,6 @@ class ContentListCest
 	 */
 	public function publishArticleUsingInlineButton(Admin $I)
 	{
-		$I->wantToTest('that its possible to publish an article using the inline publish button');
-
 		$testArticle = $this->article(['state' => self::ARTICLE_STATE_UNPUBLISHED]);
 		$I->haveInDatabase($this->tableName, $testArticle);
 
@@ -129,18 +125,17 @@ class ContentListCest
 	/**
 	 * Test unpublish an article using the toolbar publish button
 	 *
-	 * @param Admin $I
+	 * @param Admin           $I
+	 * @param ContentListPage $contentListPage
 	 */
-	public function unpublishArticleUsingToolbarButton(Admin $I)
+	public function unpublishArticleUsingToolbarButton(Admin $I, ContentListPage $contentListPage)
 	{
-		$I->wantToTest('that its possible to unpublish an article using the toolbar publish button');
-
 		$testArticle = $this->article(['state' => self::ARTICLE_STATE_PUBLISHED]);
 		$I->haveInDatabase($this->tableName, $testArticle);
 
 		$I->amOnPage(ContentListPage::$url);
 		$I->seeElement(ContentListPage::item($testArticle['title']));
-		$I->selectItemFromList($testArticle['title']);
+		$contentListPage->selectItemFromList($testArticle['title']);
 		$I->clickToolbarButton('unpublish');
 		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['state' => self::ARTICLE_STATE_UNPUBLISHED]));
 		$I->seeSystemMessage('1 article unpublished.');
@@ -153,8 +148,6 @@ class ContentListCest
 	 */
 	public function unpublishArticleUsingInlineButton(Admin $I)
 	{
-		$I->wantToTest('that its possible to unpublish an article using the inline publish button');
-
 		$testArticle = $this->article(['state' => self::ARTICLE_STATE_PUBLISHED]);
 		$I->haveInDatabase($this->tableName, $testArticle);
 
@@ -168,18 +161,17 @@ class ContentListCest
 	/**
 	 * Test feature article using toolbar button
 	 *
-	 * @param Admin $I
+	 * @param Admin           $I
+	 * @param ContentListPage $contentListPage
 	 */
-	public function featureArticledUsingToolbarButton(Admin $I)
+	public function featureArticledUsingToolbarButton(Admin $I, ContentListPage $contentListPage)
 	{
-		$I->wantToTest('that it is possible to feature an article using toolbar button.');
-
 		$testArticle = $this->article(['featured' => self::ARTICLE_STATE_UNFEATURED]);
 		$I->haveInDatabase($this->tableName, $testArticle);
 
 		$I->amOnPage(ContentListPage::$url);
 		$I->seeElement(ContentListPage::item($testArticle['title']));
-		$I->selectItemFromList($testArticle['title']);
+		$contentListPage->selectItemFromList($testArticle['title']);
 		$I->clickToolbarButton('feature');
 		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['featured' => self::ARTICLE_STATE_FEATURED]));
 		$I->seeSystemMessage('1 article featured.');
@@ -192,8 +184,6 @@ class ContentListCest
 	 */
 	public function featureArticledUsingInlineButton(Admin $I)
 	{
-		$I->wantToTest('that it is possible to feature an article using inline button.');
-
 		$testArticle = $this->article(['featured' => self::ARTICLE_STATE_UNFEATURED]);
 		$I->haveInDatabase($this->tableName, $testArticle);
 
@@ -207,18 +197,17 @@ class ContentListCest
 	/**
 	 * Test feature article using toolbar button
 	 *
-	 * @param Admin $I
+	 * @param Admin           $I
+	 * @param ContentListPage $contentListPage
 	 */
-	public function unfeatureArticledUsingToolbarButton(Admin $I)
+	public function unfeatureArticledUsingToolbarButton(Admin $I, ContentListPage $contentListPage)
 	{
-		$I->wantToTest('that it is possible to unfeature an article using toolbar button.');
-
 		$testArticle = $this->article(['featured' => self::ARTICLE_STATE_FEATURED]);
 		$I->haveInDatabase($this->tableName, $testArticle);
 
 		$I->amOnPage(ContentListPage::$url);
 		$I->seeElement(ContentListPage::item($testArticle['title']));
-		$I->selectItemFromList($testArticle['title']);
+		$contentListPage->selectItemFromList($testArticle['title']);
 		// TODO add this method to JoomlaBrowser::clickToolbarButton('unfeatured')
 		$I->click(['id' => "toolbar-unfeatured"]);
 		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['featured' => self::ARTICLE_STATE_UNFEATURED]));
@@ -232,8 +221,6 @@ class ContentListCest
 	 */
 	public function unfeatureArticledUsingInlineButton(Admin $I)
 	{
-		$I->wantToTest('that it is possible to unfeature an article using inline button.');
-
 		$testArticle = $this->article(['featured' => self::ARTICLE_STATE_FEATURED]);
 		$I->haveInDatabase($this->tableName, $testArticle);
 
@@ -247,18 +234,17 @@ class ContentListCest
 	/**
 	 * Test archive article using toolbar button
 	 *
-	 * @param Admin $I
+	 * @param Admin           $I
+	 * @param ContentListPage $contentListPage
 	 */
-	public function archiveArticledUsingToolbarButton(Admin $I)
+	public function archiveArticledUsingToolbarButton(Admin $I, ContentListPage $contentListPage)
 	{
-		$I->wantToTest('that it is possible to archive an article using toolbar button.');
-
 		$testArticle = $this->article(['state' => self::ARTICLE_STATE_PUBLISHED]);
 		$I->haveInDatabase($this->tableName, $testArticle);
 
 		$I->amOnPage(ContentListPage::$url);
 		$I->seeElement(ContentListPage::item($testArticle['title']));
-		$I->selectItemFromList($testArticle['title']);
+		$contentListPage->selectItemFromList($testArticle['title']);
 		$I->clickToolbarButton('archive');
 		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['state' => self::ARTICLE_STATE_ARCHIVED]));
 		$I->seeSystemMessage('1 article archived.');
@@ -268,12 +254,11 @@ class ContentListCest
 	/**
 	 * Test publish archived article using inline buttons
 	 *
-	 * @param Admin $I
+	 * @param Admin           $I
+	 * @param ContentListPage $contentListPage
 	 */
 	public function publishArchivedArticledUsingInlineButtons(Admin $I, ContentListPage $contentListPage)
 	{
-		$I->wantToTest('that it is possible to archive an article using toolbar button.');
-
 		$testArticle = $this->article(['state' => self::ARTICLE_STATE_ARCHIVED]);
 		$I->haveInDatabase($this->tableName, $testArticle);
 
@@ -288,7 +273,7 @@ class ContentListCest
 		$I->seeSystemMessage('1 article unpublished.');
 		$I->dontSeeElement(ContentListPage::item($testArticle['title']));
 		$I->openTableOptions();
-		$I->filterByState(null);
+		$I->filterByState(self::ARTICLE_STATE_NONE);
 	}
 	// TODO unArchiveArticle
 
