@@ -265,17 +265,19 @@ class ContentListCest
 		$I->amOnPage(ContentListPage::$url);
 		$I->dontSeeElement(ContentListPage::item($testArticle['title']));
 		$contentListPage->openTableOptions();
-		$contentListPage->filterByState();
+		$contentListPage->filterByState(self::ARTICLE_STATE_ARCHIVED);
 		$I->seeElement(ContentListPage::item($testArticle['title']));
-		$I->selectItemFromList($testArticle['title']);
+		$contentListPage->selectItemFromList($testArticle['title']);
 		$I->click(ContentListPage::itemUnArchiveButton($testArticle['title']));
 		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['state' => self::ARTICLE_STATE_UNPUBLISHED]));
 		$I->seeSystemMessage('1 article unpublished.');
 		$I->dontSeeElement(ContentListPage::item($testArticle['title']));
-		$I->openTableOptions();
-		$I->filterByState(self::ARTICLE_STATE_NONE);
+		$contentListPage->filterByState(self::ARTICLE_STATE_NONE);
+		$I->seeElement(ContentListPage::item($testArticle['title']));
+		$I->click(ContentListPage::itemPublishButton($testArticle['title']));
+		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['state' => self::ARTICLE_STATE_PUBLISHED]));
+		$I->seeSystemMessage('1 article published.');
 	}
-	// TODO unArchiveArticle
 
 	// TODO check an article in
 
