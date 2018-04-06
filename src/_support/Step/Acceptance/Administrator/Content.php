@@ -21,19 +21,6 @@ use Page\Acceptance\Administrator\ContentListPage;
 class Content extends Admin
 {
 
-	/**
-	 * Select an item from the list
-	 *
-	 * @param $itemTitle
-	 */
-	public function selectItemFromList($itemTitle)
-	{
-		$I        = $this;
-		$checkBox = ContentListPage::itemCheckBox($itemTitle);
-		$I->seeElement($checkBox);
-		$I->checkOption($checkBox);
-	}
-
 	public function setArticleAccessLevel($title, $accessLevel)
 	{
 		$I = $this;
