@@ -22,7 +22,7 @@ class ContentListPage extends AdminListPage
 	/**
 	 * Link to the article listing page.
 	 *
-	 * @var    string
+	 * @var string
 	 * @since  __DEPLOY_VERSION__
 	 */
 	public static $url = "/administrator/index.php?option=com_content&view=articles";
@@ -30,13 +30,11 @@ class ContentListPage extends AdminListPage
 	/**
 	 * Dynamic locator for article items
 	 *
-	 * @var    string $title
-	 *
-	 * @since  __DEPLOY_VERSION__
+	 * @var string $title
 	 *
 	 * @return string
 	 */
-	public static function item($title)
+	public static function item(string $title): string
 	{
 		return self::itemXpath($title);
 	}
@@ -44,13 +42,11 @@ class ContentListPage extends AdminListPage
 	/**
 	 * Dynamic locator for article item checkbox
 	 *
-	 * @var    string $title
-	 *
-	 * @since  __DEPLOY_VERSION__
+	 * @var string $title
 	 *
 	 * @return string
 	 */
-	public static function itemCheckBox($title)
+	public static function itemCheckBox(string $title): string
 	{
 		return self::itemXpath($title) . '//input[@name=\'cid[]\']';
 	}
@@ -58,13 +54,11 @@ class ContentListPage extends AdminListPage
 	/**
 	 * Dynamic locator for inline publish button
 	 *
-	 * @var    string $title
-	 *
-	 * @since  __DEPLOY_VERSION__
+	 * @var string $title
 	 *
 	 * @return string
 	 */
-	public static function itemPublishButton($title)
+	public static function itemPublishButton(string $title): string
 	{
 		return self::itemXpath($title) . '//span[@class=\'icon-unpublish\']/parent::a';
 	}
@@ -72,13 +66,11 @@ class ContentListPage extends AdminListPage
 	/**
 	 * Dynamic locator for inline unpublish button
 	 *
-	 * @var    string $title
-	 *
-	 * @since  __DEPLOY_VERSION__
+	 * @var string $title
 	 *
 	 * @return string
 	 */
-	public static function itemUnPublishButton($title)
+	public static function itemUnPublishButton(string $title): string
 	{
 		return self::itemXpath($title) . '//span[@class=\'icon-publish\']/parent::a';
 	}
@@ -86,13 +78,11 @@ class ContentListPage extends AdminListPage
 	/**
 	 * Dynamic locator for inline feature button
 	 *
-	 * @var    string $title
-	 *
-	 * @since  __DEPLOY_VERSION__
+	 * @var string $title
 	 *
 	 * @return string
 	 */
-	public static function itemFeatureButton($title)
+	public static function itemFeatureButton(string $title): string
 	{
 		return self::itemXpath($title) . '//span[@class=\'icon-unfeatured\']/parent::a';
 	}
@@ -100,13 +90,11 @@ class ContentListPage extends AdminListPage
 	/**
 	 * Dynamic locator for inline feature button
 	 *
-	 * @var    string $title
-	 *
-	 * @since  __DEPLOY_VERSION__
+	 * @var string $title
 	 *
 	 * @return string
 	 */
-	public static function itemUnFeatureButton($title)
+	public static function itemUnFeatureButton(string $title): string
 	{
 		return self::itemXpath($title) . '//span[@class=\'icon-featured\']/parent::a';
 	}
@@ -114,15 +102,26 @@ class ContentListPage extends AdminListPage
 	/**
 	 * Dynamic locator for inline feature button
 	 *
-	 * @var    string $title
-	 *
-	 * @since  __DEPLOY_VERSION__
+	 * @var string $title
 	 *
 	 * @return string
 	 */
-	public static function itemUnArchiveButton($title)
+	public static function itemUnArchiveButton(string $title): string
 	{
 		return self::itemXpath($title) . '//span[@class=\'icon-archive\']/parent::a';
+	}
+
+	/**
+	 * Select an item from the list
+	 *
+	 * @param string $title
+	 */
+	public function selectItemFromList(string $title)
+	{
+		$I        = $this->tester;
+		$checkBox = self::itemCheckBox($title);
+		$I->seeElement($title);
+		$I->checkOption($title);
 	}
 
 	/**
@@ -132,21 +131,8 @@ class ContentListPage extends AdminListPage
 	 *
 	 * @return string
 	 */
-	protected static function itemXpath($title)
+	protected static function itemXpath(string $title): string
 	{
 		return '//a[@title = \'Edit ' . $title . '\']/ancestor::tr';
-	}
-
-	/**
-	 * Select an item from the list
-	 *
-	 * @param $itemTitle
-	 */
-	public function selectItemFromList($itemTitle)
-	{
-		$I        = $this->tester;
-		$checkBox = self::itemCheckBox($itemTitle);
-		$I->seeElement($checkBox);
-		$I->checkOption($checkBox);
 	}
 }
