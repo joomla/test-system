@@ -13,16 +13,13 @@ namespace Page\Acceptance\Administrator;
  * Acceptance Page object class to define administrator page objects.
  *
  * @package  Page\Acceptance\Administrator
- *
- * @since    3.7.3
  */
-class AdminPage extends \AcceptanceTester
+class AdminPage extends JoomlaPage
 {
 	/**
 	 * The element id which contains system messages.
 	 *
 	 * @var    array
-	 * @since  3.7.3
 	 */
 	public static $systemMessageContainer = ['id' => 'system-message-container'];
 
@@ -30,7 +27,6 @@ class AdminPage extends \AcceptanceTester
 	 * The element id which contains page title in administrator header.
 	 *
 	 * @var    array
-	 * @since  3.7.3
 	 */
 	public static $pageTitle = ['class' => 'page-title'];
 
@@ -38,7 +34,6 @@ class AdminPage extends \AcceptanceTester
 	 * Locator for page title
 	 *
 	 * @var    array
-	 * @since  3.7.3
 	 */
 	public static $title = ['id' => 'jform_title'];
 
@@ -46,7 +41,6 @@ class AdminPage extends \AcceptanceTester
 	 * Locator for search input field
 	 *
 	 * @var    array
-	 * @since  3.7.3
 	 */
 	public static $filterSearch = ['id' => 'filter_search'];
 
@@ -54,7 +48,6 @@ class AdminPage extends \AcceptanceTester
 	 * Locator for status filter under search tool
 	 *
 	 * @var    array
-	 * @since  3.7.3
 	 */
 	public static $filterPublished = 'filter_published';
 
@@ -62,7 +55,6 @@ class AdminPage extends \AcceptanceTester
 	 * Locator for search button icon
 	 *
 	 * @var    array
-	 * @since  3.7.3
 	 */
 	public static $iconSearch = ['xpath' => "//button[@title='Search']"];
 
@@ -70,7 +62,6 @@ class AdminPage extends \AcceptanceTester
 	 * Locator for the Tabs in Edit View
 	 *
 	 * @var    array
-	 * @since  3.7.3
 	 */
 	public static $tabsLocator = ['xpath' => "//ul[@id='myTabTabs']/li/a"];
 
@@ -78,7 +69,6 @@ class AdminPage extends \AcceptanceTester
 	 * Locator for the Check All checkbox
 	 *
 	 * @var    array
-	 * @since  3.7.3
 	 */
 	public static $checkAll = ['xpath' => "//thead//input[@name='checkall-toggle' or @name='toggle']"];
 
@@ -86,10 +76,6 @@ class AdminPage extends \AcceptanceTester
 	 * Method to search using given keyword
 	 *
 	 * @param   string $keyword The keyword to search
-	 *
-	 * @since   3.7.3
-	 *
-	 * @return  void
 	 */
 	public function search($keyword)
 	{
@@ -104,10 +90,6 @@ class AdminPage extends \AcceptanceTester
 	 * Method to search user with username
 	 *
 	 * @param   string $keyword The username of user
-	 *
-	 * @since   3.7.3
-	 *
-	 * @return  void  Checkbox for given username will be checked.
 	 */
 	public function haveItemUsingSearch($keyword)
 	{
@@ -124,8 +106,6 @@ class AdminPage extends \AcceptanceTester
 	 *
 	 * @param   string $title   The webpage title
 	 * @param   string $message The unpublish successful message
-	 *
-	 * @since   3.7.3
 	 *
 	 * @return  void
 	 */
@@ -174,10 +154,6 @@ class AdminPage extends \AcceptanceTester
 	 *
 	 * @param   string $selectId The id of the <select> element
 	 * @param   string $option   The text in the <option> to be selected in the chosen selector
-	 *
-	 * @since   3.7.3
-	 *
-	 * @return  void
 	 */
 	public function selectOptionInChosenById($selectId, $option)
 	{
@@ -230,10 +206,6 @@ class AdminPage extends \AcceptanceTester
 	 *
 	 * @param   array $expectedTabs Expected Tabs on the Page
 	 * @param   array $tabsLocator  Locator for the Tabs in Edit View
-	 *
-	 * @since   3.7.3
-	 *
-	 * @return  void
 	 */
 	public function verifyAvailableTabs($expectedTabs, $tabsLocator = null)
 	{
@@ -257,10 +229,6 @@ class AdminPage extends \AcceptanceTester
 	 * Method to see that item is saved
 	 *
 	 * @param   string $item The item Name
-	 *
-	 * @since   3.7.3
-	 *
-	 * @return  void
 	 */
 	public function seeItemIsCreated($item)
 	{
@@ -276,10 +244,6 @@ class AdminPage extends \AcceptanceTester
 	 *
 	 * @param   string $item      The item name
 	 * @param   string $pageTitle The page title
-	 *
-	 * @since   3.7.3
-	 *
-	 * @return  void
 	 */
 	public function seeItemInTrash($item, $pageTitle)
 	{
@@ -294,10 +258,6 @@ class AdminPage extends \AcceptanceTester
 
 	/**
 	 * Assure the search tools are displayed
-	 *
-	 * @since   3.7.3
-	 *
-	 * @return  void
 	 */
 	public function displaySearchTools()
 	{
