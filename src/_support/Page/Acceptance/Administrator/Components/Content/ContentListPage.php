@@ -129,6 +129,18 @@ class ContentListPage extends AdminListPage
 	}
 
 	/**
+	 * Dynamic locator for inline checkin button
+	 *
+	 * @var string $title
+	 *
+	 * @return string
+	 */
+	public static function itemCheckinButton(string $title): string
+	{
+		return self::itemXpath($title) . '//span[@class=\'icon-checkedout\']/parent::a';
+	}
+
+	/**
 	 * Select an item from the list
 	 *
 	 * @param string $title

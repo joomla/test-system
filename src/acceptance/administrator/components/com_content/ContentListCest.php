@@ -50,7 +50,6 @@ class ContentListCest
 	 */
 	public function loadsWithoutPhpNoticesAndWarnings(AcceptanceTester $I)
 	{
-		$I->wantToTest('that it loads without php notices and warnings.');
 		$I->amOnPage(ContentListPage::$url);
 		$I->waitForElement(ContentListPage::$filterSearch);
 		$I->checkForPhpNoticesOrWarnings();
@@ -63,11 +62,26 @@ class ContentListCest
 	 */
 	public function openCreateNewArticleFormUsingToolbarButton(Admin $I)
 	{
-		$I->wantToTest('that it is possible to open the create new article form using the "new" toolbar button.');
 		$I->amOnPage(ContentListPage::$url);
-		$I->waitForElement(ContentListPage::$pageTitle);
 		$I->clickToolbarButton('new');
 		$I->seeInCurrentUrl(ContentFormPage::$url);
+	}
+
+	/**
+	 * Test edit an arcticle using link
+	 *
+	 * @param Admin $I
+	 */
+	public function openEditArticleFormUsingLink(Admin $I)
+	{
+		$testArticle = $this->article();
+		$I->haveInDatabase($this->tableName, $testArticle);
+
+		$I->amOnPage(ContentListPage::$url);
+		$I->click($testArticle['title']);
+		$I->seeInCurrentUrl(ContentFormPage::$url);
+		$I->seeInField(ContentFormPage::formFieldName('title'), $testArticle['title']);
+		$I->seeInField(ContentFormPage::formFieldName('alias'), $testArticle['alias']);
 	}
 
 	/**
@@ -279,7 +293,62 @@ class ContentListCest
 		$I->seeSystemMessage('1 article published.');
 	}
 
-	// TODO check an article in
+	/**
+	 * Check an article in using toolbar button
+	 *
+	 * @param Admin           $I
+	 * @param ContentListPage $contentListPage
+	 */
+	public function checkAnArticleInUsingToolbarButton(Admin $I, ContentListPage $contentListPage)
+	{
+		$testArticle = $this->article();
+		$I->haveInDatabase($this->tableName, $testArticle);
+
+		$I->amOnPage(ContentListPage::$url);
+		$I->click($testArticle['title']);
+		$I->seeInCurrentUrl(ContentFormPage::$url);
+		$I->amOnPage(ContentListPage::$url);
+		$I->dontseeInDatabase($this->tableName, array_merge($testArticle, [
+			'checked_out'      => 0,
+			'checked_out_time' => '0000-00-00 00:00:00',
+		]));
+		$I->seeElement(ContentListPage::itemCheckinButton($testArticle['title']));
+		$contentListPage->selectItemFromList($testArticle['title']);
+		// TODO fix typo in JoomlaBrowser
+		$I->click(['id' => 'toolbar-checkin']);
+		$I->dontSeeElement(ContentListPage::itemCheckinButton($testArticle['title']));
+		$I->seeInDatabase($this->tableName, array_merge($testArticle, [
+			'checked_out'      => 0,
+			'checked_out_time' => '0000-00-00 00:00:00',
+		]));
+	}
+
+	/**
+	 * Check an article in using inline button
+	 *
+	 * @param Admin           $I
+	 * @param ContentListPage $contentListPage
+	 */
+	public function checkAnArticleInUsingInlineButton(Admin $I, ContentListPage $contentListPage)
+	{
+		$testArticle = $this->article();
+		$I->haveInDatabase($this->tableName, $testArticle);
+
+		$I->amOnPage(ContentListPage::$url);
+		$I->click($testArticle['title']);
+		$I->seeInCurrentUrl(ContentFormPage::$url);
+		$I->amOnPage(ContentListPage::$url);
+		$I->dontseeInDatabase($this->tableName, array_merge($testArticle, [
+			'checked_out'      => 0,
+			'checked_out_time' => '0000-00-00 00:00:00',
+		]));
+		$I->click(ContentListPage::itemCheckinButton($testArticle['title']));
+		$I->dontSeeElement(ContentListPage::itemCheckinButton($testArticle['title']));
+		$I->seeInDatabase($this->tableName, array_merge($testArticle, [
+			'checked_out'      => 0,
+			'checked_out_time' => '0000-00-00 00:00:00',
+		]));
+	}
 
 	// TODO changeLanguageOfMultipleArticles
 
@@ -295,7 +364,12 @@ class ContentListCest
 
 	// Change order of articles
 
+	// Test toolbar options without selection
+
 	// Search articles
+	// Search by id
+	// Search by author
+
 	// Clear the search of articles
 
 	// Sorting articles
@@ -306,6 +380,8 @@ class ContentListCest
 	// category
 	// user
 	// tag
+
+	// No matching results
 
 	// Change limit of articles
 

@@ -9,5 +9,15 @@
  */
 class AdminFormPage extends AdminPage
 {
-	//
+	/**
+	 * Get a joomla form field name
+	 *
+	 * @param string $name
+	 *
+	 * @return string
+	 */
+	public static function formFieldName(string $name): string
+	{
+		return 'jform[' . $name . ']';
+	}
 }
