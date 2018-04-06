@@ -116,8 +116,8 @@ class ContentListPage extends AdminListPage
 	{
 		$I        = $this->tester;
 		$checkBox = self::itemCheckBox($title);
-		$I->seeElement($title);
-		$I->checkOption($title);
+		$I->seeElement(self::item($title));
+		$I->checkOption(self::itemCheckBox($title));
 	}
 
 	/**
