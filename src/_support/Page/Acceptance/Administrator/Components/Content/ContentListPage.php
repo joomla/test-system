@@ -6,8 +6,9 @@
  * @copyright   Copyright (C) 2005 - 2016 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
+namespace Page\Acceptance\Administrator\Components\Content;
 
-namespace Page\Acceptance\Administrator;
+use Page\Acceptance\Administrator\AdminListPage;
 
 /**
  * Acceptance Page object class for content list page.
@@ -111,6 +112,20 @@ class ContentListPage extends AdminListPage
 	}
 
 	/**
+	 * Dynamic locator for inline feature button
+	 *
+	 * @var    string $title
+	 *
+	 * @since  __DEPLOY_VERSION__
+	 *
+	 * @return string
+	 */
+	public static function itemUnArchiveButton($title)
+	{
+		return self::itemXpath($title) . '//span[@class=\'icon-archive\']/parent::a';
+	}
+
+	/**
 	 * Dynamic locator for media item action
 	 *
 	 * @param string $title
@@ -120,5 +135,18 @@ class ContentListPage extends AdminListPage
 	protected static function itemXpath($title)
 	{
 		return '//a[@title = \'Edit ' . $title . '\']/ancestor::tr';
+	}
+
+	/**
+	 * Select an item from the list
+	 *
+	 * @param $itemTitle
+	 */
+	public function selectItemFromList($itemTitle)
+	{
+		$I        = $this->tester;
+		$checkBox = self::itemCheckBox($itemTitle);
+		$I->seeElement($checkBox);
+		$I->checkOption($checkBox);
 	}
 }

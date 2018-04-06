@@ -9,6 +9,8 @@
 
 namespace Page\Acceptance\Administrator;
 
+use Page\Acceptance\JoomlaPage;
+
 /**
  * Acceptance Page object class to define administrator page objects.
  *

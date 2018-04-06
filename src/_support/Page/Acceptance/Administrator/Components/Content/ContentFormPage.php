@@ -7,7 +7,9 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace Page\Acceptance\Administrator;
+namespace Page\Acceptance\Administrator\Components\Content;
+
+use Page\Acceptance\Administrator\AdminFormPage;
 
 /**
  * Acceptance Page object class for content form page.
