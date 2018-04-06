@@ -90,7 +90,6 @@ class MediaListCest
 	 */
 	public function loadsWithoutPhpNoticesAndWarnings(AcceptanceTester $I)
 	{
-		$I->wantToTest('that it loads without php notices and warnings.');
 		$I->amOnPage(MediaListPage::$url);
 		$I->waitForText(MediaListPage::$pageTitleText);
 		$I->checkForPhpNoticesOrWarnings();
@@ -105,7 +104,6 @@ class MediaListCest
 	 */
 	public function showsDefaultFilesAndFolders(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that it shows the joomla default media files and folders.');
 		$I->amOnPage(MediaListPage::$url);
 		$I->waitForMediaLoaded();
 		$I->seeElement(MediaListPage::$items);
@@ -121,7 +119,6 @@ class MediaListCest
 	 */
 	public function showsFilesAndFoldersOfASubdirectoryWhenOpenedUsingDeepLink(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that it shows the  media files and folders of a subdirectory when opened using deep link.');
 		$I->amOnPage(MediaListPage::$url . 'banners');
 		$I->waitForMediaLoaded();
 		$I->seeElement(MediaListPage::$items);
@@ -137,7 +134,6 @@ class MediaListCest
 	 */
 	public function selectSingleFile(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that it is possible to select a single file');
 		$I->amOnPage(MediaListPage::$url);
 		$I->waitForMediaLoaded();
 		$I->click(MediaListPage::item('powered_by.png'));
@@ -153,7 +149,6 @@ class MediaListCest
 	 */
 	public function selectSingleFolder(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that it is possible to select a single folder');
 		$I->amOnPage(MediaListPage::$url);
 		$I->waitForMediaLoaded();
 		$I->click(MediaListPage::item('banners'));
@@ -169,7 +164,6 @@ class MediaListCest
 	 */
 	public function selectMultipleItems(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that it is possible to select multiple');
 		$I->amOnPage(MediaListPage::$url);
 		$I->waitForMediaLoaded();
 		$I->click(MediaListPage::item('banners'));
@@ -186,7 +180,6 @@ class MediaListCest
 	 */
 	public function navigateUsingDoubleClickOnFolder(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that its possible to navigate to a subfolder using double click.');
 		$I->amOnPage(MediaListPage::$url);
 		$I->waitForMediaLoaded();
 		$I->doubleClick(MediaListPage::item('banners'));
@@ -204,7 +197,6 @@ class MediaListCest
 	 */
 	public function navigateUsingTree(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that its possible to navigate to a subfolder using tree.');
 		$I->amOnPage(MediaListPage::$url);
 		$I->waitForMediaLoaded();
 		$I->clickOnLinkInTree('banners');
@@ -222,7 +214,6 @@ class MediaListCest
 	 */
 	public function navigateUsingBreadcrumb(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that its possible to navigate to a subfolder using breadcrumb.');
 		$I->amOnPage(MediaListPage::$url . 'banners');
 		$I->waitForMediaLoaded();
 		$I->clickOnLinkInBreadcrumb('images');
@@ -242,7 +233,6 @@ class MediaListCest
 	{
 		$testFileName = 'test-image-1.png';
 
-		$I->wantToTest('the upload of a single file using toolbar button.');
 		$I->amOnPage(MediaListPage::$url . $this->testDirectory);
 		$I->uploadFile('com_media/' . $testFileName);
 		$I->seeSystemMessage('Item uploaded.');
@@ -263,7 +253,6 @@ class MediaListCest
 	{
 		$testFileName = 'test-image-1.jpg';
 
-		$I->wantToTest('that it shows a confirmation dialog when uploading existing file.');
 		$I->amOnPage(MediaListPage::$url . $this->testDirectory);
 		$I->uploadFile('com_media/' . $testFileName);
 		$I->seeSystemMessage('Item uploaded.');
@@ -287,7 +276,6 @@ class MediaListCest
 	{
 		$testFolderName = 'test-folder';
 
-		$I->wantToTest('that it is possible to create a new folder using the toolbar button.');
 		$I->amOnPage(MediaListPage::$url . $this->testDirectory);
 		$I->click(MediaListPage::$toolbarCreateFolderButton);
 		$I->seeElement(MediaListPage::$newFolderInputField);
@@ -313,7 +301,6 @@ class MediaListCest
 	 */
 	public function createExistingFolderUsingToolbar(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that it is not possible to create an existing folder.');
 		$I->amOnPage(MediaListPage::$url);
 		$I->click(MediaListPage::$toolbarCreateFolderButton);
 		$I->seeElement(MediaListPage::$newFolderInputField);
@@ -338,7 +325,6 @@ class MediaListCest
 		$testFileName = 'test-image-1.png';
 		$testFileItem = MediaListPage::item($testFileName);
 
-		$I->wantToTest('that it is possible to delete a single file.');
 		$I->amOnPage(MediaListPage::$url . $this->testDirectory);
 		$I->uploadFile('com_media/' . $testFileName);
 		$I->waitForElement($testFileItem);
@@ -361,7 +347,6 @@ class MediaListCest
 		$testfolderName = 'test-folder';
 		$testFolderItem = MediaListPage::item($testfolderName);
 
-		$I->wantToTest('that it is possible to delete a single folder.');
 		$I->createDirectory('images/' . $this->testDirectory . '/' . $testfolderName);
 		$I->amOnPage(MediaListPage::$url . $this->testDirectory);
 		$I->waitForElement($testFolderItem);
@@ -386,7 +371,6 @@ class MediaListCest
 		$testFileItem1 = MediaListPage::item($testFileName1);
 		$testFileItem2 = MediaListPage::item($testFileName2);
 
-		$I->wantToTest('that it is possible to delete a single file.');
 		$I->amOnPage(MediaListPage::$url . $this->testDirectory);
 		$I->uploadFile('com_media/' . $testFileName1);
 		$I->waitForElement($testFileItem1);
@@ -414,7 +398,6 @@ class MediaListCest
 		$testFileName = 'test-image-1.png';
 		$testFileItem = MediaListPage::item($testFileName);
 
-		$I->wantToTest('that it is possible to rename a file.');
 		$I->amOnPage(MediaListPage::$url . $this->testDirectory);
 		$I->uploadFile('com_media/' . $testFileName);
 		$I->waitForElement($testFileItem);
@@ -445,7 +428,6 @@ class MediaListCest
 		$testFileItem1 = MediaListPage::item($testFileName1);
 		$testFileItem2 = MediaListPage::item($testFileName2);
 
-		$I->wantToTest('that it is not possible to rename a file to a filename of an existing file.');
 		$I->amOnPage(MediaListPage::$url . $this->testDirectory);
 		$I->uploadFile('com_media/' . $testFileName1);
 		$I->waitForElement($testFileItem1);
@@ -473,7 +455,6 @@ class MediaListCest
 		$testFolderName = 'test-folder';
 		$testFolderItem = MediaListPage::item($testFolderName);
 
-		$I->wantToTest('that it is possible to rename a folder.');
 		$I->createDirectory('images/' . $this->testDirectory . '/' . $testFolderName);
 		$I->amOnPage(MediaListPage::$url . $this->testDirectory);
 		$I->waitForElement($testFolderItem);
@@ -504,7 +485,6 @@ class MediaListCest
 		$testFolderItem1 = MediaListPage::item($testFolderName1);
 		$testFolderItem2 = MediaListPage::item($testFolderName2);
 
-		$I->wantToTest('that it is not possible to rename a folder to a foldername of an existing folder.');
 		$I->amOnPage(MediaListPage::$url . $this->testDirectory);
 		$I->createDirectory('images/' . $this->testDirectory . '/' . $testFolderName1);
 		$I->createDirectory('images/' . $this->testDirectory . '/' . $testFolderName2);
@@ -530,7 +510,6 @@ class MediaListCest
 	 */
 	public function showPreviewUsingDoubleClickOnImage(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that it shows a preview for image when user doubleclicks it.');
 		$I->amOnPage(MediaListPage::$url);
 		$I->waitForMediaLoaded();
 		$I->doubleClick(MediaListPage::item('powered_by.png'));
@@ -550,7 +529,6 @@ class MediaListCest
 	 */
 	public function showPreviewUsingClickOnActionMenu(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that it is possible to show a preview of an image using button in action menu.');
 		$I->amOnPage(MediaListPage::$url);
 		$I->waitForMediaLoaded();
 		$I->clickOnActionInMenuOf('powered_by.png', MediaListPage::$previewAction);
@@ -570,7 +548,6 @@ class MediaListCest
 	 */
 	public function closePreviewModalUsingCloseButton(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that its possible to close the preview modal using the close button.');
 		$I->amOnPage(MediaListPage::$url);
 		$I->waitForMediaLoaded();
 		$I->doubleClick(MediaListPage::item('powered_by.png'));
@@ -589,7 +566,6 @@ class MediaListCest
 	 */
 	public function closePreviewModalUsingEscapeKey(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that its possible to close the preview modal using escape key.');
 		$I->amOnPage(MediaListPage::$url);
 		$I->waitForMediaLoaded();
 		$I->doubleClick(MediaListPage::item('powered_by.png'));
@@ -607,7 +583,6 @@ class MediaListCest
 	 */
 	public function openImageEditorUsingActionMenu(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that it is possible to open the image editor using action menu.');
 		$I->amOnPage(MediaListPage::$url);
 		$I->waitForMediaLoaded();
 		$I->clickOnActionInMenuOf('powered_by.png', MediaListPage::$editAction);
@@ -623,7 +598,6 @@ class MediaListCest
 	 */
 	public function toggleInfoBar(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that it is possible to toggle the infobar.');
 		$I->amOnPage(MediaListPage::$url);
 		$I->openInfobar();
 		$I->seeElement(MediaListPage::$infoBar);
@@ -641,7 +615,6 @@ class MediaListCest
 	 */
 	public function showFileInformationInInfobar(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that it shows basic file information in the infobar.');
 		$I->amOnPage(MediaListPage::$url);
 		$I->waitForMediaLoaded();
 		$I->click(MediaListPage::item('powered_by.png'));
@@ -659,7 +632,6 @@ class MediaListCest
 	 */
 	public function showFolderInformationInInfobar(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that it shows basic folder information in the infobar.');
 		$I->amOnPage(MediaListPage::$url);
 		$I->waitForMediaLoaded();
 		$I->click(MediaListPage::item('banners'));
@@ -676,7 +648,6 @@ class MediaListCest
 	 * @since   __DEPLOY_VERSION__
 	 */
 	public function resizeThumbnails(\Step\Acceptance\Administrator\Media $I) {
-		$I->wantToTest('that it is possible to resize the thumbnails.');
 		$I->amOnPage(MediaListPage::$url);
 		$I->waitForMediaLoaded();
 		// Resize to max
@@ -707,7 +678,6 @@ class MediaListCest
 	 */
 	public function toggleListViewUsingToolbarButton(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that its possible to toggle the list view (grid/table) using the toolbar button.');
 		$I->amOnPage(MediaListPage::$url);
 		$I->waitForMediaLoaded();
 		$I->seeElement(MediaListPage::$mediaBrowserGrid);
@@ -729,7 +699,6 @@ class MediaListCest
 	 */
 	public function selectAllItemsUsingToolbarButton(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that its possible to select all items using toolbar button.');
 		$I->amOnPage(MediaListPage::$url);
 		$I->waitForMediaLoaded();
 		$I->click(MediaListPage::$selectAllButton);
@@ -745,7 +714,6 @@ class MediaListCest
 	 */
 	public function synchronizeAppStateWithSessionStorage(\Step\Acceptance\Administrator\Media $I)
 	{
-		$I->wantToTest('that the application state is synchronized with session storage.');
 		$I->amOnPage(MediaListPage::$url);
 		$I->waitForMediaLoaded();
 		$json = $I->executeJS('return sessionStorage.getItem("' . MediaListPage::$storageKey . '")');
