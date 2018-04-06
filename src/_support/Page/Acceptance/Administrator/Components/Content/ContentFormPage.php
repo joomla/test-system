@@ -12,19 +12,15 @@ namespace Page\Acceptance\Administrator\Components\Content;
 use Page\Acceptance\Administrator\AdminFormPage;
 
 /**
- * Acceptance Page object class for content form page.
- *
- * @package  Page\Acceptance\Administrator
- *
- * @since    __DEPLOY_VERSION__
+ * Class ContentFormPage
+ * @package Page\Acceptance\Administrator\Components\Content
  */
 class ContentFormPage extends AdminFormPage
 {
 	/**
 	 * Link to the article form page.
 	 *
-	 * @var    string
-	 * @since  __DEPLOY_VERSION__
+	 * @var string
 	 */
 	public static $url = 'administrator/index.php?option=com_content&view=article&layout=edit';
 }

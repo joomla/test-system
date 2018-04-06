@@ -11,11 +11,8 @@ namespace Page\Acceptance\Administrator\Components\Content;
 use Page\Acceptance\Administrator\AdminListPage;
 
 /**
- * Acceptance Page object class for content list page.
- *
- * @package  Page\Acceptance\Administrator
- *
- * @since    __DEPLOY_VERSION__
+ * Class ContentListPage
+ * @package Page\Acceptance\Administrator\Components\Content
  */
 class ContentListPage extends AdminListPage
 {
@@ -23,7 +20,6 @@ class ContentListPage extends AdminListPage
 	 * Link to the article listing page.
 	 *
 	 * @var string
-	 * @since  __DEPLOY_VERSION__
 	 */
 	public static $url = "/administrator/index.php?option=com_content&view=articles";
 
