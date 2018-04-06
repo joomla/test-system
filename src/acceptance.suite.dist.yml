@@ -31,9 +31,10 @@ modules:
             admin email: 'admin@mydomain.com'      # email Id of the Admin
             language: 'English (United Kingdom)'   # Language in which you want the Application to be Installed
         Helper\JoomlaDb:
-            dsn: 'mysql:host=mysql;dbname=test_joomla'
+            host: 'mysql'
             user: 'root'
             password: 'joomla_ut'
+            database: 'test_joomla'
             prefix: 'jos_'
         Helper\Acceptance:
             url: 'http://localhost/test-install'   # the url that points to the joomla installation at /tests/system/joomla-cms - we need it twice here
