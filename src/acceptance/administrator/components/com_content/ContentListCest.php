@@ -258,7 +258,29 @@ class ContentListCest
 		$I->seeSystemMessage('1 article unfeatured.');
 	}
 
-	// TODO archive an article
+	/**
+	 * Test archive article using toolbar button
+	 *
+	 * @param   \Step\Acceptance\Administrator\Content $I
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function archiveArticledUsingToolbarButton(\Step\Acceptance\Administrator\Content $I)
+	{
+		$I->wantToTest('that it is possible to archive an article using toolbar button.');
+
+		$testArticle = $this->article(['state' => 1]);
+		$I->haveInDatabase($this->tableName, $testArticle);
+
+		$I->amOnPage(ContentListPage::$url);
+		$I->seeElement(ContentListPage::item($testArticle['title']));
+		$I->selectItemFromList($testArticle['title']);
+		// TODO add this method to JoomlaBrowser::clickToolbarButton('unfeatured')
+		$I->clickToolbarButton('archive');
+		$I->seeInDatabase($this->tableName, array_merge($testArticle, ['state' => 2]));
+		$I->seeSystemMessage('1 article archived.');
+		$I->dontSeeElement(ContentListPage::item($testArticle['title']))
+	}
 
 	// TODO check an article in
 
