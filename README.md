@@ -20,13 +20,8 @@ $ cd /var/www/html/
 
 ```
 /var/www/html$ git clone git@github.com:joomla/joomla-cms.git
-Clone nach 'joomla-cms' ...
-remote: Counting objects: 640229, done.
-remote: Compressing objects: 100% (138/138), done.
-remote: Total 2446 (delta 10), reused 0 (delta 0), pack-reused 2361
-Empfange Objekte: 100% (2446/2446), 615.02 KiB | 375.00 KiB/s, Fertig.
-Löse Unterschiede auf: 100% (1232/1232), Fertig.
-Prüfe Konnektivität ... Fertig.
+Clone into 'joomla-cms' ...
+...
 ```
 
 Are you new with github? Here you can find informations about setting it up: https://help.github.com/articles/set-up-git/
@@ -44,10 +39,7 @@ Make sure you are on the correct branch:
 /var/www/html/joomla-cms$ git branch
 * staging
 /var/www/html/joomla-cms$ git fetch origin 4.0-dev:4.0-dev
-Von https://github.com/joomla/joomla-cms
- * [neuer Branch]    4.0-dev    -> 4.0-dev
 /var/www/html/joomla-cms$ git checkout 4.0-dev
-Zu Branch '4.0-dev' gewechselt
 /var/www/html/joomla-cms$ git branch
 * 4.0-dev
   staging
@@ -155,7 +147,6 @@ Currently we need the configuation file twice!
 
 ```
 /var/www/html/joomla-cms$ cp acceptance.suite.yml ./libraries/vendor/joomla/test-system/src
-astrid@acer:/var/www/html/joomla-cms$
 ```
 
 ##### 10. Optional: Create and edit the file RoboFile.ini.
