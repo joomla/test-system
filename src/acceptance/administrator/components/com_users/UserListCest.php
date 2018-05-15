@@ -135,7 +135,7 @@ class UserListCest
 		$I->comment('I wait for error reporting dropdown');
 		$I->click(['xpath' => "//input[@type='radio' and @value=0 and @name='jform[mailonline]']"]);
 		$I->comment('I click on save');
-		$I->click(['id' => 'toolbar-apply']);
+		$I->clickToolbarButton("Save");
 		$I->comment('I wait for global configuration being saved');
 		$I->waitForText('Global Configuration', TIMEOUT, ['css' => '.page-title']);
 		$I->see('Configuration saved.', ['id' => 'system-message-container']);
