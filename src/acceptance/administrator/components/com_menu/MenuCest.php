@@ -7,10 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-use Page\Acceptance\Administrator\MenuListPage;
-use Page\Acceptance\Administrator\MenuFormPage;
-use Page\Acceptance\Administrator\AdminPage;
 
+use Page\Acceptance\Administrator\MenuManagerPage as MenuPage;
+use Page\Acceptance\Administrator\MenuEditPage as EditPage;
+use Page\Acceptance\Administrator;
+use Page\Acceptance\Administrator\AdminPage as AdminPage;
+use Faker\Factory as fakerLib;
 /**
  * Administrator Menu Tests
  *
@@ -21,7 +23,7 @@ class MenuCest
 	/**
 	 * Create a menu
 	 *
-	 * @param   AcceptanceTester  $I  The AcceptanceTester Object
+	 * @param AcceptanceTester $I The AcceptanceTester Object
 	 *
 	 * @since  __DEPLOY_VERSION__
 	 *
@@ -32,21 +34,23 @@ class MenuCest
 		$I->comment('I am going to create a menu');
 		$I->doAdministratorLogin();
 
-		$I->amOnPage(MenuListPage::$url);
+		$I->amOnPage(MenuPage::$url);
 		$I->checkForPhpNoticesOrWarnings();
 
-		$I->waitForText(MenuListPage::$pageTitleText);
-		$I->click(['id' => "menu-collapse"]);
+		$I->waitForText(MenuPage::$pageTitleText);
 
 		$I->clickToolbarButton('new');
-		$I->waitForText(MenuFormPage::$pageTitleText);
+		$I->waitForText(EditPage::$pageTitleText);
 		$I->checkForPhpNoticesOrWarnings();
 
-		$this->fillMenuInformation($I, 'Test Menu');
+		$this->fillMenuInformation($I);
 
 		$I->clickToolbarButton('save');
-		$I->waitForText(MenuListPage::$pageTitleText);
+		$I->waitForText(MenuPage::$pageTitleText);
 		$I->checkForPhpNoticesOrWarnings();
+
+        $I->see('Menu saved',AdminPage::$systemMessageContainer);
+		//
 	}
 
 
@@ -62,10 +66,78 @@ class MenuCest
 	 *
 	 * @return  void
 	 */
-	protected function fillMenuInformation($I, $title, $type = 'Test', $description = 'Automated Testing')
+
+	protected function fillMenuInformation($I)
 	{
-		$I->fillField(MenuFormPage::$fieldTitle, $title);
-		$I->fillField(MenuFormPage::$fieldMenuType, $type);
-		$I->fillField(MenuFormPage::$fieldMenuDescription, $description);
+        $faker = fakerLib::create();
+		$I->fillField(EditPage::$fieldTitle,$faker->name);
+		$I->fillField(EditPage::$fieldMenuType,$faker->jobTitle);
+		$I->fillField(EditPage::$fieldMenuDescription, $faker->text);
 	}
+
+    /**
+     * Publish a menu
+     *
+     * @param   AcceptanceTester  $I  The AcceptanceTester Object
+     *
+     * @since  __DEPLOY_VERSION__
+     *
+     * @return  void
+     */
+
+	public function publishMenu(\AcceptanceTester $I){
+        $I->comment('I am going to publish a menu');
+        $I->doAdministratorLogin();
+
+        $I->amOnPage(MenuPage::$url);
+        $I->checkForPhpNoticesOrWarnings();
+
+        $I->click(MenuPage::$menuSelect);
+
+        $I->click(MenuPage::$checkAll);
+
+        $I->click(MenuPage::$publish);
+
+
+    }
+
+    /**
+     * unPublish a menu
+     *
+     * @param   AcceptanceTester  $I  The AcceptanceTester Object
+     *
+     * @since  __DEPLOY_VERSION__
+     *
+     * @return  void
+     */
+    public function unPublishMenu(\AcceptanceTester $I){
+        $I->comment('I am going to unpublish a menu');
+        $I->doAdministratorLogin();
+
+        $I->amOnPage(MenuPage::$url);
+        $I->checkForPhpNoticesOrWarnings();
+
+        $I->click(MenuPage::$menuSelect);
+
+        $I->click(MenuPage::$checkAll);
+
+        $I->click(MenuPage::$unpublish);
+
+    }
+
+    /**
+     * WORKING ON IT
+     */
+    public function deleteMenu(\AcceptanceTester $I){
+        $I->comment('I am going to delete a menu');
+        $I->doAdministratorLogin();
+
+        $I->amOnPage(MenuPage::$url);
+        $I->checkForPhpNoticesOrWarnings();
+
+        $I->click(MenuPage::$menuSelect);
+
+        $I->clickToolbarButton('delete');
+    }
+
 }
