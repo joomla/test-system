@@ -13,83 +13,90 @@
     class MenuItem
     {
         // include url of current page
-        public static $url = "administrator/index.php?option=com_menus&view=items";
+    public static $url = "administrator/index.php?option=com_menus&view=items";
 
         /**
          * New User Button
          *
-         * @var    string
-         * @since  3.7.3
+         * @var   string
+         * @since 3.7.3
          */
-        public static $newButton = ['id' => 'toolbar-new'];
+    public static $newButton = ['id' => 'toolbar-new'];
 
         /**
          * Menu Item Title
          *
-         * @var    string
-         * @since  3.7.3
+         * @var   string
+         * @since 3.7.3
          */
-        public static $menuItemTitle = ['id' => 'jform_title'];
+    public static $menuItemTitle = ['id' => 'jform_title'];
 
         /**
          * Menu Item Alias
          *
-         * @var    string
-         * @since  3.7.3
+         * @var   string
+         * @since 3.7.3
          */
-        public static $menuItemAlias = ['id' => 'jform_alias'];
+    public static $menuItemAlias = ['id' => 'jform_alias'];
 
         /**
          * Menu Item Save
          *
-         * @var    string
-         * @since  3.7.3
+         * @var   string
+         * @since 3.7.3
          */
-        public static  $saveButton = ['id' => 'toolbar-apply'];
+    public static  $saveButton = ['id' => 'toolbar-apply'];
 
         /**
          * Page title of the user manager listing page.
          *
-         * @var    string
-         * @since  3.7.3
+         * @var   string
+         * @since 3.7.3
          */
-        public static $pageTitleText = "Menus";
+    public static $pageTitleText = "Menus";
 
 
         /**
-         * drop down menu
+         * A drop down menu
          *
-         * @var    string
-         * @since  3.7.3
+         * @var   string
+         * @since 3.7.3
          */
-        public static $menuDropDown = ['xpath' => '//select[@id="jform_menutype"]'];
+    public static $menuDropDown = ['xpath' => '//select[@id="jform_menutype"]'];
 
         /**
-         * selecting option from dropdown menu
+         * Selecting option from dropdown menu
          *
-         * @var    string
-         * @since  3.7.3
+         * @var   string
+         * @since 3.7.3
          */
-        public static $selectOption = ['xpath' => '//select[@id="jform_menutype"]/option[@value="mainmenu"]'];
+    public static $selectOption = ['xpath' => '//select[@id="jform_menutype"]/option[@value="mainmenu"]'];
 
         /**
-         * check on the checkbox status
-         *
-         * @var    string
-         * @since  __DEPLOY_VERSION__
-         */
-        public static $checkAll = ['class' => 'hasTooltip'];
+        * check on the checkbox status
+        *
+        * @var    string
+        * @since __DEPLOY_VERSION__
+        */
+    public static $check = ['id' => 'cb0'];
 
 
-        public static $menuTypeModal = ['id' => 'menuTypeModal'];
+    public static $menuTypeModal = ['id' => 'menuTypeModal'];
 
-        public static $articlesLink = ['link' => 'Articles'];
+    public static $articlesLink = ['link' => 'Articles'];
 
-        public static $archiveArticlesLink = ['link' => 'Archived Articles'];
+    public static $archiveArticles = ['link' => 'Archived Articles'];
 
-        //$I->clickToolbarButton('rebuild'); didn't work 
-        public static $rebuildButton = ['id' => 'toolbar-refresh'];
+    //$I->clickToolbarButton('rebuild'); didn't work
+    public static $rebuildButton = ['id' => 'toolbar-refresh'];
 
-        public static $successMessage = 'Menu item saved';
+    public static $trashButton = ['id' => 'toolbar-trash'];
+
+    public static $successMessage = 'Menu item saved';
+
+    public static $selectMenu = ['id' => 'menutype'];
+
+    public static $selectMainMenu = ['xpath' => '//select[@id="menutype"]/option[@value="mainmenu"]'];
+
     }
 
