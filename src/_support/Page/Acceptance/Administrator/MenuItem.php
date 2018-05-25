@@ -1,17 +1,26 @@
 <?php
 
     /**
-     * @package     Joomla.Test
+     * @package  Joomla.Test
      * @subpackage  AcceptanceTester.Page
      *
-     * @copyright   Copyright (C) 2005 - 2019 Open Source Matters, Inc. All rights reserved.
-     * @license     GNU General Public License version 2 or later; see LICENSE.txt
+     * @copyright   Copyright (C) 20018 - 2019 Open Source Matters, Inc.All rights reserved.
+     * @license     GNU General Public License version 2 or later;see LICENSE.txt
+     *  7.0.30
      */
 
-    namespace Page\Acceptance\Administrator;
+namespace Page\Acceptance\Administrator;
 
-    class MenuItem
-    {
+    /**
+     * Acceptance Page object class to menu items page objects.
+     *
+     * @package Page\Acceptance\Administrator
+     *
+     * @since __DEPLOY_VERSION__
+     */
+
+class MenuItem
+{
         // include url of current page
     public static $url = "administrator/index.php?option=com_menus&view=items";
 
@@ -72,12 +81,12 @@
          */
     public static $selectOption = ['xpath' => '//select[@id="jform_menutype"]/option[@value="mainmenu"]'];
 
-        /**
-        * check on the checkbox status
-        *
-        * @var    string
-        * @since __DEPLOY_VERSION__
-        */
+          /**
+           * Select  the checkbox status
+           *
+           * @var   string
+           * @since __DEPLOY_VERSION__
+           */
     public static $check = ['id' => 'cb0'];
 
 
@@ -98,5 +107,9 @@
 
     public static $selectMainMenu = ['xpath' => '//select[@id="menutype"]/option[@value="mainmenu"]'];
 
-    }
+    public static $homeButton = ['id' => 'toolbar-default'];
+
+    public static $checkInButton = ['id' => 'toolbar-checkin'];
+
+}
 
