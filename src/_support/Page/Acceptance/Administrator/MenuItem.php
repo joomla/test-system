@@ -9,7 +9,7 @@
      *  7.0.30
      */
 
-namespace Page\Acceptance\Administrator;
+    namespace Page\Acceptance\Administrator;
 
     /**
      * Acceptance Page object class to menu items page objects.
@@ -19,10 +19,10 @@ namespace Page\Acceptance\Administrator;
      * @since __DEPLOY_VERSION__
      */
 
-class MenuItem
-{
+    class MenuItem
+    {
         // include url of current page
-    public static $url = "administrator/index.php?option=com_menus&view=items";
+        public static $url = "administrator/index.php?option=com_menus&view=items";
 
         /**
          * New User Button
@@ -30,7 +30,7 @@ class MenuItem
          * @var   string
          * @since 3.7.3
          */
-    public static $newButton = ['id' => 'toolbar-new'];
+        public static $newButton = ['id' => 'toolbar-new'];
 
         /**
          * Menu Item Title
@@ -38,7 +38,7 @@ class MenuItem
          * @var   string
          * @since 3.7.3
          */
-    public static $menuItemTitle = ['id' => 'jform_title'];
+        public static $menuItemTitle = ['id' => 'jform_title'];
 
         /**
          * Menu Item Alias
@@ -46,7 +46,7 @@ class MenuItem
          * @var   string
          * @since 3.7.3
          */
-    public static $menuItemAlias = ['id' => 'jform_alias'];
+        public static $menuItemAlias = ['id' => 'jform_alias'];
 
         /**
          * Menu Item Save
@@ -54,7 +54,7 @@ class MenuItem
          * @var   string
          * @since 3.7.3
          */
-    public static  $saveButton = ['id' => 'toolbar-apply'];
+        public static  $saveButton = ['id' => 'toolbar-apply'];
 
         /**
          * Page title of the user manager listing page.
@@ -62,7 +62,7 @@ class MenuItem
          * @var   string
          * @since 3.7.3
          */
-    public static $pageTitleText = "Menus";
+        public static $pageTitleText = "Menus";
 
 
         /**
@@ -71,7 +71,7 @@ class MenuItem
          * @var   string
          * @since 3.7.3
          */
-    public static $menuDropDown = ['xpath' => '//select[@id="jform_menutype"]'];
+        public static $menuDropDown = ['id' => 'jform_menutype'];
 
         /**
          * Selecting option from dropdown menu
@@ -79,37 +79,52 @@ class MenuItem
          * @var   string
          * @since 3.7.3
          */
-    public static $selectOption = ['xpath' => '//select[@id="jform_menutype"]/option[@value="mainmenu"]'];
+        public static $selectOption = ['xpath' => '//select[@id="jform_menutype"]/option[@value="mainmenu"]'];
 
-          /**
-           * Select  the checkbox status
-           *
-           * @var   string
-           * @since __DEPLOY_VERSION__
-           */
-    public static $check = ['id' => 'cb0'];
+       /**
+        * Select  the checkbox status
+        *
+        * @var   string
+        * @since __DEPLOY_VERSION__
+        */
+        public static $check = ['id' => 'cb0'];
 
 
-    public static $menuTypeModal = ['id' => 'menuTypeModal'];
+        public static $menuTypeModal = ['id' => 'menuTypeModal'];
 
-    public static $articlesLink = ['link' => 'Articles'];
+        public static $articlesLink = ['link' => 'Articles'];
 
-    public static $archiveArticles = ['link' => 'Archived Articles'];
+        public static $categoriesLink = ['link' => ''];
 
-    //$I->clickToolbarButton('rebuild'); didn't work
-    public static $rebuildButton = ['id' => 'toolbar-refresh'];
+        public static $archiveArticles = ['link' => 'Archived Articles'];
 
-    public static $trashButton = ['id' => 'toolbar-trash'];
+        public static $successMessage = 'Menu item saved';
 
-    public static $successMessage = 'Menu item saved';
+        public static $selectMenu = ['id' => 'menutype'];
 
-    public static $selectMenu = ['id' => 'menutype'];
+        public static $selectMainMenu = ['xpath' => '//select[@id="menutype"]/option[@value="mainmenu"]'];
 
-    public static $selectMainMenu = ['xpath' => '//select[@id="menutype"]/option[@value="mainmenu"]'];
+        public static $homeButton = ['id' => 'toolbar-default'];
 
-    public static $homeButton = ['id' => 'toolbar-default'];
+        public static $checkInButton = ['id' => 'toolbar-checkin'];
 
-    public static $checkInButton = ['id' => 'toolbar-checkin'];
+        public static $selectCategory = ['xpath' => '//*[@id="jform_request_catid"]/option[2]'];
+
+        /**
+        * Drop Down Toggle Element.
+        *
+        * @var    array
+        * @since  __DEPLOY_VERSION__
+        */
+        public static $dropDownToggle = ['xpath' => "//button[contains(@class, 'dropdown-toggle')]"];
+
+        /**
+         * Selecting category or article
+         *
+         * @var    array
+         * @since  __DEPLOY_VERSION__
+         */
+        public static $select = ['id' => 'jform_request_id_select'];
 
 }
 
