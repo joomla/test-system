@@ -28,10 +28,11 @@ class Content extends Admin
 		$I->waitForElement(ArticleManagerPage::$filterSearch, TIMEOUT);
 		$I->clickToolbarButton('New');
 		$this->articleManagerPage->fillContentCreateForm($title, $body);
-        if($category!='null'){
-            $I->click(ArticleManagerPage::$selectCategory);
-            $I->fillField(ArticleManagerPage::$fillCategory,$category);
-        }
+        	if($category!='null'){
+            		$I->click(ArticleManagerPage::$selectCategory);
+            		$I->fillField(ArticleManagerPage::$fillCategory,$category);
+			 $I->pressKey(ArticleManagerPage::$fillCategory,\Facebook\WebDriver\WebDriverKeys::ENTER);
+       		}
 		$I->click(ArticleManagerPage::$dropDownToggle);
 		$I->clickToolbarButton('Save & Close');
 		$I->articleManagerPage->seeItemIsCreated($title);
