@@ -31,7 +31,7 @@ class Content extends Admin
         	if($category!='null'){
             		$I->click(ArticleManagerPage::$selectCategory);
             		$I->fillField(ArticleManagerPage::$fillCategory,$category);
-			 $I->pressKey(ArticleManagerPage::$fillCategory,\Facebook\WebDriver\WebDriverKeys::ENTER);
+			$I->pressKey(ArticleManagerPage::$fillCategory,\Facebook\WebDriver\WebDriverKeys::ENTER);
        		}
 		$I->click(ArticleManagerPage::$dropDownToggle);
 		$I->clickToolbarButton('Save & Close');
