@@ -89,25 +89,84 @@
         */
         public static $check = ['id' => 'cb0'];
 
-
+        /**
+         * Select Menu Type Modal
+         *
+         * @var    array
+         * @since  __DEPLOY_VERSION__
+         */
         public static $menuTypeModal = ['id' => 'menuTypeModal'];
 
+        /**
+         * Select Article Link
+         *
+         * @var    array
+         * @since  __DEPLOY_VERSION__
+         */
         public static $articlesLink = ['link' => 'Articles'];
 
+        /**
+         * Select Category Link
+         *
+         * @var    array
+         * @since  __DEPLOY_VERSION__
+         */
         public static $categoriesLink = ['link' => ''];
 
+        /**
+         * Archive Articles
+         *
+         * @var    array
+         * @since  __DEPLOY_VERSION__
+         */
         public static $archiveArticles = ['link' => 'Archived Articles'];
 
+        /**
+         * Success Message
+         *
+         * @var    string
+         * @since  __DEPLOY_VERSION__
+         */
         public static $successMessage = 'Menu item saved';
 
+        /**
+         * Select Menu
+         *
+         * @var    array
+         * @since  __DEPLOY_VERSION__
+         */
         public static $selectMenu = ['id' => 'menutype'];
 
+        /**
+         * Select Menu Menu
+         *
+         * @var    array
+         * @since  __DEPLOY_VERSION__
+         */
         public static $selectMainMenu = ['xpath' => '//select[@id="menutype"]/option[@value="mainmenu"]'];
 
+        /**
+         * Select Home Button
+         *
+         * @var    array
+         * @since  __DEPLOY_VERSION__
+         */
         public static $homeButton = ['id' => 'toolbar-default'];
 
+        /**
+         * Select Check in
+         *
+         * @var    array
+         * @since  __DEPLOY_VERSION__
+         */
         public static $checkInButton = ['id' => 'toolbar-checkin'];
 
+        /**
+         * Select category
+         *
+         * @var    array
+         * @since  __DEPLOY_VERSION__
+         */
         public static $selectCategory = ['xpath' => '//*[@id="jform_request_catid"]/option[2]'];
 
         /**
@@ -126,6 +185,12 @@
          */
         public static $select = ['id' => 'jform_request_id_select'];
 
+        /**
+         * Select Menu Type
+         *
+         * @var    array
+         * @since  __DEPLOY_VERSION__
+         */
         public static $selectMenuType = ['xpath' => '//select[@id=\'jform_request_id\']'];
 
 }

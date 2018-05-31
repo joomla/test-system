@@ -10,25 +10,38 @@
 
     use Step\Acceptance\Administrator\Category as CategoryStep;
     use Step\Acceptance\Administrator\Content as ContentStep;
+    use Step\Acceptance\Site\FrontEnd as FrontEnd;
     use Page\Acceptance\Administrator;
-    use Faker\Factory as fakerLib;
 
     class CategoryMenuCest
     {
 
+        /**
+         * CategoryMenuCest constructor.
+	 *
+	 * No parameters
+	 *
+	 *@return void
+         */
         public function __construct()
         {
 
             $faker = fakerLib::create();
 
-            $this->categoryTitle = $faker->name;
-            $this->articleTitle = $faker->name;
-            $this->articleContent = $faker->text;
-            $this->menuItemName = $faker->name;
-            $this->menuItemAlias = $faker->userName;
+            $this->categoryTitle  = 'COUNTRY';
+            $this->articleTitle   = 'ARTICLE INDIA';
+            $this->articleContent = 'This is test Article on country India';
+            $this->menuItemName   = 'India';
+            $this->menuItemAlias  = 'in';
 
         }
 
+        /**
+         * Create Category
+         *
+         * @param \AcceptanceTester $I
+         * @param $scenario
+         */
         public function Category(\AcceptanceTester $I, $scenario)
         {
 
@@ -39,6 +52,12 @@
 
         }
 
+        /**
+         * Create Articles in Category
+         *
+         * @param \AcceptanceTester $I
+         * @param $scenario
+         */
         public function createArticles(\AcceptanceTester $I, $scenario)
         {
 
@@ -51,6 +70,15 @@
 
         }
 
+        /**
+         * Publish Menu Items
+         *
+         * @param  \AcceptanceTester $I
+         *
+         * @throws \Exception
+         *
+         * @return void
+         */
         public function createMenuForCategory(\AcceptanceTester $I)
         {
 
@@ -122,7 +150,13 @@
             $I->searchForItem($this->menuItemName);
 
         }
-
+        /**
+         * Unpublish Menu Items and check front end
+         *
+         * @param   \AcceptanceTester $I
+         *
+         * @return  void
+         */
         public function unpublishMenuItems(\AcceptanceTester $I)
         {
 
@@ -143,18 +177,17 @@
 
             $I->clickToolbarButton('unpublish');
 
-        }
-
-        public function checkInFrontEndUnpublish(\AcceptanceTester $I)
-        {
-
-            $I->comment('Make sure the menu item is not on site After unpublishing it');
-            $I->amOnPage(Administrator\frontEnd::$urlfront);
-
-            $I->dontSee($this->menuItemName);
+            //Check In FrontEnd
+            FrontEnd::notVisible($I,$this->menuItemName);
 
         }
-
+        /**
+         * Publish Menu Items
+         *
+         * @param   \AcceptanceTester $I
+         *
+         * @return  void
+         */
         public function publishMenuItems(\AcceptanceTester $I)
         {
 
@@ -176,18 +209,18 @@
             //publish
             $I->clickToolbarButton('publish');
 
-        }
+            //Check In FrontEnd
+            FrontEnd::isVisible($I,$this->menuItemName);
 
-        public function checkInFrontEndPublish(\AcceptanceTester $I)
-        {
-
-            $I->comment('Check the menu item on site After publishing it');
-            $I->amOnPage(Administrator\frontEnd::$urlfront);
-
-            $I->see($this->menuItemName);
 
         }
-
+        /**
+         * Set Menu Item To Home
+         *
+         * @param   \AcceptanceTester $I
+         *
+         * @return  void
+         */
         public function setMenuItemHome(\AcceptanceTester $I)
         {
 
@@ -208,18 +241,20 @@
             //Set To Home
             $I->click(Administrator\MenuItem::$homeButton);
 
-        }
-
-        public function checkInFrontEndSetHome(\AcceptanceTester $I)
-        {
-
-            $I->comment('Check the menu item on site After setting it to Home');
-            $I->amOnPage(Administrator\frontEnd::$urlfront);
-
-            $I->see($this->menuItemName);
+            //Check In FrontEnd
+            FrontEnd::isVisible($I,$this->menuItemName);
 
         }
 
+        /**
+         * Rebuild Menu Items
+         *
+         * @param   \AcceptanceTester $I
+         *
+         * @return  void
+         *
+         * @since   3.8.3
+         */
         public function rebuildMenuItems(\AcceptanceTester $I)
         {
 
@@ -243,18 +278,16 @@
             // Success message
             $I->see('Menu items list rebuilt', Administrator\AdminPage::$systemMessageContainer);
 
+            //Check In FrontEnd
+            FrontEnd::isVisible($I,$this->menuItemName);
         }
-
-        public function checkInFrontEndRebuild(\AcceptanceTester $I)
-        {
-
-            $I->comment('Check the menu item on site After rebuilding');
-            $I->amOnPage(Administrator\frontEnd::$urlfront);
-
-            $I->see($this->menuItemName);
-
-        }
-
+        /**
+         * Trash Menu Items
+         *
+         * @param   \AcceptanceTester $I
+         *
+         * @return  void
+         */
         public function trashMenuItems(\AcceptanceTester $I)
         {
 
@@ -280,17 +313,8 @@
 
             $I->clickToolbarButton('trash');
 
-            $I->see('1 menu item trashed.', Administrator\AdminPage::$systemMessageContainer);
-        }
-
-        public function checkInFrontEndTrash(\AcceptanceTester $I)
-        {
-
-            $I->comment('Check the menu item on site After rebuilding');
-            $I->amOnPage(Administrator\frontEnd::$urlfront);
-
-            $I->dontSee($this->menuItemName);
-
+            //Check In FrontEnd
+            FrontEnd::notVisible($I,$this->menuItemName);
         }
 
     }
