@@ -10,7 +10,6 @@
 use Page\Acceptance\Administrator\MenuListPage;
 use Page\Acceptance\Administrator\MenuFormPage;
 use Page\Acceptance\Administrator\AdminPage;
-
 /**
  * Administrator Menu Tests
  *
@@ -18,12 +17,12 @@ use Page\Acceptance\Administrator\AdminPage;
  */
 class MenuCest
 {
-    public function __construct()
-    {
-        $this->menuTitle = 'Testing Final Menu A123';
-        $this->type = 'Test129';
-        $this->description = 'Alright Automation Testing for Menus';
-    }
+	public function __construct()
+	{
+		$this->menuTitle = 'Testing Final Menu A123';
+		$this->type = 'Test129';
+		$this->description = 'Alright Automation Testing for Menus';
+	}
 	/**
 	 * Create a menu
 	 *
@@ -50,13 +49,12 @@ class MenuCest
 
 		$this->fillMenuInformation($I, $this->menuTitle, $this->type, $this->description);
 
-        $I->click(MenuFormPage::$dropDownToggle);
-        $I->clickToolbarButton('save & close');
+		$I->click(MenuFormPage::$dropDownToggle);
+		$I->clickToolbarButton('save & close');
 
 		$I->waitForText(MenuListPage::$pageTitleText);
 		$I->checkForPhpNoticesOrWarnings();
 	}
-
 
 	/**
 	 * Fill out the menu information form
@@ -77,35 +75,35 @@ class MenuCest
 		$I->fillField(MenuFormPage::$fieldMenuDescription, $description);
 	}
 
-    public function rebuildMenu(\AcceptanceTester $I){
+	public function rebuildMenu(\AcceptanceTester $I){
 
-        $I->comment('I am going to rebuild a menu');
-        $I->doAdministratorLogin();
+		$I->comment('I am going to rebuild a menu');
+		$I->doAdministratorLogin();
 
-        $I->amOnPage(MenuListPage::$url);
-        $I->checkForPhpNoticesOrWarnings();
+		$I->amOnPage(MenuListPage::$url);
+		$I->checkForPhpNoticesOrWarnings();
 
-        $I->searchForItem($this->menuTitle);
-        $I->click(MenuListPage::$menuSelect);
+		$I->searchForItem($this->menuTitle);
+		$I->click(MenuListPage::$menuSelect);
 
-        //$I->clickToolbarButton('rebuild');
-        $I->clickToolbarButton('rebuild');
+		//$I->clickToolbarButton('rebuild');
+		$I->clickToolbarButton('rebuild');
 
-        $I->see('Successfully rebuilt',AdminPage::$systemMessageContainer);
-    }
+		$I->see('Successfully rebuilt',AdminPage::$systemMessageContainer);
+	}
 
 
-    public function deleteMenu(\AcceptanceTester $I){
-        $I->comment('I am going to delete a menu');
-        $I->doAdministratorLogin();
+	public function deleteMenu(\AcceptanceTester $I){
+		$I->comment('I am going to delete a menu');
+		$I->doAdministratorLogin();
 
-        $I->amOnPage(MenuListPage::$url);
-        $I->checkForPhpNoticesOrWarnings();
+		$I->amOnPage(MenuListPage::$url);
+		$I->checkForPhpNoticesOrWarnings();
 
-        $I->searchForItem($this->menuTitle);
-        $I->click(MenuListPage::$menuSelect);
-        $I->clickToolbarButton('delete');
+		$I->searchForItem($this->menuTitle);
+		$I->click(MenuListPage::$menuSelect);
+		$I->clickToolbarButton('delete');
 
-    }
+	}
 
 }
