@@ -58,4 +58,12 @@ class MenuFormPage extends AdminFormPage
 	 */
 	public static $fieldMenuDescription = ['id' => 'jform_menudescription'];
 
+    /**
+     * Drop Down Toggle Element.
+     *
+     * @var    array
+     * @since  __DEPLOY_VERSION__
+     */
+    public static $dropDownToggle = ['xpath' => "//button[contains(@class, 'dropdown-toggle')]"];
+
 }

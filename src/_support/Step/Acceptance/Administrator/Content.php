@@ -21,6 +21,29 @@ use Page\Acceptance\Administrator\ContentListPage;
 class Content extends Admin
 {
 	/**
+	 * Create A New Article
+	 *
+	 * @param   string  $title
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function createArticle($title, $body, $category)
+	{	
+       	$I = $this;
+       	$I->amOnPage(ContentListPage::$url);
+       	//$I->waitForElement(ArticleManagerPage::$filterSearch, TIMEOUT);
+       	$I->clickToolbarButton('new');
+       	ContentListPage::fillContentCreateForm($I,$title, $body);
+       	if($category!='null'){
+       		$I->click(ContentListPage::$selectCategory);
+       		$I->fillField(ContentListPage::$fillCategory,$category);
+       		$I->pressKey(ContentListPage::$fillCategory,\Facebook\WebDriver\WebDriverKeys::ENTER);
+       	}
+       	$I->click(ContentListPage::$dropDownToggle);
+       	$I->clickToolbarButton('save & close');
+       	$I->searchForItem($title);
+    }
+	/**
 	 * Helper function to create a new Article
 	 *
 	 * @param   string  $title

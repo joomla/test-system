@@ -18,6 +18,12 @@ use Page\Acceptance\Administrator\AdminPage;
  */
 class MenuCest
 {
+    public function __construct()
+    {
+        $this->menuTitle = 'Testing Final Menu A123';
+        $this->type = 'Test129';
+        $this->description = 'Alright Automation Testing for Menus';
+    }
 	/**
 	 * Create a menu
 	 *
@@ -42,9 +48,11 @@ class MenuCest
 		$I->waitForText(MenuFormPage::$pageTitleText);
 		$I->checkForPhpNoticesOrWarnings();
 
-		$this->fillMenuInformation($I, 'Test Menu');
+		$this->fillMenuInformation($I, $this->menuTitle, $this->type, $this->description);
 
-		$I->clickToolbarButton('save');
+        $I->click(MenuFormPage::$dropDownToggle);
+        $I->clickToolbarButton('save & close');
+
 		$I->waitForText(MenuListPage::$pageTitleText);
 		$I->checkForPhpNoticesOrWarnings();
 	}
@@ -62,10 +70,42 @@ class MenuCest
 	 *
 	 * @return  void
 	 */
-	protected function fillMenuInformation($I, $title, $type = 'Test', $description = 'Automated Testing')
+	protected function fillMenuInformation($I, $title, $type, $description)
 	{
 		$I->fillField(MenuFormPage::$fieldTitle, $title);
 		$I->fillField(MenuFormPage::$fieldMenuType, $type);
 		$I->fillField(MenuFormPage::$fieldMenuDescription, $description);
 	}
+
+    public function rebuildMenu(\AcceptanceTester $I){
+
+        $I->comment('I am going to rebuild a menu');
+        $I->doAdministratorLogin();
+
+        $I->amOnPage(MenuListPage::$url);
+        $I->checkForPhpNoticesOrWarnings();
+
+        $I->searchForItem($this->menuTitle);
+        $I->click(MenuListPage::$menuSelect);
+
+        //$I->clickToolbarButton('rebuild');
+        $I->clickToolbarButton('rebuild');
+
+        $I->see('Successfully rebuilt',AdminPage::$systemMessageContainer);
+    }
+
+
+    public function deleteMenu(\AcceptanceTester $I){
+        $I->comment('I am going to delete a menu');
+        $I->doAdministratorLogin();
+
+        $I->amOnPage(MenuListPage::$url);
+        $I->checkForPhpNoticesOrWarnings();
+
+        $I->searchForItem($this->menuTitle);
+        $I->click(MenuListPage::$menuSelect);
+        $I->clickToolbarButton('delete');
+
+    }
+
 }
