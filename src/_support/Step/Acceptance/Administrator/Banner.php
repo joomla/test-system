@@ -9,7 +9,7 @@
 
 namespace Step\Acceptance\Administrator;
 
-use Page\Acceptance\Administrator\BannerListPage;
+use Page\Acceptance\Administrator\BannerManagerPage;
 
 /**
  * Acceptance Step object class contains suits for Content Manager.
@@ -24,9 +24,9 @@ class Banner extends Admin
 	public function createBanner($title, $message)
 	{
 		$I = $this;
-		$I->amOnPage(BannerListPage::$url);
+		$I->amOnPage(BannerManagerPage::$url);
 		$I->clickToolbarButton('New');
-		$I->fillField(BannerListPage::$titleField, $title);
+		$I->fillField(BannerManagerPage::$titleField, $title);
 		$I->clickToolbarButton('Save & Close');
 		$I->assertSuccessMessage($message);
 	}
@@ -34,21 +34,21 @@ class Banner extends Admin
 	public function assertSuccessMessage($message)
 	{
 		$I = $this;
-		$I->waitForText($message, TIMEOUT, BannerListPage::$systemMessageContainer);
-		$I->see($message, BannerListPage::$systemMessageContainer);
+		$I->waitForText($message, TIMEOUT, BannerManagerPage::$systemMessageContainer);
+		$I->see($message, BannerManagerPage::$systemMessageContainer);
 	}
 
 	public function modifyBanner($bannerTitle, $updatedTitle, $message)
 	{
 		$I = $this;
-		$I->amOnPage(BannerListPage::$url);
-		$I->fillField(BannerListPage::$searchField, $bannerTitle);
-		$I->click(BannerListPage::$filterSearch);
+		$I->amOnPage(BannerManagerPage::$url);
+		$I->fillField(BannerManagerPage::$searchField, $bannerTitle);
+		$I->click(BannerManagerPage::$filterSearch);
 		$I->checkAllResults();
 		$I->click($bannerTitle);
-		$I->waitForElement(BannerListPage::$titleField, TIMEOUT);
-		$I->fillField(BannerListPage::$titleField, $updatedTitle);
-		$I->fillField(BannerListPage::$aliasField, $updatedTitle);
+		$I->waitForElement(BannerManagerPage::$titleField, TIMEOUT);
+		$I->fillField(BannerManagerPage::$titleField, $updatedTitle);
+		$I->fillField(BannerManagerPage::$aliasField, $updatedTitle);
 		$I->clickToolbarButton('Save & Close');
 		$I->assertSuccessMessage($message);
 	}
@@ -56,10 +56,10 @@ class Banner extends Admin
 	public function publishBanner($bannerTitle, $message)
 	{
 		$I = $this;
-		$I->amOnPage(BannerListPage::$url);
-		$I->waitForElement(BannerListPage::$searchField, TIMEOUT);
-		$I->fillField(BannerListPage::$searchField, $bannerTitle);
-		$I->Click(BannerListPage::$filterSearch);
+		$I->amOnPage(BannerManagerPage::$url);
+		$I->waitForElement(BannerManagerPage::$searchField, TIMEOUT);
+		$I->fillField(BannerManagerPage::$searchField, $bannerTitle);
+		$I->Click(BannerManagerPage::$filterSearch);
 		$I->checkAllResults();
 		$I->clickToolbarButton('Publish');
 		$I->assertSuccessMessage($message);
@@ -68,10 +68,10 @@ class Banner extends Admin
 	public function unpublishBanner($bannerTitle, $message)
 	{
 		$I = $this;
-		$I->amOnPage(BannerListPage::$url);
-		$I->waitForElement(BannerListPage::$searchField, TIMEOUT);
-		$I->fillField(BannerListPage::$searchField, $bannerTitle);
-		$I->Click(BannerListPage::$filterSearch);
+		$I->amOnPage(BannerManagerPage::$url);
+		$I->waitForElement(BannerManagerPage::$searchField, TIMEOUT);
+		$I->fillField(BannerManagerPage::$searchField, $bannerTitle);
+		$I->Click(BannerManagerPage::$filterSearch);
 		$I->checkAllResults();
 		$I->clickToolbarButton('Unpublish');
 		$I->assertSuccessMessage($message);
@@ -80,10 +80,10 @@ class Banner extends Admin
 	public function checkInBanner($bannerTitle, $message)
 	{
 		$I = $this;
-		$I->amOnPage(BannerListPage::$url);
-		$I->waitForElement(BannerListPage::$searchField, TIMEOUT);
-		$I->fillField(BannerListPage::$searchField, $bannerTitle);
-		$I->Click(BannerListPage::$filterSearch);
+		$I->amOnPage(BannerManagerPage::$url);
+		$I->waitForElement(BannerManagerPage::$searchField, TIMEOUT);
+		$I->fillField(BannerManagerPage::$searchField, $bannerTitle);
+		$I->Click(BannerManagerPage::$filterSearch);
 		$I->checkAllResults();
 		$I->clickToolbarButton('check-in');
 		$I->assertSuccessMessage($message);
@@ -92,10 +92,10 @@ class Banner extends Admin
 	public function trashBanner($bannerTitle, $message)
 	{
 		$I = $this;
-		$I->amOnPage(BannerListPage::$url);
-		$I->waitForElement(BannerListPage::$searchField, TIMEOUT);
-		$I->fillField(BannerListPage::$searchField, $bannerTitle);
-		$I->Click(BannerListPage::$filterSearch);
+		$I->amOnPage(BannerManagerPage::$url);
+		$I->waitForElement(BannerManagerPage::$searchField, TIMEOUT);
+		$I->fillField(BannerManagerPage::$searchField, $bannerTitle);
+		$I->Click(BannerManagerPage::$filterSearch);
 		$I->checkAllResults();
 		$I->clickToolbarButton('Trash');
 		$I->assertSuccessMessage($message);
@@ -104,11 +104,11 @@ class Banner extends Admin
 	public function deleteBanner($bannerTitle, $message)
 	{
 		$I = $this;
-		$I->amOnPage(BannerListPage::$url);
-		$I->waitForElement(BannerListPage::$searchField, TIMEOUT);
+		$I->amOnPage(BannerManagerPage::$url);
+		$I->waitForElement(BannerManagerPage::$searchField, TIMEOUT);
 		$I->selectOptionInChosenByIdUsingJs('filter_published', "Trashed");
-		$I->fillField(BannerListPage::$searchField, $bannerTitle);
-		$I->Click(BannerListPage::$filterSearch);
+		$I->fillField(BannerManagerPage::$searchField, $bannerTitle);
+		$I->Click(BannerManagerPage::$filterSearch);
 		$I->checkAllResults();
 		$I->clickToolbarButton('Empty trash');
 		$I->acceptPopup();
