@@ -1,25 +1,25 @@
 <?php
-	/**
-	 * @package     Joomla.Tests
-	 * @subpackage  Acceptance.tests
-	 *
-	 * @copyright   Copyright (C) 2005 - 2016 Open Source Matters, Inc. All rights reserved.
-	 * @license     GNU General Public License version 2 or later; see LICENSE.txt
-	 */
+/**
+ * @package     Joomla.Tests
+ * @subpackage  Acceptance.tests
+ *
+ * @copyright   Copyright (C) 2005 - 2016 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ */
 
-	namespace administrator\components\com_category_menu;
+namespace administrator\components\com_category_menu;
 
-	use Step\Acceptance\Administrator\Category as CategoryStep;
-	use Step\Acceptance\Administrator\Content as ContentStep;
-	use Step\Acceptance\Site\FrontEnd as FrontEnd;
-	use Page\Acceptance\Administrator;
-	use Faker\Factory as fakerLib;
+use Step\Acceptance\Administrator\Category as CategoryStep;
+use Step\Acceptance\Administrator\Content as ContentStep;
+use Step\Acceptance\Site\FrontEnd as FrontEnd;
+use Page\Acceptance\Administrator;
+use Faker\Factory as fakerLib;
 
-	/**
-	 * Category Menu class
-	 *
-	 * @since __DEPLYED_VERSION__
-	 */
+/**
+ * Category Menu class
+ *
+ * @since __DEPLYED_VERSION__
+ */
 class CategoryMenuCest
 {
 	/**
