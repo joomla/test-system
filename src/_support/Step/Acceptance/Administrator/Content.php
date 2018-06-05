@@ -10,6 +10,8 @@
 namespace Step\Acceptance\Administrator;
 
 use Page\Acceptance\Administrator\ContentListPage;
+use Page\Acceptance\Administrator;
+use Step\Acceptance\Site\FrontEnd;
 
 /**
  * Acceptance Step object class contains suits for Content Manager.
@@ -29,20 +31,20 @@ class Content extends Admin
 	 */
 	public function createArticle($title, $body, $category)
 	{	
-       	$I = $this;
-       	$I->amOnPage(ContentListPage::$url);
-       	//$I->waitForElement(ArticleManagerPage::$filterSearch, TIMEOUT);
-       	$I->clickToolbarButton('new');
-       	ContentListPage::fillContentCreateForm($I,$title, $body);
-       	if($category!='null'){
-       		$I->click(ContentListPage::$selectCategory);
-       		$I->fillField(ContentListPage::$fillCategory,$category);
-       		$I->pressKey(ContentListPage::$fillCategory,\Facebook\WebDriver\WebDriverKeys::ENTER);
-       	}
-       	$I->click(ContentListPage::$dropDownToggle);
-       	$I->clickToolbarButton('save & close');
-       	$I->searchForItem($title);
-    }
+        	$I = $this;
+        	$I->amOnPage(ContentListPage::$url);
+        	//$I->waitForElement(ArticleManagerPage::$filterSearch, TIMEOUT);
+        	$I->clickToolbarButton('new');
+        	ContentListPage::fillContentCreateForm($I,$title, $body);
+        	if($category!='null'){
+        		$I->click(ContentListPage::$selectCategory);
+        		$I->fillField(ContentListPage::$fillCategory,$category);
+        		$I->pressKey(ContentListPage::$fillCategory,\Facebook\WebDriver\WebDriverKeys::ENTER);
+        	}
+        	$I->click(ContentListPage::$dropDownToggle);
+        	$I->clickToolbarButton('save & close');
+        	$I->searchForItem($title);
+    	}
 	/**
 	 * Helper function to create a new Article
 	 *
@@ -88,14 +90,29 @@ class Content extends Admin
 		$I->seeNumberOfElements(ContentListPage::$seeUnpublished, 1);
 	}
 
+    	public function publishArticle($title)
+    	{
+        	$I = $this;
+	        $I->amOnPage(ContentListPage::$url);
+        	$I->waitForElement(ContentListPage::$filterSearch, TIMEOUT);
+	        $I->searchForItem($title);
+       		$I->checkAllResults();
+        	$I->clickToolbarButton('publish');
+        	// Success message
+        	$I->see('1 article published.', Administrator\AdminPage::$systemMessageContainer);
+
+
+    	}
+
 	public function trashArticle($title)
 	{
 		$I = $this;
 		$I->amOnPage(ContentListPage::$url);
 		$I->waitForElement(ContentListPage::$filterSearch, TIMEOUT);
-		$this->articleManagerPage->haveItemUsingSearch($title);
+		$this->searchForItem($title);
+        	$I->checkAllResults();
 		$I->clickToolbarButton('trash');
 		$I->searchForItem($title);
-		$I->dontSee($title);
+		FrontEnd::notVisible($I, $title);
 	}
 }
