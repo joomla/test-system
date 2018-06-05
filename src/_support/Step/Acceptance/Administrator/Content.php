@@ -101,8 +101,7 @@ class Content extends Admin
         	// Success message
         	$I->see('1 article published.', Administrator\AdminPage::$systemMessageContainer);
 
-
-    	}
+	}
 
 	public function trashArticle($title)
 	{
