@@ -58,7 +58,7 @@ class MenuItemCest
 		$menuItemAlias = $this->menuItemAlias;
 
 		MenuItemStep::menuItem($I, $menuItemName, $menuItemAlias, '', 'Articles', 'Archived Article');
-
+		FrontEnd::isVisible($I, $menuItemName);
 	}
 
 	/**
@@ -87,6 +87,8 @@ class MenuItemCest
 		$I->click(Administrator\MenuItemList::$check);
 
 		$I->clickToolbarButton('unpublish');
+		
+		FrontEnd::notVisible($I, $this->menuItemName);
 
 	}
 
@@ -117,6 +119,8 @@ class MenuItemCest
 		$I->click(Administrator\MenuItemList::$check);
 
 		$I->clickToolbarButton('publish');
+		
+		FrontEnd::isVisible($I, $this->menuItemName);
 
 	}
 
@@ -177,6 +181,7 @@ class MenuItemCest
 		//Home button doesn't exist in JoomlaBrowser.php file (joomla-browser)
 		$I->click(Administrator\MenuItemList::$homeButton);
 
+		FrontEnd::isVisible($I, $this->menuItemName);		
 	}
 
 	/**
@@ -238,6 +243,8 @@ class MenuItemCest
 		$I->click(Administrator\MenuItemList::$check);
 
 		$I->clickToolbarButton('trash');
+		
+		FrontEnd::notVisible($I, $this->menuItemName);
 
 	}
 
