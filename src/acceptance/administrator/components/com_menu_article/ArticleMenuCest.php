@@ -78,13 +78,18 @@ class ArticleMenuCest
 
 		// Unpublish
 		$I->unPublishArticle($this->articleTitle);
+		FrontEnd::articleIsNotVisible($I, $this->menuItemName, $this->articleTitle);
+        	$I->see('The requested page can\'t be found.');
 
 		// Publish
 		$I->publishArticle($this->articleTitle);
-
+		FrontEnd::articleIsVisible($I, $this->menuItemName, $this->articleTitle);
+		
 		// Trash
 		$I->trashArticle($this->articleTitle);
-
+		FrontEnd::articleIsNotVisible($I, $this->menuItemName, $this->articleTitle);
+	        $I->see('The requested page can\'t be found.');
+		
 	}
 
 }
