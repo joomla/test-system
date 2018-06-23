@@ -57,6 +57,10 @@ class UserListCest
 		$I->seeSystemMessage(UserListPage::$successMessage);
 
 		$I->checkForPhpNoticesOrWarnings();
+		// Verify On Frontend
+		$I->doFrontEndLogin($this->username,$this->password);
+		$I->scrollTo(UserListPage::$userGreeting);
+		$I->see('Hi '.$this->name,UserListPage::$userGreeting);
 	}
 
 	/**
