@@ -1,117 +1,256 @@
 <?php
-    /**
-     * @package     Joomla.Tests
-     * @subpackage  Acceptance.tests
-     *
-     * @copyright   Copyright (C) 20005 - 2019 Open Source Matters, Inc. All rights reserved.
-     * @license     GNU General Public License version 2 or later; see LICENSE.txt
-     */
+/**
+ * @package     Joomla.Tests
+ * @subpackage  Acceptance.tests
+ *
+ * @copyright   Copyright (C) 2018 - 2019 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ */
 
 namespace menuItemCest;
-    use Page\Acceptance\Administrator;
-    use Page\Acceptance\Administrator\MenuManagerPage as MenuPage;
-    use Faker\Factory as fakerLib;
-    use \Codeception\Util\Locator;
-    /**
-     * Administrator Menu Items Test
-     *
-     * @since  3.7.3
-     */
+use Step\Acceptance\Administrator\MenuItem as MenuItemStep;
+use Page\Acceptance\Administrator;
+use Step\Acceptance\Administrator\MenuItem;
+use Step\Acceptance\Site\FrontEnd as FrontEnd;
 
-    class MenuItemCest
-    {
-        /**
-         * @return string
-         */
+/**
+ * Menu Item class
+ *
+ * @category  Menu_Article
+ * @package   Administratorcomponentscom_Menu_Article
+ * @author    Samarth sharma <samarthsharma351@gmail.com>
+ * @copyright 2005 - 2016 Open Source Matters, Inc. All rights reserved.
+ * @license   Joomla 2005-2018
+ * @link      ArticleMenuCest
+ * @since     __DEPLOYED_VERSION
+ */
+class MenuItemCest
+{
+	/**
+	 * Variables Initialised
+	 *
+	 * menuItemTitle	string
+	 * menuItemAlias	string
+	 */
+	public function __construct()
+	{
+		$this->menuItemName = 'Joomla Org Menu Item111';
+		$this->menuItemAlias = 'Joomla Org Menu Alias111';
+	}
+	/**
+	 * Creates a menu item with the Joomla menu manager
+	 *
+	 * @param \AcceptanceTester $I
+	 *
+	 * @throws \Exception
+	 * @since  3.0.0
+	 * @return void
+	 */
+	public function menuItem(\AcceptanceTester $I)
+	{
+		/**
+		 * Initializing values of variables
+		 * using faker library
+		 * string   menuItemName    name of menu item
+		 * string   menuItemAlias   alias of menu item
+		 */
+		$menuItemName = $this->menuItemName;
+		$menuItemAlias = $this->menuItemAlias;
 
-        public function createMenuItem(\AcceptanceTester $I)
-        {
-            /**
-             * Initializing values of variables
-             * using faker library
-             * string   menuItemName    name of menu item
-             * string   menuItemAlias   alias of menu item
-             */
-            $faker = fakerLib::create();
-            $menuItemName = $faker->name;
-            $menuItemAlias = $faker->userName;
+		// Call Step function to create Menu item
+		MenuItemStep::menuItem($I, $menuItemName, $menuItemAlias, '', 'Articles', 'Archived Article');
+		FrontEnd::isVisible($I, $menuItemName);
+	}
+	/**
+	 * Unpublish a menu
+	 *
+	 * @param \AcceptanceTester $I The AcceptanceTester Object
+	 *
+	 * @since __DEPLOY_VERSION__
+	 *
+	 * @return void
+	 */
+	public function unpublishMenuItem(\AcceptanceTester $I)
+	{
+		$I->comment('I am going to unpublish a menu');
+		$I->doAdministratorLogin();
+		$I->amOnPage(Administrator\MenuItemList::$url);
+		$I->checkForPhpNoticesOrWarnings();
+		$I->click(Administrator\MenuItemList::$selectMenu);
+		$option = $I->grabTextFrom(Administrator\MenuItemList::$selectMainMenu);
+		$I->selectOption(Administrator\MenuItemList::$selectMenu, $option);
 
+		// Search For Menu Item
+		$I->searchForItem($this->menuItemName);
+		$I->click(Administrator\MenuItemList::$check);
 
-            //Stating what is about to be done
+		// Unpublish
+		$I->clickToolbarButton('unpublish');
 
-            $I->comment('I am going to create a menu item');
-            $I->doAdministratorLogin();
+		// Check frontend
+		FrontEnd::notVisible($I, $this->menuItemName);
+	}
+	/**
+	 * Publish a menu
+	 *
+	 * @param \AcceptanceTester $I The AcceptanceTester Object
+	 *
+	 * @since __DEPLOY_VERSION__
+	 *
+	 * @return void
+	 */
+	public function publishMenuItem(\AcceptanceTester $I)
+	{
+		$I->comment('I am going to publish a menu');
+		$I->doAdministratorLogin();
 
-            //As per url specified in step file MenuItem
+		// URL
+		$I->amOnPage(Administrator\MenuItemList::$url);
+		$I->checkForPhpNoticesOrWarnings();
 
-            $I->amOnPage(Administrator\MenuItem::$url);
-            $I->checkForPhpNoticesOrWarnings();
+		// Select Main Menu
+		$I->click(Administrator\MenuItemList::$selectMenu);
+		$option = $I->grabTextFrom(Administrator\MenuItemList::$selectMainMenu);
+		$I->selectOption(Administrator\MenuItemList::$selectMenu, $option);
 
-            $I->waitForText(Administrator\MenuItem::$pageTitleText);
+		// Search For Menu Item
+		$I->searchForItem($this->menuItemName);
+		$I->click(Administrator\MenuItemList::$check);
 
+		// Publish
+		$I->clickToolbarButton('publish');
 
-            /**
-             * Creating A New Menu item
-             *  1. click on "new" botton
-             *  2. fill the Menu Select type
-             *  3. fill two fields : menu item name and alias
-             *  4. click on "save" button
+		// Check Frontend
+		FrontEnd::isVisible($I, $this->menuItemName);
+	}
+	/**
+	 * Check In A Menu Item
+	 *
+	 * @param \AcceptanceTester $I The AcceptanceTester Object
+	 *
+	 * @since __DEPLOY_VERSION__
+	 *
+	 * @return void
+	 */
+	public function checkInMenuItem(\AcceptanceTester $I)
+	{
+		$I->comment('I am going to check in a menu item');
+		$I->doAdministratorLogin();
 
-            */
+		// URL
+		$I->amOnPage(Administrator\MenuItemList::$url);
+		$I->checkForPhpNoticesOrWarnings();
 
-            $I->click(['id' => "menu-collapse"]);
+		// Select Main Menu
+		$I->click(Administrator\MenuItemList::$selectMenu);
+		$option = $I->grabTextFrom(Administrator\MenuItemList::$selectMainMenu);
+		$I->selectOption(Administrator\MenuItemList::$selectMenu, $option);
 
-            $I->clickToolbarButton('new');
+		// Search For Menu Item
+		$I->searchForItem($this->menuItemName);
+		$I->click(Administrator\MenuItemList::$check);
 
-            $I->waitForText('Select');
+		// check in button
+		$I->click(Administrator\MenuItemList::$checkInButton);
+	}
 
-            $I->click('Select');
-            $I->checkForPhpNoticesOrWarnings();
-            $I->switchToIFrame();
-            $I->waitForElement(Administrator\MenuItem::$menuTypeModal, TIMEOUT);
-            $I->switchToIFrame("Menu Item Type");
-            $I->waitForElement(Administrator\MenuItem::$articlesLink, TIMEOUT);
-            $I->click(['link' => 'Articles']);
-            $I->click(['link' => 'Archived Articles']);
+	/**
+	 * Set A Menu Item To Home
+	 *
+	 * @param \AcceptanceTester $I The AcceptanceTester Object
+	 *
+	 * @since __DEPLOY_VERSION__
+	 *
+	 * @return void
+	 */
+	public function setHomeMenuItem(\AcceptanceTester $I)
+	{
+		$I->comment('I am going to set a menu item to home');
+		$I->doAdministratorLogin();
 
-            $I->fillField(Administrator\MenuItem::$menuItemTitle, $menuItemName);
-            $I->fillField(Administrator\MenuItem::$menuItemAlias, $menuItemAlias);
+		// URL
+		$I->amOnPage(Administrator\MenuItemList::$url);
+		$I->checkForPhpNoticesOrWarnings();
+		$I->click(Administrator\MenuItemList::$selectMenu);
+		$option = $I->grabTextFrom(Administrator\MenuItemList::$selectMainMenu);
+		$I->selectOption(Administrator\MenuItemList::$selectMenu, $option);
 
+		// Search For Menu Item
+		$I->searchForItem($this->menuItemName);
+		$I->click(Administrator\MenuItemList::$check);
 
-            /**
-             * select option from dropdown menu
-            */
-            $I->waitForElement(Administrator\MenuItem::$menuDropDown);
-            $I->click(Administrator\MenuItem::$menuDropDown);
-            $option = $I->grabTextFrom(Administrator\MenuItem::$selectOption);
-            $I->selectOption(Administrator\MenuItem::$menuDropDown, $option);
+		//Home button doesn't exist in JoomlaBrowser.php file (joomla-browser)
+		$I->click(Administrator\MenuItemList::$homeButton);
 
+		// Check On Frontend
+		FrontEnd::isVisible($I, $this->menuItemName);
+	}
+	/**
+	 * Rebuild A Menu Item
+	 *
+	 * @param \AcceptanceTester $I The AcceptanceTester Object
+	 *
+	 * @since __DEPLOY_VERSION__
+	 *
+	 * @return void
+	 */
+	public function rebuildMenuItem(\AcceptanceTester $I)
+	{
+		$I->comment('I am going to rebuild a menu item');
+		$I->doAdministratorLogin();
 
-            /**
-             * save the menu item
-             */
-            $I->click(Administrator\MenuItem::$saveButton);
+		// URL
+		$I->amOnPage(Administrator\MenuItemList::$url);
+		$I->checkForPhpNoticesOrWarnings();
 
-            /**
-             * success message
-             */
-            $I->see(Administrator\MenuItem::$successMessage, Administrator\AdminPage::$systemMessageContainer);
-        }
+		// Select Main Menu
+		$I->click(Administrator\MenuItemList::$selectMenu);
+		$option = $I->grabTextFrom(Administrator\MenuItemList::$selectMainMenu);
+		$I->selectOption(Administrator\MenuItemList::$selectMenu, $option);
 
-        public function trashMenuItems(\AcceptanceTester $I){
-            $I->comment('I am going to unpublish a menu');
-            $I->doAdministratorLogin();
+		// Search For Menu Item
+		$I->searchForItem($this->menuItemName);
+		$I->click(Administrator\MenuItemList::$check);
 
-            $I->amOnPage(MenuPage::$url);
-            $I->checkForPhpNoticesOrWarnings();
+		// Rebuild
+		$I->clickToolbarButton('rebuild');
+	}
+	/**
+	 * Trash Menu Items
+	 *
+	 * @param \AcceptanceTester $I The AcceptanceTester Object
+	 *
+	 * @since __DEPLOY_VERSION__
+	 *
+	 * @return void
+	 */
+	public function trashMenuItem(\AcceptanceTester $I)
+	{
+		$I->comment('I am going to trash a menu item');
+		$I->doAdministratorLogin();
 
-            $I->click(MenuPage::$menuSelect);
+		// URL
+		$I->amOnPage(Administrator\MenuItemList::$url);
+		$I->checkForPhpNoticesOrWarnings();
 
-            $I->click(MenuPage::$checkAll);
+		// Select Main Menu
+		$I->click(Administrator\MenuItemList::$selectMenu);
+		$option = $I->grabTextFrom(Administrator\MenuItemList::$selectMainMenu);
+		$I->selectOption(Administrator\MenuItemList::$selectMenu, $option);
 
-            $I->clickToolbarButton('trash');
+		// Set Home To 'Home' So that you can trash Menu Item you created
+		$I->searchForItem('Home');
+		$I->click(Administrator\MenuItemList::$check);
+		$I->click(Administrator\MenuItemList::$homeButton);
 
-        }
+		// Search For Menu Item
+		$I->searchForItem($this->menuItemName);
+		$I->click(Administrator\MenuItemList::$check);
 
-    }
+		// Trash it
+		$I->clickToolbarButton('trash');
 
+		// Check On Frontend
+		FrontEnd::notVisible($I, $this->menuItemName);
+	}
+}

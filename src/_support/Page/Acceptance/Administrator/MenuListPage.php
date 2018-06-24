@@ -34,4 +34,20 @@ class MenuListPage extends AdminListPage
 	 */
 	public static $pageTitleText = 'Menus';
 
+    	/**
+     	 * Select the second menu
+     	 * cb0 -> id of first option and cb1-> id of second option
+     	 * @var string
+     	 * @since  __DEPLOY_VERSION__
+     	 * I will change the xpath later. This is for temporary basis
+     	 */
+	public static $menuSelect = ['id' => 'cb0'];
+
+    	/**
+     	 * Drop Down Toggle Element.
+     	 *
+     	 * @var    array
+     	 * @since  __DEPLOY_VERSION__
+ 	 */
+	public static $dropDownToggle = ['xpath' => "//button[contains(@class, 'dropdown-toggle')]"];
 }

@@ -193,4 +193,14 @@ class UserListPage extends AdminListPage
 	 * @since  3.7.3
 	 */
 	public static $noItems = ['class' => 'alert-no-items'];
+
+	/**
+	 * Locator for user Greeting
+	 *
+	 * @var    array
+	 * @since  3.7.3
+	 */
+	public static $userGreeting = ['class' => 'login-greeting'];
+
+	public static $superUserCheckBox = ['xpath' => '//*[@id="1group_8"]'];
 }
