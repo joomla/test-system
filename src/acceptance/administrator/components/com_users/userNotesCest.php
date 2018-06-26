@@ -43,6 +43,7 @@ class userNotesCest
 	 */
 	public function createUserNotes(\AcceptanceTester $I)
 	{
+		$I->wantToTest('creating user notes ');
 		$I->doAdministratorLogin();
 		$I->amOnPage(UserNotesList::$url);
 		// New
@@ -86,6 +87,7 @@ class userNotesCest
 	 */
 	public function unpublishUserNote(\AcceptanceTester $I)
 	{
+		$I->wantToTest('user notes are unpublished');
 		$I->doAdministratorLogin();
 		$I->amOnPage(UserNotesList::$url);
 		$I->searchForItem($this->subject);
@@ -103,6 +105,7 @@ class userNotesCest
 	 */
 	public function publishUserNote(\AcceptanceTester $I)
 	{
+		$I->wantToTest('that user note is published');
 		$I->doAdministratorLogin();
 		$I->amOnPage(UserNotesList::$url);
 		$I->searchForItem($this->subject);
@@ -120,6 +123,7 @@ class userNotesCest
 	 */
 	public function checkinUserNote(\AcceptanceTester $I)
 	{
+		$I->wantToTest('that user note is checked in');
 		$I->doAdministratorLogin();
 		$I->amOnPage(UserNotesList::$url);
 		$I->searchForItem($this->subject);
@@ -137,6 +141,7 @@ class userNotesCest
 	 */
 	public function trashUserNote(\AcceptanceTester $I)
 	{
+		$I->wantToTest('that user note is trashed');
 		$I->doAdministratorLogin();
 		$I->amOnPage(UserNotesList::$url);
 		$I->searchForItem($this->subject);
