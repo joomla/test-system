@@ -41,7 +41,7 @@ class userNotesCest
 	 *
 	 * @return  void
 	 */
-	public function createUserNotes(\AcceptanceTester $I)
+	public function createUserNote(\AcceptanceTester $I)
 	{
 		$I->wantToTest('creating user notes ');
 		$I->doAdministratorLogin();
