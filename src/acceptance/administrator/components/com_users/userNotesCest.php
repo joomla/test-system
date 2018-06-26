@@ -8,16 +8,17 @@
  */
 
 namespace administrator\components\com_users;
-use Page\Acceptance\Administrator\userNotesPage as UserNotes;
+use Page\Acceptance\Administrator\userNotesListPage as UserNotesList;
+use Page\Acceptance\Administrator\userNotesFormPage as UserNotesForm;
 /**
  * Administrator UserNotes Tests
  *
- * @category  Menu_Article
- * @package   Administratorcomponentscom_Menu_Article
+ * @category  Users
+ * @package   Administratorcomponents/com_users
  * @author    Samarth sharma <samarthsharma351@gmail.com>
- * @copyright 2005 - 2016 Open Source Matters, Inc. All rights reserved.
+ * @copyright 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license   Joomla 2005-2018
- * @link      ArticleMenuCest
+ * @link      User Notes
  * @since     __DEPLOYED_VERSION
  */
 class userNotesCest
@@ -43,35 +44,35 @@ class userNotesCest
 	public function createUserNotes(\AcceptanceTester $I)
 	{
 		$I->doAdministratorLogin();
-		$I->amOnPage(UserNotes::$url);
+		$I->amOnPage(UserNotesList::$url);
 		// New
 		$I->clickToolbarButton('New');
-		$I->fillField(UserNotes::$subject,$this->subject);
+		$I->fillField(UserNotesForm::$subject,$this->subject);
 		// Select User
-		$I->click(UserNotes::$selectUserButton);
+		$I->click(UserNotesForm::$selectUserButton);
 		$I->switchToIFrame('Select User');
-		$I->wait(1);
+		$I->wait(0.2);
 		$I->searchForItem($this->username);
-		$I->wait(1);
+		$I->wait(0.2);
 		$I->click(['link' => $this->name]);
 		$I->switchToPreviousTab();
-		$I->wait(1);
+		$I->wait(0.25);
 		// Select category
-		$I->click(UserNotes::$selectCategory);
+		$I->click(UserNotesForm::$selectCategory);
 		$I->switchToIFrame('Select or Change Category');
-		$I->wait(1);
+		$I->wait(0.2);
 		$I->searchForItem($this->category);
-		$I->wait(1);
+		$I->wait(0.2);
 		$I->click(['link' => $this->category]);
 		$I->switchToPreviousTab();
-		$I->wait(1);
+		$I->wait(0.2);
 		// Fill editor
-		$I->scrollTo(UserNotes::$editor);
-		$I->scrollTo(UserNotes::$toggleEditor);
-		$I->click(UserNotes::$toggleEditor);
-		$I->fillField(UserNotes::$editor,$this->notes);
+		$I->scrollTo(UserNotesForm::$editor);
+		$I->scrollTo(UserNotesForm::$toggleEditor);
+		$I->click(UserNotesForm::$toggleEditor);
+		$I->fillField(UserNotesForm::$editor,$this->notes);
 		// Save and close
-		$I->click(UserNotes::$dropDownToggle);
+		$I->click(UserNotesForm::$dropDownToggle);
 		$I->clickToolbarButton('save & close');
 	}
 	/**
@@ -86,9 +87,9 @@ class userNotesCest
 	public function unpublishUserNote(\AcceptanceTester $I)
 	{
 		$I->doAdministratorLogin();
-		$I->amOnPage(UserNotes::$url);
+		$I->amOnPage(UserNotesList::$url);
 		$I->searchForItem($this->subject);
-		$I->click(UserNotes::$option1);
+		$I->click(UserNotesList::$option1);
 		$I->clickToolbarButton('unpublish');
 	}
 	/**
@@ -103,9 +104,9 @@ class userNotesCest
 	public function publishUserNote(\AcceptanceTester $I)
 	{
 		$I->doAdministratorLogin();
-		$I->amOnPage(UserNotes::$url);
+		$I->amOnPage(UserNotesList::$url);
 		$I->searchForItem($this->subject);
-		$I->click(UserNotes::$option1);
+		$I->click(UserNotesList::$option1);
 		$I->clickToolbarButton('publish');
 	}
 	/**
@@ -120,9 +121,9 @@ class userNotesCest
 	public function checkinUserNote(\AcceptanceTester $I)
 	{
 		$I->doAdministratorLogin();
-		$I->amOnPage(UserNotes::$url);
+		$I->amOnPage(UserNotesList::$url);
 		$I->searchForItem($this->subject);
-		$I->click(UserNotes::$option1);
+		$I->click(UserNotesList::$option1);
 		$I->clickToolbarButton('check-in');
 	}
 	/**
@@ -137,9 +138,9 @@ class userNotesCest
 	public function trashUserNote(\AcceptanceTester $I)
 	{
 		$I->doAdministratorLogin();
-		$I->amOnPage(UserNotes::$url);
+		$I->amOnPage(UserNotesList::$url);
 		$I->searchForItem($this->subject);
-		$I->click(UserNotes::$option1);
+		$I->click(UserNotesList::$option1);
 		$I->clickToolbarButton('trash');
 	}
 }

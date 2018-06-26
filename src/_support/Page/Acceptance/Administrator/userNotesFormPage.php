@@ -9,13 +9,13 @@
 namespace Page\Acceptance\Administrator;
 
 /**
- * Acceptance Page object class to user list page.
+ * Acceptance Page object class to user form page.
  *
  * @package  Page\Acceptance\Administrator
  *
  * @since    3.7.3
  */
-class userNotesPage
+class userNotesFormPage
 {
 	// Include url of current page
 	public static $url = '/administrator/index.php?option=com_users&view=notes';
@@ -67,12 +67,4 @@ class userNotesPage
 	 * @since  __DEPLOY_VERSION__
 	 */
 	public static $toggleEditor = ['xpath' => '//*[@title="Toggle editor"]'];
-
-	/**
-	 * Option one in list
-	 *
-	 * @var    array
-	 * @since  __DEPLOY_VERSION__
-	 */
-	public static $option1 = ['id' => 'cb0'];
 }
