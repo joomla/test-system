@@ -19,7 +19,7 @@ use Page\Acceptance\Administrator\UserNotesFormPage as UserNotesForm;
  * @copyright 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license   Joomla 2005-2018
  * @link      User Notes
- * @since     __DEPLOYED_VERSION
+ * @since     4.0.0
  */
 class userNotesCest
 {
@@ -38,7 +38,7 @@ class userNotesCest
 	 *
 	 * @param   \AcceptanceTester  $I The AcceptanceTester Object
 	 *
-	 * @since   3.7.3
+	 * @since   4.0.0
 	 *
 	 * @return  void
 	 */
@@ -70,6 +70,8 @@ class userNotesCest
 		// Save and close
 		$I->click(UserNotesForm::$dropDownToggle);
 		$I->clickToolbarButton('save & close');
+		$I->searchForItem($this->subject);
+		$I->see($this->subject);
 	}
 
 	/**
@@ -77,7 +79,7 @@ class userNotesCest
 	 *
 	 * @param   \AcceptanceTester  $I The AcceptanceTester Object
 	 *
-	 * @since   __DEPLOYED_VERSION
+	 * @since   4.0.0
 	 *
 	 * @return  void
 	 */
@@ -96,7 +98,7 @@ class userNotesCest
 	 *
 	 * @param   \AcceptanceTester  $I The AcceptanceTester Object
 	 *
-	 * @since   __DEPLOYED_VERSION
+	 * @since   4.0.0
 	 *
 	 * @return  void
 	 */
@@ -108,6 +110,8 @@ class userNotesCest
 		$I->searchForItem($this->subject);
 		$I->click(UserNotesList::$option1);
 		$I->clickToolbarButton('publish');
+		$I->searchForItem($this->subject);
+		$I->see($this->subject);
 	}
 
 	/**
@@ -115,7 +119,7 @@ class userNotesCest
 	 *
 	 * @param   \AcceptanceTester  $I The AcceptanceTester Object
 	 *
-	 * @since   __DEPLOYED_VERSION
+	 * @since   4.0.0
 	 *
 	 * @return  void
 	 */
@@ -127,6 +131,8 @@ class userNotesCest
 		$I->searchForItem($this->subject);
 		$I->click(UserNotesList::$option1);
 		$I->clickToolbarButton('check-in');
+		$I->searchForItem($this->subject);
+		$I->see($this->subject);
 	}
 
 	/**
@@ -134,7 +140,7 @@ class userNotesCest
 	 *
 	 * @param   \AcceptanceTester  $I The AcceptanceTester Object
 	 *
-	 * @since   __DEPLOYED_VERSION
+	 * @since   4.0.0
 	 *
 	 * @return  void
 	 */
@@ -146,5 +152,7 @@ class userNotesCest
 		$I->searchForItem($this->subject);
 		$I->click(UserNotesList::$option1);
 		$I->clickToolbarButton('trash');
+		$I->searchForItem($this->subject);
+		$I->dontSee($this->subject);
 	}
 }
