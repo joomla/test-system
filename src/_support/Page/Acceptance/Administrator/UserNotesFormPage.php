@@ -15,9 +15,14 @@ namespace Page\Acceptance\Administrator;
  *
  * @since    3.7.3
  */
-class userNotesFormPage
+class UserNotesFormPage
 {
-	// Include url of current page
+	/**
+	 * Include url of current page
+	 *
+	 * @var    string
+	 * @since  __DEPLOY_VERSION__
+	 */
 	public static $url = '/administrator/index.php?option=com_users&view=notes';
 
 	/**
