@@ -70,6 +70,7 @@ class userNotesCest
 		// Save and close
 		$I->click(UserNotesForm::$dropDownToggle);
 		$I->clickToolbarButton('save & close');
+		// Assertion
 		$I->searchForItem($this->subject);
 		$I->see($this->subject);
 	}
@@ -110,6 +111,7 @@ class userNotesCest
 		$I->searchForItem($this->subject);
 		$I->click(UserNotesList::$option1);
 		$I->clickToolbarButton('publish');
+		// Assertion
 		$I->searchForItem($this->subject);
 		$I->see($this->subject);
 	}
@@ -131,6 +133,7 @@ class userNotesCest
 		$I->searchForItem($this->subject);
 		$I->click(UserNotesList::$option1);
 		$I->clickToolbarButton('check-in');
+		// Assertion
 		$I->searchForItem($this->subject);
 		$I->see($this->subject);
 	}
@@ -152,6 +155,7 @@ class userNotesCest
 		$I->searchForItem($this->subject);
 		$I->click(UserNotesList::$option1);
 		$I->clickToolbarButton('trash');
+		// Assertion
 		$I->searchForItem($this->subject);
 		$I->dontSee($this->subject);
 	}
