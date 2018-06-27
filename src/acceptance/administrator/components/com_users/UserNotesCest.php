@@ -53,21 +53,15 @@ class userNotesCest
 		// Select User
 		$I->click(UserNotesForm::$selectUserButton);
 		$I->switchToIFrame('Select User');
-		$I->wait(0.25);
 		$I->searchForItem($this->username);
-		$I->wait(0.25);
 		$I->click(['link' => $this->name]);
 		$I->switchToPreviousTab();
-	    $I->wait(0.25);
 		// Select category
 		$I->click(UserNotesForm::$selectCategory);
 		$I->switchToIFrame('Select or Change Category');
-        $I->wait(0.25);
 		$I->searchForItem($this->category);
-        $I->wait(0.29);
 		$I->click(['link' => $this->category]);
 		$I->switchToPreviousTab();
-		$I->wait(0.29);
 		// Fill editor
 		$I->scrollTo(UserNotesForm::$editor);
 		$I->scrollTo(UserNotesForm::$toggleEditor);
