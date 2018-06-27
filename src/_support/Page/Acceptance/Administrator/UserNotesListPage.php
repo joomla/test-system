@@ -3,7 +3,7 @@
  * @package     Joomla.Test
  * @subpackage  AcceptanceTester.Page
  *
- * @copyright   Copyright (C) 2005 - 2017 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 namespace Page\Acceptance\Administrator;
@@ -13,7 +13,7 @@ namespace Page\Acceptance\Administrator;
  *
  * @package  Page\Acceptance\Administrator
  *
- * @since    3.7.3
+ * @since    4.0.0
  */
 class UserNotesListPage
 {
@@ -21,7 +21,7 @@ class UserNotesListPage
 	 * Include url of current page
 	 *
 	 * @var    string
-	 * @since  __DEPLOY_VERSION__
+	 * @since  4.0.0
 	 */
 	public static $url = '/administrator/index.php?option=com_users&view=notes';
 
@@ -29,7 +29,7 @@ class UserNotesListPage
 	 * Option one in list
 	 *
 	 * @var    array
-	 * @since  __DEPLOY_VERSION__
+	 * @since  4.0.0
 	 */
 	public static $option1 = ['id' => 'cb0'];
 }
