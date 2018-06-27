@@ -13,7 +13,7 @@ namespace Page\Acceptance\Administrator;
  *
  * @package  Page\Acceptance\Administrator
  *
- * @since    3.7.3
+ * @since    4.0.0
  */
 class UserNotesFormPage
 {
@@ -37,7 +37,7 @@ class UserNotesFormPage
 	 * Select User Button
 	 *
 	 * @var    array
-	 * @since  __DEPLOY_VERSION__
+	 * @since  4.0.0
 	 */
 	public static $selectUserButton = ['xpath' => '//*[@title="Select User"]'];
 
@@ -45,7 +45,7 @@ class UserNotesFormPage
 	 * Select category
 	 *
 	 * @var    array
-	 * @since  __DEPLOY_VERSION__
+	 * @since  4.0.0
 	 */
 	public static $selectCategory = ['id' => 'jform_catid_select'];
 
@@ -53,7 +53,7 @@ class UserNotesFormPage
 	 * Editor
 	 *
 	 * @var    array
-	 * @since  __DEPLOY_VERSION__
+	 * @since  4.0.0
 	 */
 	public static $editor = ['id' => 'jform_body'];
 
@@ -61,7 +61,7 @@ class UserNotesFormPage
 	 * Drop Down Toggle Element.
 	 *
 	 * @var    array
-	 * @since  __DEPLOY_VERSION__
+	 * @since  4.0.0
 	 */
 	public static $dropDownToggle = ['xpath' => "//button[contains(@class, 'dropdown-toggle')]"];
 
@@ -69,7 +69,7 @@ class UserNotesFormPage
 	 * Toggle editor
 	 *
 	 * @var    array
-	 * @since  __DEPLOY_VERSION__
+	 * @since  4.0.0
 	 */
 	public static $toggleEditor = ['xpath' => '//*[@title="Toggle editor"]'];
 }
