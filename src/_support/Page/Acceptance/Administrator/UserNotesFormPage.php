@@ -11,20 +11,16 @@ namespace Page\Acceptance\Administrator;
 /**
  * Acceptance Page object class to user form page.
  *
- * @package  Page\Acceptance\Administrator
- *
- * @since    3.7.3
+ * @category  Users
+ * @package   Page\Acceptance\Administrator
+ * @author    Samarth sharma <samarthsharma351@gmail.com>
+ * @copyright 2005 - 2018 Open Source Matters, Inc. All rights reserved.
+ * @license   Joomla 2005-2018
+ * @link      User Notes Form Page
+ * @since     4.0.0
  */
 class UserNotesFormPage
 {
-	/**
-	 * Include url of current page
-	 *
-	 * @var    string
-	 * @since  __DEPLOY_VERSION__
-	 */
-	public static $url = '/administrator/index.php?option=com_users&view=notes';
-
 	/**
 	 * Subject
 	 *
