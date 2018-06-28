@@ -2,14 +2,12 @@
 /**
  * Test For User Notes
  * 
- * @category    Users
- * @package     Joomla.Tests
- * @subpackage  Acceptance.tests
- * @author      Samarth sharma <samarthsharma351@gmail.com>
- * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
- * @link      User Notes
- * @since     4.0.0
+ * @category   Users
+ * @package    Joomla.Tests
+ * @subpackage Acceptance.tests
+ * @copyright  Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE.txt
+ * @since      4.0.0
  */
 use Page\Acceptance\Administrator\UserNotesListPage as UserNotesList;
 use Page\Acceptance\Administrator\UserNotesFormPage as UserNotesForm;
