@@ -13,7 +13,6 @@ use Page\Acceptance\Administrator\UserNotesFormPage;
  * Administrator UserNotes Tests
  *
  * @category  Users
- * @package   Administratorcomponentscom_Users
  * @copyright 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license   GNU General Public License version 2 or later; see LICENSE.txt
  * @since     4.0.0
