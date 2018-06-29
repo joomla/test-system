@@ -25,7 +25,7 @@ class UserNotesCest
 		$this->password = "admin";
 		$this->name = "Super User";
 		$this->category = "Uncategorised";
-		$this->subject = "Test Subject 999";
+		$this->subject = "Test Subject";
 		$this->editorText = 'This is a test note for user '. $this->username;
 	}
 
@@ -38,7 +38,7 @@ class UserNotesCest
 	 *
 	 * @return  void
 	 */
-	public function createUserNotes(\AcceptanceTester $I)
+	public function createUserNote (\AcceptanceTester $I)
 	{
 		$I->wantToTest('creating user notes ');
 		$I->doAdministratorLogin();
@@ -62,7 +62,7 @@ class UserNotesCest
 		$I->scrollTo(UserNotesFormPage::$editor);
 		$I->scrollTo(UserNotesFormPage::$toggleEditor);
 		$I->click(UserNotesFormPage::$toggleEditor);
-		$I->fillField(UserNotesFormPage::$editor,$this->editorText);
+		$I->fillField(UserNotesFormPage::$editor, $this->editorText);
 		// Save and close
 		$I->click(UserNotesFormPage::$dropDownToggle);
 		$I->clickToolbarButton('save & close');
