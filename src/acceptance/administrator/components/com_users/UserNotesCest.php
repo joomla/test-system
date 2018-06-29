@@ -1,13 +1,10 @@
 <?php
 /**
- * Test For User Notes
- * 
- * @category   Users
- * @package    Joomla.Tests
- * @subpackage Acceptance.tests
- * @copyright  Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
- * @since      4.0.0
+ * @package     Joomla.Tests
+ * @subpackage  Acceptance.tests
+ *
+ * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 use Page\Acceptance\Administrator\UserNotesListPage as UserNotesList;
 use Page\Acceptance\Administrator\UserNotesFormPage as UserNotesForm;
@@ -17,13 +14,12 @@ use Page\Acceptance\Administrator\UserNotesFormPage as UserNotesForm;
  *
  * @category  Users
  * @package   Administratorcomponentscom_Users
- * @author    Samarth sharma <samarthsharma351@gmail.com>
  * @copyright 2005 - 2018 Open Source Matters, Inc. All rights reserved.
- * @license   Joomla 2005-2018
+ * @license   GNU General Public License version 2 or later; see LICENSE.txt
  * @link      User Notes
  * @since     4.0.0
  */
-class userNotesCest
+class UserNotesCest
 {
 	public function __construct()
 	{
@@ -31,7 +27,7 @@ class userNotesCest
 		$this->password = "admin";
 		$this->name = "Super User";
 		$this->category = "Uncategorised";
-		$this->subject = "Test Subject";
+		$this->subject = "Test Subject 999";
 		$this->editorText = 'This is a test note for user '. $this->username;
 	}
 
@@ -44,7 +40,7 @@ class userNotesCest
 	 *
 	 * @return  void
 	 */
-	public function createUserNote(\AcceptanceTester $I)
+	public function createUserNotes(\AcceptanceTester $I)
 	{
 		$I->wantToTest('creating user notes ');
 		$I->doAdministratorLogin();
@@ -68,17 +64,16 @@ class userNotesCest
 		$I->scrollTo(UserNotesForm::$editor);
 		$I->scrollTo(UserNotesForm::$toggleEditor);
 		$I->click(UserNotesForm::$toggleEditor);
-		$I->fillField(UserNotesForm::$editor, $this->editorText);
+		$I->fillField(UserNotesForm::$editor,$this->editorText);
 		// Save and close
 		$I->click(UserNotesForm::$dropDownToggle);
 		$I->clickToolbarButton('save & close');
-		// Assertion
 		$I->searchForItem($this->subject);
 		$I->see($this->subject);
 	}
 
 	/**
-	 * Unpublish User Notes
+	 * Toolbar Operations On User Notes
 	 *
 	 * @param   \AcceptanceTester  $I The AcceptanceTester Object
 	 *
@@ -86,85 +81,38 @@ class userNotesCest
 	 *
 	 * @return  void
 	 */
-	public function unpublishUserNote(\AcceptanceTester $I)
+	public function toolbarOperationsUserNote(\AcceptanceTester $I)
 	{
-		$I->wantToTest('that user notes are unpublished.');
+		$I->wantToTest('toolbar buttons on user notes - unpublish, publish, archive, trash.');
 		$I->doAdministratorLogin();
 		$I->amOnPage(UserNotesList::$url);
 		$I->searchForItem($this->subject);
 		$I->click(UserNotesList::$option1);
 		$I->clickToolbarButton('unpublish');
+		// Assertion
+		$I->setFilter('select status', 'Unpublished');
 		$I->searchForItem($this->subject);
-		// Status changes
-		$I->seeElement(UserNotesList::$unpublishStatus);
-	}
-
-	/**
-	 * Publish user notes
-	 *
-	 * @param   \AcceptanceTester  $I The AcceptanceTester Object
-	 *
-	 * @since   4.0.0
-	 *
-	 * @return  void
-	 */
-	public function publishUserNote(\AcceptanceTester $I)
-	{
-		$I->wantToTest('that user note is published');
-		$I->doAdministratorLogin();
-		$I->amOnPage(UserNotesList::$url);
-		$I->searchForItem($this->subject);
+		$I->seeElement(['link' => $this->subject]);
+		// Publish
 		$I->click(UserNotesList::$option1);
 		$I->clickToolbarButton('publish');
 		// Assertion
+		$I->setFilter('select status', 'Published');
 		$I->searchForItem($this->subject);
-		// Status changes
-		$I->seeElement(UserNotesList::$publishStatus);
-	}
-
-	/**
-	 * Check in user notes
-	 *
-	 * @param   \AcceptanceTester  $I The AcceptanceTester Object
-	 *
-	 * @since   4.0.0
-	 *
-	 * @return  void
-	 */
-	public function checkinUserNote(\AcceptanceTester $I)
-	{
-		$I->wantToTest('that user note is checked in');
-		$I->doAdministratorLogin();
-		$I->amOnPage(UserNotesList::$url);
-		$I->searchForItem($this->subject);
+		$I->seeElement(['link' => $this->subject]);
+		// Archive
 		$I->click(UserNotesList::$option1);
-		$I->clickToolbarButton('check-in');
+		$I->clickToolbarButton('archive');
 		// Assertion
+		$I->setFilter('select status', 'Archived');
 		$I->searchForItem($this->subject);
-		// Status changes
-		$I->seeElement(UserNotesList::$publishStatus);
-	}
-
-	/**
-	 * Trash user notes
-	 *
-	 * @param   \AcceptanceTester  $I The AcceptanceTester Object
-	 *
-	 * @since   4.0.0
-	 *
-	 * @return  void
-	 */
-	public function trashUserNote(\AcceptanceTester $I)
-	{
-		$I->wantToTest('that user note is trashed');
-		$I->doAdministratorLogin();
-		$I->amOnPage(UserNotesList::$url);
-		$I->searchForItem($this->subject);
+		$I->seeElement(['link' => $this->subject]);
+		// Trash
 		$I->click(UserNotesList::$option1);
 		$I->clickToolbarButton('trash');
 		// Assertion
+		$I->setFilter('select status', 'Trashed');
 		$I->searchForItem($this->subject);
-		// Item is not visible after deletion
-		$I->dontSee($this->subject);
+		$I->seeElement(['link' => $this->subject]);
 	}
 }

@@ -13,9 +13,8 @@ namespace Page\Acceptance\Administrator;
  *
  * @category  Users
  * @package   Page\Acceptance\Administrator
- * @author    Samarth sharma <samarthsharma351@gmail.com>
  * @copyright 2005 - 2018 Open Source Matters, Inc. All rights reserved.
- * @license   Joomla 2005-2018
+ * @license   GNU General Public License version 2 or later; see LICENSE.txt
  * @link      User Notes Form Page
  * @since     4.0.0
  */
@@ -25,7 +24,7 @@ class UserNotesFormPage
 	 * Subject
 	 *
 	 * @var    array
-	 * @since  __DEPLOY_VERSION__
+	 * @since  4.0.0
 	 */
 	public static $subject = ['id' => 'jform_subject'];
 
@@ -33,7 +32,7 @@ class UserNotesFormPage
 	 * Select User Button
 	 *
 	 * @var    array
-	 * @since  __DEPLOY_VERSION__
+	 * @since  4.0.0
 	 */
 	public static $selectUserButton = ['xpath' => '//*[@title="Select User"]'];
 
@@ -41,7 +40,7 @@ class UserNotesFormPage
 	 * Select category
 	 *
 	 * @var    array
-	 * @since  __DEPLOY_VERSION__
+	 * @since  4.0.0
 	 */
 	public static $selectCategory = ['id' => 'jform_catid_select'];
 
@@ -49,7 +48,7 @@ class UserNotesFormPage
 	 * Editor
 	 *
 	 * @var    array
-	 * @since  __DEPLOY_VERSION__
+	 * @since  4.0.0
 	 */
 	public static $editor = ['id' => 'jform_body'];
 
@@ -57,7 +56,7 @@ class UserNotesFormPage
 	 * Drop Down Toggle Element.
 	 *
 	 * @var    array
-	 * @since  __DEPLOY_VERSION__
+	 * @since  4.0.0
 	 */
 	public static $dropDownToggle = ['xpath' => "//button[contains(@class, 'dropdown-toggle')]"];
 
@@ -65,7 +64,7 @@ class UserNotesFormPage
 	 * Toggle editor
 	 *
 	 * @var    array
-	 * @since  __DEPLOY_VERSION__
+	 * @since  4.0.0
 	 */
 	public static $toggleEditor = ['xpath' => '//*[@title="Toggle editor"]'];
 }

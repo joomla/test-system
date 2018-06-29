@@ -13,9 +13,8 @@ namespace Page\Acceptance\Administrator;
  *
  * @category  Users
  * @package   Page\Acceptance\Administrator
- * @author    Samarth sharma <samarthsharma351@gmail.com>
  * @copyright 2005 - 2018 Open Source Matters, Inc. All rights reserved.
- * @license   Joomla 2005-2018
+ * @license   GNU General Public License version 2 or later; see LICENSE.txt
  * @link      User Notes List Page
  * @since     4.0.0
  */
