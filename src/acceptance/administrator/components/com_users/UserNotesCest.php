@@ -86,28 +86,28 @@ class UserNotesCest
 		$I->doAdministratorLogin();
 		$I->amOnPage(UserNotesListPage::$url);
 		$I->searchForItem($this->subject);
-		$I->click(UserNotesListPage::$option1);
+		$I->click(UserNotesListPage::$optionOne);
 		$I->clickToolbarButton('unpublish');
 		// Assertion
 		$I->setFilter('select status', 'Unpublished');
 		$I->searchForItem($this->subject);
 		$I->seeElement(['link' => $this->subject]);
 		// Publish
-		$I->click(UserNotesListPage::$option1);
+		$I->click(UserNotesListPage::$optionOne);
 		$I->clickToolbarButton('publish');
 		// Assertion
 		$I->setFilter('select status', 'Published');
 		$I->searchForItem($this->subject);
 		$I->seeElement(['link' => $this->subject]);
 		// Archive
-		$I->click(UserNotesListPage::$option1);
+		$I->click(UserNotesListPage::$optionOne);
 		$I->clickToolbarButton('archive');
 		// Assertion
 		$I->setFilter('select status', 'Archived');
 		$I->searchForItem($this->subject);
 		$I->seeElement(['link' => $this->subject]);
 		// Trash
-		$I->click(UserNotesListPage::$option1);
+		$I->click(UserNotesListPage::$optionOne);
 		$I->clickToolbarButton('trash');
 		// Assertion
 		$I->setFilter('select status', 'Trashed');

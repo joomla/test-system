@@ -28,7 +28,7 @@ class UserNotesListPage
      * @var    array
      * @since  4.0.0
      */
-    public static $option1 = ['id' => 'cb0'];
+    public static $optionOne = ['id' => 'cb0'];
 
     /**
      * Unpublish status
@@ -36,13 +36,4 @@ class UserNotesListPage
      * @var    array
      * @since  4.0.0
      */
-    public static $unpublishStatus = ['xpath' => '//span[@class="icon-unpublish"]'];
-
-    /**
-     * Publish status
-     *
-     * @var    array
-     * @since  4.0.0
-     */
-    public static $publishStatus = ['xpath' => '//span[@class="icon-publish"]'];
 }
