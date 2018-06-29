@@ -6,8 +6,8 @@
  * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
-use Page\Acceptance\Administrator\UserNotesListPage as UserNotesList;
-use Page\Acceptance\Administrator\UserNotesFormPage as UserNotesForm;
+use Page\Acceptance\Administrator\UserNotesListPage;
+use Page\Acceptance\Administrator\UserNotesFormPage;
 
 /**
  * Administrator UserNotes Tests
@@ -44,29 +44,29 @@ class UserNotesCest
 	{
 		$I->wantToTest('creating user notes ');
 		$I->doAdministratorLogin();
-		$I->amOnPage(UserNotesList::$url);
+		$I->amOnPage(UserNotesListPage::$url);
 		// New
 		$I->clickToolbarButton('New');
-		$I->fillField(UserNotesForm::$subject,$this->subject);
+		$I->fillField(UserNotesFormPage::$subject,$this->subject);
 		// Select User
-		$I->click(UserNotesForm::$selectUserButton);
+		$I->click(UserNotesFormPage::$selectUserButton);
 		$I->switchToIFrame('Select User');
 		$I->searchForItem($this->username);
 		$I->click(['link' => $this->name]);
 		$I->switchToPreviousTab();
 		// Select category
-		$I->click(UserNotesForm::$selectCategory);
+		$I->click(UserNotesFormPage::$selectCategory);
 		$I->switchToIFrame('Select or Change Category');
 		$I->searchForItem($this->category);
 		$I->click(['link' => $this->category]);
 		$I->switchToPreviousTab();
 		// Fill editor
-		$I->scrollTo(UserNotesForm::$editor);
-		$I->scrollTo(UserNotesForm::$toggleEditor);
-		$I->click(UserNotesForm::$toggleEditor);
-		$I->fillField(UserNotesForm::$editor,$this->editorText);
+		$I->scrollTo(UserNotesFormPage::$editor);
+		$I->scrollTo(UserNotesFormPage::$toggleEditor);
+		$I->click(UserNotesFormPage::$toggleEditor);
+		$I->fillField(UserNotesFormPage::$editor,$this->editorText);
 		// Save and close
-		$I->click(UserNotesForm::$dropDownToggle);
+		$I->click(UserNotesFormPage::$dropDownToggle);
 		$I->clickToolbarButton('save & close');
 		$I->searchForItem($this->subject);
 		$I->see($this->subject);
@@ -85,30 +85,30 @@ class UserNotesCest
 	{
 		$I->wantToTest('toolbar buttons on user notes - unpublish, publish, archive, trash.');
 		$I->doAdministratorLogin();
-		$I->amOnPage(UserNotesList::$url);
+		$I->amOnPage(UserNotesListPage::$url);
 		$I->searchForItem($this->subject);
-		$I->click(UserNotesList::$option1);
+		$I->click(UserNotesListPage::$option1);
 		$I->clickToolbarButton('unpublish');
 		// Assertion
 		$I->setFilter('select status', 'Unpublished');
 		$I->searchForItem($this->subject);
 		$I->seeElement(['link' => $this->subject]);
 		// Publish
-		$I->click(UserNotesList::$option1);
+		$I->click(UserNotesListPage::$option1);
 		$I->clickToolbarButton('publish');
 		// Assertion
 		$I->setFilter('select status', 'Published');
 		$I->searchForItem($this->subject);
 		$I->seeElement(['link' => $this->subject]);
 		// Archive
-		$I->click(UserNotesList::$option1);
+		$I->click(UserNotesListPage::$option1);
 		$I->clickToolbarButton('archive');
 		// Assertion
 		$I->setFilter('select status', 'Archived');
 		$I->searchForItem($this->subject);
 		$I->seeElement(['link' => $this->subject]);
 		// Trash
-		$I->click(UserNotesList::$option1);
+		$I->click(UserNotesListPage::$option1);
 		$I->clickToolbarButton('trash');
 		// Assertion
 		$I->setFilter('select status', 'Trashed');
