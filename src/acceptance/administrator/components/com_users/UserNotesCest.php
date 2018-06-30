@@ -26,7 +26,7 @@ class UserNotesCest
 		$this->name = "Super User";
 		$this->category = "Uncategorised";
 		$this->subject = "Test Subject";
-		$this->editorText = 'This is a test note for user '. $this->username;
+		$this->editorText = 'This is a test note for user ' . $this->username;
 	}
 
 	/**
