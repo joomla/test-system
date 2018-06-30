@@ -70,47 +70,101 @@ class UserNotesCest
 		$I->see($this->subject);
 	}
 
-	/**
-	 * Toolbar Operations On User Notes
-	 *
-	 * @param   \AcceptanceTester  $I The AcceptanceTester Object
-	 *
-	 * @since   4.0.0
-	 *
-	 * @return  void
-	 */
-	public function toolbarOperationsUserNote(\AcceptanceTester $I)
-	{
-		$I->wantToTest('toolbar buttons on user notes - unpublish, publish, archive, trash.');
-		$I->doAdministratorLogin();
-		$I->amOnPage(UserNotesListPage::$url);
-		$I->searchForItem($this->subject);
-		$I->click(UserNotesListPage::$optionOne);
-		$I->clickToolbarButton('unpublish');
-		// Assertion
-		$I->setFilter('select status', 'Unpublished');
-		$I->searchForItem($this->subject);
-		$I->seeElement(['link' => $this->subject]);
-		// Publish
-		$I->click(UserNotesListPage::$optionOne);
-		$I->clickToolbarButton('publish');
-		// Assertion
-		$I->setFilter('select status', 'Published');
-		$I->searchForItem($this->subject);
-		$I->seeElement(['link' => $this->subject]);
-		// Archive
-		$I->click(UserNotesListPage::$optionOne);
-		$I->clickToolbarButton('archive');
-		// Assertion
-		$I->setFilter('select status', 'Archived');
-		$I->searchForItem($this->subject);
-		$I->seeElement(['link' => $this->subject]);
-		// Trash
-		$I->click(UserNotesListPage::$optionOne);
-		$I->clickToolbarButton('trash');
-		// Assertion
-		$I->setFilter('select status', 'Trashed');
-		$I->searchForItem($this->subject);
-		$I->seeElement(['link' => $this->subject]);
-	}
+    /**
+     * Unpublish User Notes
+     *
+     * @param   \AcceptanceTester  $I The AcceptanceTester Object
+     *
+     * @since   4.0.0
+     *
+     * @return  void
+     */
+    public function unpublishUserNote (\AcceptanceTester $I)
+    {
+        $I->wantToTest(' unpublish user notes ');
+        $I->doAdministratorLogin();
+        $I->amOnPage(UserNotesListPage::$url);
+        $I->searchForItem($this->subject);
+        $I->click(UserNotesListPage::$optionOne);
+        $I->clickToolbarButton('unpublish');
+        // Assertion
+        $I->setFilter('select status', 'Unpublished');
+        $I->searchForItem($this->subject);
+        $I->seeElement(['link' => $this->subject]);
+    }
+
+    /**
+     * Publish User Notes
+     *
+     * @param   \AcceptanceTester  $I The AcceptanceTester Object
+     *
+     * @since   4.0.0
+     *
+     * @return  void
+     */
+    public function publishUserNote (\AcceptanceTester $I)
+    {
+        $I->wantToTest(' publish user notes ');
+        $I->doAdministratorLogin();
+        $I->amOnPage(UserNotesListPage::$url);
+        $I->setFilter('select status', 'Unpublished');
+        $I->searchForItem($this->subject);
+        // Publish
+        $I->click(UserNotesListPage::$optionOne);
+        $I->clickToolbarButton('publish');
+        // Assertion
+        $I->setFilter('select status', 'Published');
+        $I->searchForItem($this->subject);
+        $I->seeElement(['link' => $this->subject]);
+    }
+
+    /**
+     * Archive User Notes
+     *
+     * @param   \AcceptanceTester  $I The AcceptanceTester Object
+     *
+     * @since   4.0.0
+     *
+     * @return  void
+     */
+    public function archiveUserNote (\AcceptanceTester $I)
+    {
+        $I->wantToTest(' archive user notes ');
+        $I->doAdministratorLogin();
+        $I->amOnPage(UserNotesListPage::$url);
+        $I->setFilter('select status', 'Published');
+        $I->searchForItem($this->subject);
+        // Archive
+        $I->click(UserNotesListPage::$optionOne);
+        $I->clickToolbarButton('archive');
+        // Assertion
+        $I->setFilter('select status', 'Archived');
+        $I->searchForItem($this->subject);
+        $I->seeElement(['link' => $this->subject]);
+    }
+
+    /**
+     * Trash User Notes
+     *
+     * @param   \AcceptanceTester  $I The AcceptanceTester Object
+     *
+     * @since   4.0.0
+     *
+     * @return  void
+     */
+    public function trashUserNote (\AcceptanceTester $I)
+    {
+        $I->wantToTest(' trash user notes ');
+        $I->doAdministratorLogin();
+        $I->amOnPage(UserNotesListPage::$url);
+        $I->setFilter('select status', 'Archived');
+        $I->searchForItem($this->subject);
+        // Trash
+        $I->click(UserNotesListPage::$optionOne);
+        $I->clickToolbarButton('trash');
+        // Assertion
+        $I->setFilter('select status', 'Trashed');
+        $I->searchForItem($this->subject);
+        $I->seeElement(['link' => $this->subject]);
+    }
 }
