@@ -19,21 +19,14 @@ namespace Page\Acceptance\Administrator;
  */
 class UserNotesListPage
 {
-    // Include url of current page
-    public static $url = '/administrator/index.php?option=com_users&view=notes';
+	// Include url of current page
+	public static $url = '/administrator/index.php?option=com_users&view=notes';
 
-    /**
-     * Option one in list
-     *
-     * @var    array
-     * @since  4.0.0
-     */
-    public static $optionOne = ['id' => 'cb0'];
-
-    /**
-     * Unpublish status
-     *
-     * @var    array
-     * @since  4.0.0
-     */
+	/**
+	 * Option one in list
+	 *
+	 * @var    array
+	 * @since  4.0.0
+	 */
+	public static $optionOne = '#cb0';
 }

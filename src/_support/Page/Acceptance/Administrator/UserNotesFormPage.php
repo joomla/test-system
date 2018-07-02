@@ -25,7 +25,7 @@ class UserNotesFormPage
 	 * @var    array
 	 * @since  4.0.0
 	 */
-	public static $subject = ['id' => 'jform_subject'];
+	public static $subject = '#jform_subject';
 
 	/**
 	 * Select User Button
@@ -33,7 +33,7 @@ class UserNotesFormPage
 	 * @var    array
 	 * @since  4.0.0
 	 */
-	public static $selectUserButton = ['xpath' => '//*[@title="Select User"]'];
+	public static $selectUserButton = ['xpath' => '//a[@title="Select User"]'];
 
 	/**
 	 * Select category
@@ -41,7 +41,7 @@ class UserNotesFormPage
 	 * @var    array
 	 * @since  4.0.0
 	 */
-	public static $selectCategory = ['id' => 'jform_catid_select'];
+	public static $selectCategory = '#jform_catid_select';
 
 	/**
 	 * Editor
@@ -49,7 +49,7 @@ class UserNotesFormPage
 	 * @var    array
 	 * @since  4.0.0
 	 */
-	public static $editor = ['id' => 'jform_body'];
+	public static $editor = '#jform_body';
 
 	/**
 	 * Drop Down Toggle Element.
@@ -65,5 +65,5 @@ class UserNotesFormPage
 	 * @var    array
 	 * @since  4.0.0
 	 */
-	public static $toggleEditor = ['xpath' => '//*[@title="Toggle editor"]'];
+	public static $toggleEditor = ['xpath' => '//a[@title="Toggle editor"]'];
 }
