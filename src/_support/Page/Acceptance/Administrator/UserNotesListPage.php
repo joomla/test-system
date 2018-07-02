@@ -3,7 +3,7 @@
  * @package     Joomla.Test
  * @subpackage  AcceptanceTester.Page
  *
- * @copyright   Copyright (C) 2005 - 2017 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 namespace Page\Acceptance\Administrator;
@@ -25,8 +25,8 @@ class UserNotesListPage
 	/**
 	 * Option one in list
 	 *
-	 * @var    array
+	 * @var    string
 	 * @since  4.0.0
 	 */
-	public static $optionOne = '#cb0';
+	public static $checkboxOfFirstListItem = '#cb0';
 }

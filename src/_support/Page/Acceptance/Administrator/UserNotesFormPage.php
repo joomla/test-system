@@ -22,7 +22,7 @@ class UserNotesFormPage
 	/**
 	 * Subject
 	 *
-	 * @var    array
+	 * @var    string
 	 * @since  4.0.0
 	 */
 	public static $subject = '#jform_subject';
@@ -38,7 +38,7 @@ class UserNotesFormPage
 	/**
 	 * Select category
 	 *
-	 * @var    array
+	 * @var    string
 	 * @since  4.0.0
 	 */
 	public static $selectCategory = '#jform_catid_select';
@@ -46,7 +46,7 @@ class UserNotesFormPage
 	/**
 	 * Editor
 	 *
-	 * @var    array
+	 * @var    string
 	 * @since  4.0.0
 	 */
 	public static $editor = '#jform_body';
