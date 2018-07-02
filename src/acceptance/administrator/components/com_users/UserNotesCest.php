@@ -122,7 +122,7 @@ class UserNotesCest
 	 * Archive User Notes
 	 *
 	 * @param   \AcceptanceTester  $I The AcceptanceTester Object
-	 * @depends publishUserNote
+	 * @Depends publishUserNote
 	 * @since   4.0.0
 	 *
 	 * @return  void
@@ -147,7 +147,7 @@ class UserNotesCest
 	 * Trash User Notes
 	 *
 	 * @param   \AcceptanceTester  $I The AcceptanceTester Object
-	 * @depends archiveUserNote
+	 * @Depends archiveUserNote
 	 * @since   4.0.0
 	 *
 	 * @return  void
