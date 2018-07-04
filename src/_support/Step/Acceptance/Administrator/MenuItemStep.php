@@ -290,7 +290,6 @@ class MenuItemStep extends Admin
 				break;
 		}
 		// Save the menu item
-		$this->wait(1);
 		$this->click(Administrator\MenuItemFormPage::$dropDownToggle);
 		$this->clickToolbarButton('save & close');
 		$this->searchForItem($menuItemName);
