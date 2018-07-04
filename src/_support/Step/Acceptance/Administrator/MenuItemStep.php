@@ -293,8 +293,6 @@ class MenuItemStep extends Admin
 		$this->wait(1);
 		$this->click(Administrator\MenuItemFormPage::$dropDownToggle);
 		$this->clickToolbarButton('save & close');
-		// Success message
-		$this->see(Administrator\MenuItemFormPage::$successMessage, Administrator\AdminPage::$systemMessageContainer);
 		$this->searchForItem($menuItemName);
 	}
 }
