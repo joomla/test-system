@@ -36,7 +36,7 @@ class MenuCest
 		$I->checkForPhpNoticesOrWarnings();
 
 		$I->waitForText(MenuListPage::$pageTitleText);
-		$I->click(['id' => "menu-collapse"]);
+		$I->click('#menu-collapse-icon');
 
 		$I->clickToolbarButton('new');
 		$I->waitForText(MenuFormPage::$pageTitleText);
