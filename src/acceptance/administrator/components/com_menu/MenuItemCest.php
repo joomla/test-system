@@ -31,8 +31,8 @@ class MenuItemCest
 	 */
 	public function __construct()
 	{
-		$this->menuItemName = 'Joomla Menu Item001';
-		$this->menuItemAlias = 'Joomla Menu Item Alias001';
+		$this->menuItemName = 'Menu Item Test 1';
+		$this->menuItemAlias = 'Menu Item Alias Test 1';
 	}
 	
 	/**
