@@ -93,7 +93,8 @@ class MenuItemStep extends Admin
 				 * List All Categories
 				 * Single Article
 				 */
-				switch ($optionForMenuType) {
+				switch ($optionForMenuType) 
+				{
 					case 'List All Categories' :
 						// Select Option
 						$this->selectOption(Administrator\MenuItemFormPage::$selectMenuType, $title);
@@ -161,7 +162,8 @@ class MenuItemStep extends Admin
 				 * List Contacts in a Category
 				 * Single Contact
 				 */
-				switch ($optionForMenuType) {
+				switch ($optionForMenuType) 
+				{
 					case 'Featured Contacts' :
 						break;
 					case 'All Contact Categories' :
@@ -195,7 +197,8 @@ class MenuItemStep extends Admin
 				 * List News Feeds in a Category
 				 * Single News Feed
 				 */
-				switch ($optionForMenuType) {
+				switch ($optionForMenuType) 
+				{
 					case 'List All News Feed Categories' :
 						break;
 					case 'List News Feeds in a Category' :
