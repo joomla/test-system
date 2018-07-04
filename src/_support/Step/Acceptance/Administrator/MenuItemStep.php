@@ -23,15 +23,15 @@ class MenuItemStep extends Admin
 	/**
 	 * Create A New MenuItem
 	 *
-	 * @param   \AcceptanceTester $this                 The Acceptance Tester
-	 * @param   string            $menuItemName      The Title Of Menu Item
-	 * @param   string            $menuItemAlias     The Alias Of Menu Item
-	 * @param   string            $title             The Title Of Category or Article or Contact or News Feed
-	 * @param   string            $menuItemType      The type of MenuItem
-	 * @param   string            $optionForMenuType ( Archived Articles, Featured, Category Blog, etc)
-	 * @param   string            $tag               Tag
+	 * @param   \AcceptanceTester  $this               The Acceptance Tester
+	 * @param   string             $menuItemName       The Title Of Menu Item
+	 * @param   string             $menuItemAlias      The Alias Of Menu Item
+	 * @param   string             $title              The Title Of Category or Article or Contact or News Feed
+	 * @param   string             $menuItemType       The type of MenuItem
+	 * @param   string             $optionForMenuType  ( Archived Articles, Featured, Category Blog, etc)
+	 * @param   string             $tag                Tag
 	 *
-	 * @since   __DEPLOY_VERSION__
+	 * @since   4.0.0
 	 * @return void
 	 */
 	public function menuItem($menuItemName, $menuItemAlias, $title, $menuItemType = 'Articles', $optionForMenuType = 'List All Categories', $tag = 'joomlaorg' )
