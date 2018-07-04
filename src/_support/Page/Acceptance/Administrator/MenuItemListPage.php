@@ -20,39 +20,43 @@ namespace Page\Acceptance\Administrator;
  */
 class MenuItemListPage
 {
+	/**
+	 * URL
+	 *
+	 * @var    string
+	 * @since  4.0.0
+	 */
+	public static $url = "administrator/index.php?option=com_menus&view=items";
 
-    // include url of current page
-    public static $url = "administrator/index.php?option=com_menus&view=items";
+	/**
+	 * Select Menu
+	 *
+	 * @var    string
+	 * @since  4.0.0
+	 */
+	public static $selectMenu =  '#menutype';
 
-    /**
-     * Select Menu
-     *
-     * @var    array
-     * @since  4.0.0
-     */
-    public static $selectMenu =  '#menutype';
+	/**
+	 * Select Menu Menu
+	 *
+	 * @var    string
+	 * @since  4.0.0
+	 */
+	public static $selectMainMenu = '//select[@id="menutype"]/option[@value="mainmenu"]';
 
-    /**
-     * Select Menu Menu
-     *
-     * @var    array
-     * @since  4.0.0
-     */
-    public static $selectMainMenu = ['xpath' => '//select[@id="menutype"]/option[@value="mainmenu"]'];
+	/**
+	 * Select  the checkbox status
+	 *
+	 * @var   string
+	 * @since 4.0.0
+	 */
+	public static $checkItemOne =  '#cb0';
 
-    /**
-     * Select  the checkbox status
-     *
-     * @var   string
-     * @since 4.0.0
-     */
-    public static $checkItemOne =  '#cb0';
-
-    /**
-     * Select Home Button
-     *
-     * @var    array
-     * @since  4.0.0
-     */
-    public static $homeButton = ['id' => 'toolbar-default'];
+	/**
+	 * Select Home Button
+	 *
+	 * @var    string
+	 * @since  4.0.0
+	 */
+	public static $homeButton = '#toolbar-default';
 }

@@ -5,7 +5,6 @@
  *
  * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc.All rights reserved.
  * @license     GNU General Public License version 2 or later;see LICENSE.txt
- *  7.0.30
  */
 namespace Page\Acceptance\Administrator;
 
@@ -55,10 +54,10 @@ class MenuItemFormPage
 	/**
 	 * A drop down menu
 	 *
-	 * @var   array
+	 * @var   string
 	 * @since 4.0.0
 	 */
-	public static $menuDropDown = ['xpath' => '//select[@id="jform_menutype"]'];
+	public static $menuDropDown = '//select[@id="jform_menutype"]';
 
 	/**
 	 * Selecting option from dropdown menu
@@ -66,7 +65,7 @@ class MenuItemFormPage
 	 * @var   string
 	 * @since 4.0.0
 	 */
-	public static $selectOption = ['xpath' => '//select[@id="jform_menutype"]/option[@value="mainmenu"]'];
+	public static $selectOption = '//select[@id="jform_menutype"]/option[@value="mainmenu"]';
 
 	/**
 	 * Select Menu Type Modal
@@ -79,18 +78,18 @@ class MenuItemFormPage
 	/**
 	 * Select Article Link
 	 *
-	 * @var    array
+	 * @var    string
 	 * @since  4.0.0
 	 */
-	public static $articlesLink = ['link' => 'Articles'];
+	public static $articlesLink = 'Articles';
 
 	/**
 	 * Archive Articles
 	 *
-	 * @var    array
+	 * @var    string
 	 * @since  4.0.0
 	 */
-		public static $archiveArticles = ['link' => 'Archived Articles'];
+		public static $archiveArticles = 'Archived Articles';
 
 	/**
 	 * Success Message
@@ -103,18 +102,18 @@ class MenuItemFormPage
 	/**
 	 * Select category
 	 *
-	 * @var    array
+	 * @var    string
 	 * @since  4.0.0
 	 */
-	public static $selectCategory = ['xpath' => '//select[@id="jform_request_catid"]/option[2]'];
+	public static $selectCategory = '//select[@id="jform_request_catid"]/option[2]';
 
 	/**
 	 * Drop Down Toggle Element.
 	 *
-	 * @var    array
+	 * @var    string
 	 * @since  4.0.0
 	 */
-	public static $dropDownToggle = ['xpath' => "//button[contains(@class, 'dropdown-toggle')]"];
+	public static $dropDownToggle = "//button[contains(@class, 'dropdown-toggle')]";
 
 	/**
 	 * Selecting category or article
@@ -127,10 +126,10 @@ class MenuItemFormPage
 	/**
 	 * Select Menu Type
 	 *
-	 * @var    array
+	 * @var    string
 	 * @since  4.0.0
 	 */
-	public static $selectMenuType = ['xpath' => '//select[@id=\'jform_request_id\']'];
+	public static $selectMenuType = '//select[@id=\'jform_request_id\']';
 
 	/**
 	 * Select Archived Article
@@ -147,6 +146,5 @@ class MenuItemFormPage
 	 * @since  4.0.0
 	 */
 	public static $wrapperUrl =  '#jform_params_url';
-
 }
 

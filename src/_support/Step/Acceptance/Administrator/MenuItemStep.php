@@ -23,7 +23,7 @@ class MenuItemStep extends Admin
 	/**
 	 * Create A New MenuItem
 	 *
-	 * @param   \AcceptanceTester $I                 The Acceptance Tester
+	 * @param   \AcceptanceTester $this                 The Acceptance Tester
 	 * @param   string            $menuItemName      The Title Of Menu Item
 	 * @param   string            $menuItemAlias     The Alias Of Menu Item
 	 * @param   string            $title             The Title Of Category or Article or Contact or News Feed
@@ -31,16 +31,16 @@ class MenuItemStep extends Admin
 	 * @param   string            $optionForMenuType ( Archived Articles, Featured, Category Blog, etc)
 	 * @param   string            $tag               Tag
 	 *
-	 * @since   4.0.0
+	 * @since   __DEPLOY_VERSION__
 	 * @return void
 	 */
-	public function menuItem(\AcceptanceTester $I ,$menuItemName, $menuItemAlias, $title, $menuItemType = 'Articles', $optionForMenuType = 'List All Categories', $tag = 'joomlaorg' )
+	public function menuItem($menuItemName, $menuItemAlias, $title, $menuItemType = 'Articles', $optionForMenuType = 'List All Categories', $tag = 'joomlaorg' )
 	{
-		$I->comment('I am going to create a menu item');
-		$I->doAdministratorLogin();
-		$I->amOnPage(Administrator\MenuItemListPage::$url);
-		$I->checkForPhpNoticesOrWarnings();
-		$I->waitForText(Administrator\MenuItemFormPage::$pageTitleText);
+		$this->comment('I am going to create a menu item');
+		$this->doAdministratorLogin();
+		$this->amOnPage(Administrator\MenuItemListPage::$url);
+		$this->checkForPhpNoticesOrWarnings();
+		$this->waitForText(Administrator\MenuItemFormPage::$pageTitleText);
 		/**
 		 * Creating A New Menu item
 		 *  1. click on "new" botton
@@ -48,15 +48,15 @@ class MenuItemStep extends Admin
 		 *  3. fill two fields : menu item name and alias
 		 *  4. click on "save" button
 		 */
-		$I->click(['id' => "menu-collapse"]);
-		$I->clickToolbarButton('new');
-		$I->fillField(Administrator\MenuItemFormPage::$menuItemTitle, $menuItemName);
-		$I->fillField(Administrator\MenuItemFormPage::$menuItemAlias, $menuItemAlias);
+		$this->click("#menu-collapse");
+		$this->clickToolbarButton('new');
+		$this->fillField(Administrator\MenuItemFormPage::$menuItemTitle, $menuItemName);
+		$this->fillField(Administrator\MenuItemFormPage::$menuItemAlias, $menuItemAlias);
 
 		// Select option from dropdown menu  : MAIN MENU
-		$I->click(Administrator\MenuItemFormPage::$menuDropDown);
-		$option = $I->grabTextFrom(Administrator\MenuItemFormPage::$selectOption);
-		$I->selectOption(Administrator\MenuItemFormPage::$menuDropDown, $option);
+		$this->click(Administrator\MenuItemFormPage::$menuDropDown);
+		$option = $this->grabTextFrom(Administrator\MenuItemFormPage::$selectOption);
+		$this->selectOption(Administrator\MenuItemFormPage::$menuDropDown, $option);
 		/**
 		 * Menu Type
 		 * Articles
@@ -69,90 +69,78 @@ class MenuItemStep extends Admin
 		 * Tags
 		 * Wrapper
 		 */
-		$I->waitForText('Select');
-		$I->click('Select');
-		$I->waitForElement(Administrator\MenuItemFormPage::$menuTypeModal, TIMEOUT);
-		$I->switchToIFrame("Menu Item Type");
+		$this->waitForText('Select');
+		$this->click('Select');
+		$this->waitForElement(Administrator\MenuItemFormPage::$menuTypeModal, TIMEOUT);
+		$this->switchToIFrame("Menu Item Type");
+		$this->wait(1);
+		// Menu Item Type
+		$this->click(['link' => $menuItemType]);
+		// Option in Menu Item type
+		$this->waitForElement("//div[contains(text(), '".$optionForMenuType."')]", TIMEOUT);
+		$this->scrollTo("//div[contains(text(),'".$optionForMenuType."')]");
+		$this->click("//div[contains(text(), '".$optionForMenuType."')]");
 		switch ($menuItemType)
 		{
 			case 'Articles' :
-				$I->click(['link' => 'Articles']);
 				/**
 				 * Options under Articles
-				 * Archived Article  .
-				 * Featured Article  .
-				 * Create Article  .
-				 * Category Blog  .
-				 * Category List  .
-				 * List All Categories .
-				 * Single Article .
+				 * Archived Article
+				 * Featured Article
+				 * Create Article
+				 * Category Blog
+				 * Category List
+				 * List All Categories
+				 * Single Article
 				 */
 				switch ($optionForMenuType) {
 					case 'List All Categories' :
-						$I->waitForElement("//div[contains(text(), 'List All Categories')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'List All Categories')]");
-						$I->click("//div[contains(text(), 'List All Categories')]");
 						// Select Option
-						$I->selectOption(Administrator\MenuItemFormPage::$selectMenuType, $title);
+						$this->selectOption(Administrator\MenuItemFormPage::$selectMenuType, $title);
 						break;
 					case 'Archived Article':
-						$I->waitForElement("//div[contains(text(), 'Archived Article')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'Archived Article')]");
-						$I->click("//div[contains(text(), 'Archived Article')]");
 						// Select Option
-						$I->selectOption(Administrator\MenuItemFormPage::$selectArchivedArticle, $title);
+						$this->selectOption(Administrator\MenuItemFormPage::$selectArchivedArticle, $title);
 						break;
 					case 'Category Blog' :
-						$I->waitForElement("//div[contains(text(), 'Category Blog')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'Category Blog')]");
-						$I->click("//div[contains(text(), 'Category Blog')]");
 						// Selecting Category
-						$I->click(Administrator\MenuItemFormPage::$select);
-						$I->switchToIFrame('Select or Change Category');
-						// Search
-						$I->searchForItem($title);
-						$I->see($title);
-						$I->click(['link' => $title]);
-						$I->switchToPreviousTab();
+						$this->click(Administrator\MenuItemFormPage::$select);
+						$this->switchToIFrame('Select or Change Category');
+						$this->wait(1);
+						$this->searchForItem($title);
+						$this->wait(1);
+						$this->see($title);
+						$this->click(['link' => $title]);
+						$this->switchToPreviousTab();
 						break;
 					case 'Single Article' :
-						$I->waitForElement("//div[contains(text(), 'Single Article')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'Single Article')]");
-						$I->click("//div[contains(text(), 'Single Article')]");
 						// Selecting Article
-						$I->click(Administrator\MenuItemFormPage::$select);
-						$I->switchToIFrame('Select or Change article');
-						$I->searchForItem($title);
-						$I->see($title);
-						$I->click(['link' => $title]);
-						$I->switchToPreviousTab();
+						$this->click(Administrator\MenuItemFormPage::$select);
+						$this->switchToIFrame('Select or Change article');
+						$this->wait(1);
+						$this->searchForItem($title);
+						$this->see($title);
+						$this->click(['link' => $title]);
+						$this->switchToPreviousTab();
 						break;
 					case 'Featured Article':
-						$I->waitForElement("//div[contains(text(), 'Archived Article')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'Archived Article')]");
-						$I->click("//div[contains(text(), 'Archived Article')]");
 						break;
 					case 'Category List' :
-						$I->waitForElement("//div[contains(text(), 'Single Article')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'Single Article')]");
-						$I->click("//div[contains(text(), 'Single Article')]");
+						$this->wait(1);
 						// Selecting Article
-						$I->click(Administrator\MenuItemFormPage::$select);
-						$I->switchToIFrame('Select or Change article');
-						$I->searchForItem($title);
-						$I->see($title);
-						$I->click(['link' => $title]);
-						$I->switchToPreviousTab();
+						$this->click(Administrator\MenuItemFormPage::$select);
+						$this->switchToIFrame('Select or Change article');
+						$this->wait(1);
+						$this->searchForItem($title);
+						$this->see($title);
+						$this->click(['link' => $title]);
+						$this->switchToPreviousTab();
 						break;
 					case 'Create Article':
-						$I->waitForElement("//div[contains(text(), 'Archived Article')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'Archived Article')]");
-						$I->click("//div[contains(text(), 'Archived Article')]");
 						break;
 				}
 				break;
 			case 'Configuration Manager' :
-				$I->click(['link' => 'Configuration Manager']);
 				/**
 				 * Two Options
 				 * Display Template Options
@@ -160,19 +148,12 @@ class MenuItemStep extends Admin
 				 */
 				switch ($optionForMenuType){
 					case 'Display Template Options' :
-						$I->waitForElement("//div[contains(text(), 'Display Template Options')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'Display Template Options')]");
-						$I->click("//div[contains(text(), 'Display Template Options')]");
 						break;
 					case 'Site Configuration Options':
-						$I->waitForElement("//div[contains(text(), 'Site Configuration Options')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'Site Configuration Options')]");
-						$I->click("//div[contains(text(), 'Site Configuration Options')]");
 						break;
 				}
 				break;
 			case  'Contacts' :
-				$I->click(['link' => 'Contacts']);
 				/**
 				 * Options
 				 * Featured Contacts
@@ -182,43 +163,32 @@ class MenuItemStep extends Admin
 				 */
 				switch ($optionForMenuType) {
 					case 'Featured Contacts' :
-						$I->waitForElement("//div[contains(text(), 'Featured Contacts')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'Featured Contacts')]");
-						$I->click("//div[contains(text(), 'Featured Contacts')]");
 						break;
 					case 'All Contact Categories' :
-						$I->waitForElement("//div[contains(text(), 'All Contact Categories')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'All Contact Categories')]");
-						$I->click("//div[contains(text(), 'All Contact Categories')]");
 						break;
 					case 'List Contacts in a Category' :
-						$I->waitForElement("//div[contains(text(), 'List Contacts in a Category')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'List Contacts in a Category')]");
-						$I->click("//div[contains(text(), 'List Contacts in a Category')]");
 						// Selecting Article
-						$I->click(Administrator\MenuItemFormPage::$select);
-						$I->switchToIFrame('Select or Change Category');
-						$I->searchForItem('Uncategorised');
-						$I->see('Uncategorised');
-						$I->click(['link' => 'Uncategorised']);
-						$I->switchToPreviousTab();
+						$this->click(Administrator\MenuItemFormPage::$select);
+						$this->switchToIFrame('Select or Change Category');
+						$this->wait(1);
+						$this->searchForItem('Uncategorised');
+						$this->see('Uncategorised');
+						$this->click(['link' => 'Uncategorised']);
+						$this->switchToPreviousTab();
 						break;
 					case 'Single Contact' :
-						$I->waitForElement("//div[contains(text(), 'List Contacts in a Category')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'List Contacts in a Category')]");
-						$I->click("//div[contains(text(), 'List Contacts in a Category')]");
 						// Selecting Article
-						$I->click(Administrator\MenuItemFormPage::$select);
-						$I->switchToIFrame('Select or Change Contact');
-						$I->searchForItem($title);
-						$I->see($title);
-						$I->click(['link' => $title]);
-						$I->switchToPreviousTab();
+						$this->click(Administrator\MenuItemFormPage::$select);
+						$this->switchToIFrame('Select or Change Contact');
+						$this->wait(1);
+						$this->searchForItem($title);
+						$this->see($title);
+						$this->click(['link' => $title]);
+						$this->switchToPreviousTab();
 						break;
 				}
 				break;
 			case  'News Feeds' :
-				$I->click(['link' => 'News Feeds']);
 				/**
 				 * Options
 				 * List All News Feed Categories
@@ -227,59 +197,42 @@ class MenuItemStep extends Admin
 				 */
 				switch ($optionForMenuType) {
 					case 'List All News Feed Categories' :
-						$I->waitForElement("//div[contains(text(), 'List All News Feed Categories')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'List All News Feed Categories')]");
-						$I->click("//div[contains(text(), 'List All News Feed Categories')]");
 						break;
 					case 'List News Feeds in a Category' :
-						$I->waitForElement("//div[contains(text(), 'List News Feeds in a Category')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'List News Feeds in a Category')]");
-						$I->click("//div[contains(text(), 'List News Feeds in a Category')]");
 						// Selecting Category
-						$I->click(Administrator\MenuItemFormPage::$select);
-						$I->switchToIFrame('Select or Change Category');
-
-						$I->searchForItem($title);
-						$I->see($title);
-						$I->click(['link' => $title]);
-						$I->switchToPreviousTab();
+						$this->click(Administrator\MenuItemFormPage::$select);
+						$this->switchToIFrame('Select or Change Category');
+						$this->wait(1);
+						$this->searchForItem($title);
+						$this->see($title);
+						$this->click(['link' => $title]);
+						$this->switchToPreviousTab();
 						break;
 					case 'Single News Feed' :
-						$I->waitForElement("//div[contains(text(), 'Single News Feed')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'Single News Feed')]");
-						$I->click("//div[contains(text(), 'Single News Feed')]");
 						// Selecting Category
-						$I->click(Administrator\MenuItemFormPage::$select);
-						$I->switchToIFrame('Select or Change News Feed');
-						$I->searchForItem($title);
-						$I->see($title);
-						$I->click(['link' => $title]);
-						$I->switchToPreviousTab();
+						$this->click(Administrator\MenuItemFormPage::$select);
+						$this->switchToIFrame('Select or Change News Feed');
+						$this->wait(1);
+						$this->searchForItem($title);
+						$this->see($title);
+						$this->click(['link' => $title]);
+						$this->switchToPreviousTab();
 						break;
 				}
 				break;
 			case  'Search'  :
-				$I->click(['link' => 'Search']);
 				/**
 				 * Options
 				 * Search Form or Search Results
 				 */
-				$I->waitForElement("//div[contains(text(), 'Search Form or Search Results')]", TIMEOUT);
-				$I->scrollTo("//div[contains(text(),'Search Form or Search Results')]");
-				$I->click("//div[contains(text(), 'Search Form or Search Results')]");
 				break;
 			case  'Smart Search' :
-				$I->click(['link' => 'Search']);
 				/**
 				 * Option
 				 * Search
 				 */
-				$I->waitForElement("//div[contains(text(), 'Search')]", TIMEOUT);
-				$I->scrollTo("//div[contains(text(),'Search')]");
-				$I->click("//div[contains(text(), 'Search')]");
 				break;
 			case  'System Links' :
-				$I->click(['link' => 'System Links']);
 				/**
 				 * Options
 				 * Menu Heading
@@ -290,52 +243,16 @@ class MenuItemStep extends Admin
 				switch ($optionForMenuType)
 				{
 					case 'Menu Heading':
-						$I->waitForElement("//div[contains(text(), 'Menu Heading')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'Menu Heading')]");
-						$I->click("//div[contains(text(), 'Menu Heading')]");
 						break;
 					case 'Menu Item Alias' :
-						$I->waitForElement("//div[contains(text(), 'Menu Item Alias')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'Menu Item Alias')]");
-						$I->click("//div[contains(text(), 'Menu Item Alias')]");
 						break;
 					case 'Separator' :
-						$I->waitForElement("//div[contains(text(), 'Separator')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'Separator')]");
-						$I->click("//div[contains(text(), 'Separator')]");
 						break;
 					case 'URL' :
-						$I->waitForElement("//div[contains(text(), 'URL')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'URL')]");
-						$I->click("//div[contains(text(), 'URL')]");
-						break;
-				}
-				break;
-			case  'Tags'  :
-				$I->click(['link' => 'System Links']);
-				/**
-				 * Options
-				 * Compact list of tagged items
-				 * List of all tags
-				 * Tagged Items
-				 */
-				switch ($optionForMenuType)
-				{
-					case 'Compact list of tagged items' :
-						//Need to create tags first
-						break;
-					case 'List of all tags' :
-						$I->waitForElement("//div[contains(text(), 'List of all tags')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'List of all tags')]");
-						$I->click("//div[contains(text(), 'List of all tags')]");
-						break;
-					case 'Tagged Items' :
-						//Need to create tags
 						break;
 				}
 				break;
 			case  'Users'  :
-				$I->click(['link' => 'Users']);
 				/**
 				 * Options
 				 * Edit User Profile
@@ -349,60 +266,35 @@ class MenuItemStep extends Admin
 				switch ($optionForMenuType)
 				{
 					case 'Edit User Profile':
-						$I->waitForElement("//div[contains(text(), 'Edit User Profile')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'Edit User Profile')]");
-						$I->click("//div[contains(text(), 'Edit User Profile')]");
 						break;
 					case 'Login Form':
-						$I->waitForElement("//div[contains(text(), 'Login Form')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'Login Form')]");
-						$I->click("//div[contains(text(), 'Login Form')]");
 						break;
 					case 'Logout':
-						$I->waitForElement("//div[contains(text(), 'Logout')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'Logout')]");
-						$I->click("//div[contains(text(), 'Logout')]");
 						break;
 					case 'Password Reset':
-						$I->waitForElement("//div[contains(text(), 'Password Reset')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'Password Reset')]");
-						$I->click("//div[contains(text(), 'Password Reset')]");
 						break;
 					case 'Registration Form':
-						$I->waitForElement("//div[contains(text(), 'Registration Form')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'Registration Form')]");
-						$I->click("//div[contains(text(), 'Registration Form')]");
 						break;
 					case 'User Profile':
-						$I->waitForElement("//div[contains(text(), 'User Profile')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'User Profile')]");
-						$I->click("//div[contains(text(), 'User Profile')]");
 						break;
 					case 'Username Reminder Request':
-						$I->waitForElement("//div[contains(text(), 'Username Reminder Request')]", TIMEOUT);
-						$I->scrollTo("//div[contains(text(),'Username Reminder Request')]");
-						$I->click("//div[contains(text(), 'Username Reminder Request')]");
 						break;
 				}
 				break;
 			case  'Wrapper' :
-				$I->click(['link' => 'Users']);
 				/**
 				 * Options
 				 * Iframe Wrapper
 				 */
-				$I->waitForElement("//div[contains(text(), 'Iframe Wrapper')]", TIMEOUT);
-				$I->scrollTo("//div[contains(text(),'Iframe Wrapper')]");
-				$I->click("//div[contains(text(), 'Iframe Wrapper')]");
-				$I->fillField(Administrator\MenuItemFormPage::$wrapperUrl,'https://www.google.com');
+				$this->fillField(Administrator\MenuItemFormPage::$wrapperUrl,'https://www.google.com');
 				break;
 		}
 		// Save the menu item
-		$I->wait(1);
-		$I->click(Administrator\MenuItemFormPage::$dropDownToggle);
-		$I->clickToolbarButton('save & close');
+		$this->wait(1);
+		$this->click(Administrator\MenuItemFormPage::$dropDownToggle);
+		$this->clickToolbarButton('save & close');
 		// Success message
-		$I->see(Administrator\MenuItemFormPage::$successMessage, Administrator\AdminPage::$systemMessageContainer);
-		$I->searchForItem($menuItemName);
+		$this->see(Administrator\MenuItemFormPage::$successMessage, Administrator\AdminPage::$systemMessageContainer);
+		$this->searchForItem($menuItemName);
 	}
 }
