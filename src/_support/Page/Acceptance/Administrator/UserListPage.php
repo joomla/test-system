@@ -33,15 +33,7 @@ class UserListPage extends AdminListPage
 	 * @since  3.7.3
 	 */
 	public static $pageTitleText = "Users";
-
-	/**
-	 * New User Button
-	 *
-	 * @var    string
-	 * @since  3.7.3
-	 */
-	public static $newButton = ['class' => 'button-new'];
-
+	
 	/**
 	 * Edit Button
 	 *
