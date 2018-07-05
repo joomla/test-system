@@ -19,10 +19,10 @@ class UserListCest
 
 	public function __construct()
 	{
-		$this->username = "testUser";
-		$this->password = "test";
-		$this->name = "Test Bot";
-		$this->email = "Testbot@example.com";
+		$this->username = "testUser2";
+		$this->password = "test2";
+		$this->name = "Test Bot2";
+		$this->email = "Testbot2@example.com";
 	}
 
 	/**
@@ -45,7 +45,7 @@ class UserListCest
 
 		$I->waitForText(UserListPage::$pageTitleText);
 
-		$I->click(UserListPage::$newButton);
+		$I->clickToolbarButton('new');
 
 		$I->waitForElement(UserListPage::$accountDetailsTab);
 		$I->checkForPhpNoticesOrWarnings();
@@ -131,9 +131,9 @@ class UserListCest
 		$I->amOnPage('/administrator/index.php?option=com_config');
 		$I->waitForText('Global Configuration', TIMEOUT, ['css' => '.page-title']);
 		$I->comment('I open the Server Tab');
-		$I->click(['link' => 'Server']);
+		$I->click('Server');
 		$I->comment('I wait for error reporting dropdown');
-		$I->click(['xpath' => "//input[@type='radio' and @value=0 and @name='jform[mailonline]']"]);
+		$I->click(['xpath' => "//input[@id='jform_mailonline1']"]);
 		$I->comment('I click on save');
 		$I->clickToolbarButton("Save");
 		$I->comment('I wait for global configuration being saved');
