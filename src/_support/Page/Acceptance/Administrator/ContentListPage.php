@@ -81,4 +81,41 @@ class ContentListPage extends AdminListPage
 	 * @since  __DEPLOY_VERSION__
 	 */
 	public static $seeUnpublished = ['xpath' => "//table[@id='articleList']//*//span[@class='icon-unpublish']"];
+	
+	/**
+     * Locator for selecting Article's category
+     *
+     * @var    array
+     * @since  __DEPLOY_VERSION__
+     */
+    public static $selectCategory = ['xpath' => "//div[@id='jform_catid_chzn']"];
+
+    /**
+     * Locator for selecting Article's category
+     *
+     * @var    array
+     * @since  __DEPLOY_VERSION__
+     * The input doesn't have any id or class so I had to use tree structure for xpath
+     */
+    public static $fillCategory = ['xpath' => '//*[@id="jform_catid_chzn"]/div/div/input'];
+
+    /**
+     * Method to create new article
+     *
+     * @param   string  $title    The article title
+     * @param   string  $content  The article content
+     *
+     * @When    I create new content with field title as :title and content as a :content
+     *
+     * @since   __DEPLOY_VERSION__
+     *
+     * @return  void
+     */
+    public function fillContentCreateForm(\AcceptanceTester $I,$title, $content)
+    {
+        $I->fillField(self::$title, $title);
+        $I->scrollTo(['css' => 'div.toggle-editor']);
+        $I->click(self::$toggleEditor);
+        $I->fillField(self::$content, $content);
+    }
 }
