@@ -7,10 +7,11 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-use Page\Acceptance\Administrator\MenuListPage;
-use Page\Acceptance\Administrator\MenuFormPage;
-use Page\Acceptance\Administrator\AdminPage;
 
+use Page\Acceptance\Administrator\MenuManagerPage as MenuPage;
+use Page\Acceptance\Administrator\MenuEditPage as EditPage;
+use Page\Acceptance\Administrator\AdminPage as AdminPage;
+use Page\Acceptance\Administrator\MenuItem as MenuItem;
 /**
  * Administrator Menu Tests
  *
@@ -21,32 +22,35 @@ class MenuCest
 	/**
 	 * Create a menu
 	 *
-	 * @param   AcceptanceTester  $I  The AcceptanceTester Object
+	 * @param AcceptanceTester $I The AcceptanceTester Object
 	 *
 	 * @since  __DEPLOY_VERSION__
 	 *
 	 * @return  void
 	 */
-	public function createNewMenu(\AcceptanceTester $I)
-	{
-		$I->comment('I am going to create a menu');
-		$I->doAdministratorLogin();
+    public function createNewMenu(\AcceptanceTester $I)
+    {
+        $I->comment('I am going to create a menu');
+	    $I->doAdministratorLogin();
 
-		$I->amOnPage(MenuListPage::$url);
-		$I->checkForPhpNoticesOrWarnings();
+	    $I->amOnPage(MenuPage::$url);
+	    $I->checkForPhpNoticesOrWarnings();
 
-		$I->waitForText(MenuListPage::$pageTitleText);
-		$I->click(['id' => "menu-collapse"]);
+	    $I->waitForText(MenuPage::$pageTitleText);
 
-		$I->clickToolbarButton('new');
-		$I->waitForText(MenuFormPage::$pageTitleText);
-		$I->checkForPhpNoticesOrWarnings();
+	    $I->clickToolbarButton('new');
+	    $I->waitForText(EditPage::$pageTitleText);
+	    $I->checkForPhpNoticesOrWarnings();
 
-		$this->fillMenuInformation($I, 'Test Menu');
+	    $this->fillMenuInfo($I);
 
-		$I->clickToolbarButton('save');
-		$I->waitForText(MenuListPage::$pageTitleText);
-		$I->checkForPhpNoticesOrWarnings();
+	    $I->click(MenuPage::$dropDownToggle);
+    	$I->clickToolbarButton('save & close');
+	    $I->waitForText(MenuPage::$pageTitleText);
+	    $I->checkForPhpNoticesOrWarnings();
+
+        $I->see('Menu saved',AdminPage::$systemMessageContainer);
+		//
 	}
 
 
@@ -62,10 +66,42 @@ class MenuCest
 	 *
 	 * @return  void
 	 */
-	protected function fillMenuInformation($I, $title, $type = 'Test', $description = 'Automated Testing')
+
+	protected function fillMenuInfo($I)
 	{
-		$I->fillField(MenuFormPage::$fieldTitle, $title);
-		$I->fillField(MenuFormPage::$fieldMenuType, $type);
-		$I->fillField(MenuFormPage::$fieldMenuDescription, $description);
+		$I->fillField(EditPage::$fieldTitle,'MenuNumOnea');
+		$I->fillField(EditPage::$fieldMenuType,'mn1a');
+		$I->fillField(EditPage::$fieldMenuDescription, 'This is a test menu');
 	}
+
+
+   public function rebuildMenu(\AcceptanceTester $I){
+
+	   $I->comment('I am going to rebuild a menu');
+       $I->doAdministratorLogin();
+
+       $I->amOnPage(MenuPage::$url);
+       $I->checkForPhpNoticesOrWarnings();
+
+       $I->click(MenuPage::$menuSelect);
+
+       //$I->clickToolbarButton('rebuild');
+        $I->clickToolbarButton('rebuild');
+
+       $I->see('Successfully rebuilt',AdminPage::$systemMessageContainer);
+   }
+
+
+    public function deleteMenu(\AcceptanceTester $I){
+        $I->comment('I am going to delete a menu');
+        $I->doAdministratorLogin();
+
+        $I->amOnPage(MenuPage::$url);
+        $I->checkForPhpNoticesOrWarnings();
+
+        $I->click(MenuPage::$menuSelect);
+        $I->clickToolbarButton('delete');
+
+    }
+
 }
