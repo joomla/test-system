@@ -20,7 +20,7 @@ namespace Page\Acceptance\Administrator;
 class AccessLevelControlFormPage
 {
 	/**
-	 * Subject
+	 * Url
 	 *
 	 * @var    string
 	 * @since  4.0.0
