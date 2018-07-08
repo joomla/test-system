@@ -11,14 +11,13 @@ namespace Step\Acceptance\Administrator;
 
 use Page\Acceptance\Administrator\ContentListPage;
 use Page\Acceptance\Administrator;
-use Step\Acceptance\Site\FrontEnd;
 
 /**
  * Acceptance Step object class contains suits for Content Manager.
  *
  * @package  Step\Acceptance\Administrator
  *
- * @since    __DEPLOY_VERSION__
+ * @since    4.0.0
  */
 class Content extends Admin
 {
@@ -27,7 +26,7 @@ class Content extends Admin
 	 *
 	 * @param   string  $title
 	 *
-	 * @since   __DEPLOY_VERSION__
+	 * @since   4.0.0
 	 */
 	public function createArticle($title, $body, $category)
 	{	
@@ -46,12 +45,13 @@ class Content extends Admin
 	   	$I->clickToolbarButton('save & close');
 	   	$I->searchForItem($title);
 	}
+
 	/**
-	 * Helper function to create a new Article
+	 * Helper function to feature an Article
 	 *
 	 * @param   string  $title
 	 *
-	 * @since   __DEPLOY_VERSION__
+	 * @since   4.0.0
 	 */
 	public function featureArticle($title)
 	{
@@ -64,6 +64,14 @@ class Content extends Admin
 		$I->seeNumberOfElements(ContentListPage::$seeFeatured, 1);
 	}
 
+	/**
+	 * Helper function to set article access level
+	 *
+	 * @param   string  $title
+	 * @param   string  $accessLevel
+	 *
+	 * @since   4.0.0
+	 */
 	public function setArticleAccessLevel($title, $accessLevel)
 	{
 		$I = $this;
@@ -80,6 +88,13 @@ class Content extends Admin
 		$I->see($accessLevel, ContentListPage::$seeAccessLevel);
 	}
 
+	/**
+	 * Helper function to unpublish article
+	 *
+	 * @param   string  $title
+	 *
+	 * @since   4.0.0
+	 */
 	public function unPublishArticle($title)
 	{
 		$I = $this;
@@ -87,11 +102,18 @@ class Content extends Admin
 		$I->waitForElement(ContentListPage::$filterSearch, TIMEOUT);
 		$I->searchForItem($title);
 		$I->checkAllResults();
-
+		// Unpublish
 		$I->clickToolbarButton('unpublish');
 		$I->seeNumberOfElements(ContentListPage::$seeUnpublished, 1);
 	}
 
+	/**
+	 * Helper function to publish article
+	 *
+	 * @param   string  $title
+	 *
+	 * @since   4.0.0
+	 */
 	public function publishArticle($title)
 	{
 		$I = $this;
@@ -102,9 +124,15 @@ class Content extends Admin
 		$I->clickToolbarButton('publish');
 		// Success message
 		$I->see('1 article published.', Administrator\AdminPage::$systemMessageContainer);
-
 	}
 
+	/**
+	 * Helper function to trash article
+	 *
+	 * @param   string  $title
+	 *
+	 * @since   4.0.0
+	 */
 	public function trashArticle($title)
 	{
 		$I = $this;
@@ -112,10 +140,8 @@ class Content extends Admin
 		$I->waitForElement(ContentListPage::$filterSearch, TIMEOUT);
 		$this->searchForItem($title);
 		$I->checkAllResults();
-
+		// Trash
 		$I->clickToolbarButton('trash');
 		$I->searchForItem($title);
-
-		FrontEnd::notVisible($I, $title);
 	}
 }
