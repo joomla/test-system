@@ -29,7 +29,7 @@ class FrontPage extends \AcceptanceTester
 	/**
 	 * Locator for alert message in frontend.
 	 *
-	 * @var    array
+	 * @var    string
 	 * @since  3.7.3
 	 */
 	public static $alertMessage = '.alert-message';
