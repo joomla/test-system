@@ -103,7 +103,7 @@ class AccessLevelControlCest
     public function menuItem(MenuItemStep $I)
     {
         // Call Step function to create Menu item
-        $I->menuItem($this->menuItemName, $this->menuItemAlias, $this->categoryTitle, 'Articles', 'Category Blog');
+        $I->createMenuItem($this->menuItemName, $this->menuItemAlias, $this->categoryTitle, 'Articles', 'Category Blog');
     }
 
     /**

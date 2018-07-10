@@ -33,7 +33,7 @@ class MenuItemStep extends Admin
 	 * @since   4.0.0
 	 * @return void
 	 */
-	public function menuItem($menuItemName, $menuItemAlias, $title, $menuItemType = 'Articles', $optionForMenuType = 'List All Categories', $tag = 'joomlaorg' )
+	public function createMenuItem($menuItemName, $menuItemAlias, $title, $menuItemType = 'Articles', $optionForMenuType = 'List All Categories', $tag = 'joomlaorg' )
 	{
 		$this->comment('I am going to create a menu item');
 		$this->doAdministratorLogin();
