@@ -84,7 +84,7 @@ class AccessLevelControlCest
     {
         $I = new ContentStep($scenario);
 
-        for ($j=0;$j<2;$j++)
+        for ($j=0; $j<2; $j++)
         {
             $I->doAdministratorLogin();
             $I->createArticle($this->articleTitle . $j, $this->articleContent, $this->categoryTitle);
