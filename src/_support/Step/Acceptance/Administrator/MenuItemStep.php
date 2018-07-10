@@ -35,11 +35,12 @@ class MenuItemStep extends Admin
 	 */
 	public function createMenuItem($menuItemName, $menuItemAlias, $title, $menuItemType = 'Articles', $optionForMenuType = 'List All Categories', $tag = 'joomlaorg' )
 	{
-		$this->comment('I am going to create a menu item');
-		$this->doAdministratorLogin();
-		$this->amOnPage(Administrator\MenuItemListPage::$url);
-		$this->checkForPhpNoticesOrWarnings();
-		$this->waitForText(Administrator\MenuItemFormPage::$pageTitleText);
+		$I = $this;
+		$I->comment('I am going to create a menu item');
+		$I->doAdministratorLogin();
+		$I->amOnPage(Administrator\MenuItemListPage::$url);
+		$I->checkForPhpNoticesOrWarnings();
+		$I->waitForText(Administrator\MenuItemFormPage::$pageTitleText);
 		/**
 		 * Creating A New Menu item
 		 *  1. click on "new" botton
@@ -47,15 +48,15 @@ class MenuItemStep extends Admin
 		 *  3. fill two fields : menu item name and alias
 		 *  4. click on "save" button
 		 */
-		$this->click("#menu-collapse");
-		$this->clickToolbarButton('new');
-		$this->fillField(Administrator\MenuItemFormPage::$menuItemTitle, $menuItemName);
-		$this->fillField(Administrator\MenuItemFormPage::$menuItemAlias, $menuItemAlias);
+		$I->click("#menu-collapse");
+		$I->clickToolbarButton('new');
+		$I->fillField(Administrator\MenuItemFormPage::$menuItemTitle, $menuItemName);
+		$I->fillField(Administrator\MenuItemFormPage::$menuItemAlias, $menuItemAlias);
 
 		// Select option from dropdown menu  : MAIN MENU
-		$this->click(Administrator\MenuItemFormPage::$menuDropDown);
-		$option = $this->grabTextFrom(Administrator\MenuItemFormPage::$selectOption);
-		$this->selectOption(Administrator\MenuItemFormPage::$menuDropDown, $option);
+		$I->click(Administrator\MenuItemFormPage::$menuDropDown);
+		$option = $I->grabTextFrom(Administrator\MenuItemFormPage::$selectOption);
+		$I->selectOption(Administrator\MenuItemFormPage::$menuDropDown, $option);
 		/**
 		 * Menu Type
 		 * Articles
@@ -68,17 +69,17 @@ class MenuItemStep extends Admin
 		 * Tags
 		 * Wrapper
 		 */
-		$this->waitForText('Select');
-		$this->click('Select');
-		$this->waitForElement(Administrator\MenuItemFormPage::$menuTypeModal, TIMEOUT);
-		$this->switchToIFrame("Menu Item Type");
-		$this->wait(1);
+		$I->waitForText('Select');
+		$I->click('Select');
+		$I->waitForElement(Administrator\MenuItemFormPage::$menuTypeModal, TIMEOUT);
+		$I->switchToIFrame("Menu Item Type");
+		$I->wait(1);
 		// Menu Item Type
-		$this->click($menuItemType);
+		$I->click($menuItemType);
 		// Option in Menu Item type
-		$this->waitForElement("//div[contains(text(), '".$optionForMenuType."')]", TIMEOUT);
-		$this->scrollTo("//div[contains(text(),'".$optionForMenuType."')]");
-		$this->click("//div[contains(text(), '".$optionForMenuType."')]");
+		$I->waitForElement("//div[contains(text(), '".$optionForMenuType."')]", TIMEOUT);
+		$I->scrollTo("//div[contains(text(),'".$optionForMenuType."')]");
+		$I->click("//div[contains(text(), '".$optionForMenuType."')]");
 		switch ($menuItemType)
 		{
 			case 'Articles' :
@@ -95,44 +96,44 @@ class MenuItemStep extends Admin
 				switch ($optionForMenuType) {
 					case 'List All Categories' :
 						// Select Option
-						$this->selectOption(Administrator\MenuItemFormPage::$selectMenuType, $title);
+						$I->selectOption(Administrator\MenuItemFormPage::$selectMenuType, $title);
 						break;
 					case 'Archived Article':
 						// Select Option
-						$this->selectOption(Administrator\MenuItemFormPage::$selectArchivedArticle, $title);
+						$I->selectOption(Administrator\MenuItemFormPage::$selectArchivedArticle, $title);
 						break;
 					case 'Category Blog' :
 						// Selecting Category
-						$this->click(Administrator\MenuItemFormPage::$select);
-						$this->switchToIFrame('Select or Change Category');
+						$I->click(Administrator\MenuItemFormPage::$select);
+						$I->switchToIFrame('Select or Change Category');
 						// Search
-						$this->searchForItem($title);
-						$this->see($title);
-						$this->click(['link' => $title]);
-						$this->switchToPreviousTab();
+						$I->searchForItem($title);
+						$I->see($title);
+						$I->click(['link' => $title]);
+						$I->switchToPreviousTab();
 						break;
 					case 'Single Article' :
 						// Selecting Article
-						$this->click(Administrator\MenuItemFormPage::$select);
-						$this->switchToIFrame('Select or Change article');
+						$I->click(Administrator\MenuItemFormPage::$select);
+						$I->switchToIFrame('Select or Change article');
 						// Search
-						$this->searchForItem($title);
-						$this->see($title);
-						$this->click(['link' => $title]);
-						$this->switchToPreviousTab();
+						$I->searchForItem($title);
+						$I->see($title);
+						$I->click(['link' => $title]);
+						$I->switchToPreviousTab();
 						break;
 					case 'Featured Article':
 						break;
 					case 'Category List' :
-						$this->wait(1);
+						$I->wait(1);
 						// Selecting Article
-						$this->click(Administrator\MenuItemFormPage::$select);
-						$this->switchToIFrame('Select or Change article');
+						$I->click(Administrator\MenuItemFormPage::$select);
+						$I->switchToIFrame('Select or Change article');
 						// Search
-						$this->searchForItem($title);
-						$this->see($title);
-						$this->click(['link' => $title]);
-						$this->switchToPreviousTab();
+						$I->searchForItem($title);
+						$I->see($title);
+						$I->click(['link' => $title]);
+						$I->switchToPreviousTab();
 						break;
 					case 'Create Article':
 						break;
@@ -166,23 +167,23 @@ class MenuItemStep extends Admin
 						break;
 					case 'List Contacts in a Category' :
 						// Selecting Article
-						$this->click(Administrator\MenuItemFormPage::$select);
-						$this->switchToIFrame('Select or Change Category');
+						$I->click(Administrator\MenuItemFormPage::$select);
+						$I->switchToIFrame('Select or Change Category');
 						// Search
-						$this->searchForItem('Uncategorised');
-						$this->see('Uncategorised');
-						$this->click(['link' => 'Uncategorised']);
-						$this->switchToPreviousTab();
+						$I->searchForItem('Uncategorised');
+						$I->see('Uncategorised');
+						$I->click(['link' => 'Uncategorised']);
+						$I->switchToPreviousTab();
 						break;
 					case 'Single Contact' :
 						// Selecting Article
-						$this->click(Administrator\MenuItemFormPage::$select);
-						$this->switchToIFrame('Select or Change Contact');
+						$I->click(Administrator\MenuItemFormPage::$select);
+						$I->switchToIFrame('Select or Change Contact');
 						// Search
-						$this->searchForItem($title);
-						$this->see($title);
-						$this->click(['link' => $title]);
-						$this->switchToPreviousTab();
+						$I->searchForItem($title);
+						$I->see($title);
+						$I->click(['link' => $title]);
+						$I->switchToPreviousTab();
 						break;
 				}
 				break;
@@ -198,21 +199,21 @@ class MenuItemStep extends Admin
 						break;
 					case 'List News Feeds in a Category' :
 						// Selecting Category
-						$this->click(Administrator\MenuItemFormPage::$select);
-						$this->switchToIFrame('Select or Change Category');
-						$this->searchForItem($title);
-						$this->see($title);
-						$this->click(['link' => $title]);
-						$this->switchToPreviousTab();
+						$I->click(Administrator\MenuItemFormPage::$select);
+						$I->switchToIFrame('Select or Change Category');
+						$I->searchForItem($title);
+						$I->see($title);
+						$I->click(['link' => $title]);
+						$I->switchToPreviousTab();
 						break;
 					case 'Single News Feed' :
 						// Selecting Category
-						$this->click(Administrator\MenuItemFormPage::$select);
-						$this->switchToIFrame('Select or Change News Feed');
-						$this->searchForItem($title);
-						$this->see($title);
-						$this->click(['link' => $title]);
-						$this->switchToPreviousTab();
+						$I->click(Administrator\MenuItemFormPage::$select);
+						$I->switchToIFrame('Select or Change News Feed');
+						$I->searchForItem($title);
+						$I->see($title);
+						$I->click(['link' => $title]);
+						$I->switchToPreviousTab();
 						break;
 				}
 				break;
@@ -282,14 +283,14 @@ class MenuItemStep extends Admin
 				 * Options
 				 * Iframe Wrapper
 				 */
-				$this->fillField(Administrator\MenuItemFormPage::$wrapperUrl,'https://www.google.com');
+				$I->fillField(Administrator\MenuItemFormPage::$wrapperUrl,'https://www.google.com');
 				break;
 		}
-		$this->waitForElement(Administrator\MenuItemFormPage::$dropDownToggle, TIMEOUT);
+		$I->waitForElement(Administrator\MenuItemFormPage::$dropDownToggle, TIMEOUT);
 		// Save the menu item
-		$this->click(Administrator\MenuItemFormPage::$dropDownToggle);
-		$this->clickToolbarButton('save & close');
-		$this->see(Administrator\MenuItemFormPage::$successMessage,Administrator\AdminPage::$systemMessageContainer);
-		$this->searchForItem($menuItemName);
+		$I->click(Administrator\MenuItemFormPage::$dropDownToggle);
+		$I->clickToolbarButton('save & close');
+		$I->see(Administrator\MenuItemFormPage::$successMessage,Administrator\AdminPage::$systemMessageContainer);
+		$I->searchForItem($menuItemName);
 	}
 }
