@@ -36,14 +36,6 @@ class MenuItemFormPage
 	public static $menuItemAlias = '#jform_alias';
 
 	/**
-	 * Menu Item Save
-	 *
-	 * @var   string
-	 * @since 4.0.0
-	 */
-	public static  $saveButton = '#toolbar-apply';
-
-	/**
 	 * Page title of the user manager listing page.
 	 *
 	 * @var   string
