@@ -35,12 +35,4 @@ class AccessLevelControlListPage
      * @since  4.0.0
      */
     public static $categoryUrl = 'administrator/index.php?option=com_categories&view=categories&extension=com_content';
-
-    /**
-     * MenuItem Url
-     *
-     * @var    string
-     * @since  4.0.0
-     */
-    public static $menuitemUrl = 'administrator/index.php?option=com_menus&view=items';
 }
