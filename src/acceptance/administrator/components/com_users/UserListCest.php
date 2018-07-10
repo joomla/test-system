@@ -133,7 +133,7 @@ class UserListCest
 		$I->comment('I open the Server Tab');
 		$I->click('Server');
 		$I->comment('I wait for error reporting dropdown');
-		$I->click(['xpath' => "//input[@id='jform_mailonline1']"]);
+		$I->click(['xpath' => "//input[@type='radio' and @value=0 and @name='jform[mailonline]']"]);
 		$I->comment('I click on save');
 		$I->clickToolbarButton("Save");
 		$I->comment('I wait for global configuration being saved');
