@@ -89,7 +89,7 @@ class MenuItemFormPage
 	 * @var    string
 	 * @since  4.0.0
 	 */
-		public static $archiveArticles = 'Archived Articles';
+	public static $archiveArticles = 'Archived Articles';
 
 	/**
 	 * Success Message
