@@ -125,7 +125,6 @@ class MenuItemStep extends Admin
 					case 'Featured Article':
 						break;
 					case 'Category List' :
-						$I->wait(1);
 						// Selecting Article
 						$I->click(Administrator\MenuItemFormPage::$select);
 						$I->switchToIFrame('Select or Change article');
