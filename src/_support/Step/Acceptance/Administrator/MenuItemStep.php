@@ -285,7 +285,7 @@ class MenuItemStep extends Admin
 				$this->fillField(Administrator\MenuItemFormPage::$wrapperUrl,'https://www.google.com');
 				break;
 		}
-		$this->waitForElement(Administrator\MenuItemFormPage::$dropDownToggle);
+		$this->waitForElement(Administrator\MenuItemFormPage::$dropDownToggle,TIMEOUT);
 		// Save the menu item
 		$this->click(Administrator\MenuItemFormPage::$dropDownToggle);
 		$this->clickToolbarButton('save & close');
