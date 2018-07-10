@@ -35,7 +35,7 @@ class Content extends Admin
 	   	//$I->waitForElement(ArticleManagerPage::$filterSearch, TIMEOUT);
 	   	$I->clickToolbarButton('new');
 	   	ContentListPage::fillContentCreateForm($I,$title, $body);
-	   	if($category != '')
+	   	if ($category != '')
 		{
 	   		$I->click(ContentListPage::$selectCategory);
 	   		$I->fillField(ContentListPage::$fillCategory,$category);
