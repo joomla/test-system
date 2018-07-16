@@ -146,5 +146,13 @@ class MenuItemFormPage
 	 * @since  4.0.0
 	 */
 	public static $wrapperUrl =  '#jform_params_url';
+
+	/**
+	 * Select wrapper url
+	 *
+	 * @var    string
+	 * @since  4.0.0
+	 */
+	public static $filterSearch = '#filter_search';
 }
 
