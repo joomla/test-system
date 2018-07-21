@@ -140,5 +140,6 @@ class Content extends Admin
 		$I->checkAllResults();
 		$I->clickToolbarButton('trash');
 		$I->searchForItem($title);
+		$I->dontSee($title);
 	}
 }
