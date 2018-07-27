@@ -10,22 +10,47 @@
 namespace Step\Acceptance\Administrator;
 
 use Page\Acceptance\Administrator\ContentListPage;
+use Page\Acceptance\Administrator;
 
 /**
  * Acceptance Step object class contains suits for Content Manager.
  *
  * @package  Step\Acceptance\Administrator
  *
- * @since    __DEPLOY_VERSION__
+ * @since    4.0.0
  */
 class Content extends Admin
 {
 	/**
-	 * Helper function to create a new Article
+	 * Create A New Article
 	 *
 	 * @param   string  $title
 	 *
-	 * @since   __DEPLOY_VERSION__
+	 * @since   4.0.0
+	 */
+	public function createArticle($title, $body, $category)
+	{	
+	   	$I = $this;
+	   	$I->amOnPage(ContentListPage::$url);
+	   	$I->clickToolbarButton('new');
+	   	ContentListPage::fillContentCreateForm($I,$title, $body);
+	   	if ($category != '')
+		{
+	   		$I->click(ContentListPage::$selectCategory);
+	   		$I->fillField(ContentListPage::$fillCategory,$category);
+	   		$I->pressKey(ContentListPage::$fillCategory,\Facebook\WebDriver\WebDriverKeys::ENTER);
+	   	}
+	   	$I->click(ContentListPage::$dropDownToggle);
+	   	$I->clickToolbarButton('save & close');
+	   	$I->searchForItem($title);
+	}
+
+	/**
+	 * Helper function to feature an Article
+	 *
+	 * @param   string  $title
+	 *
+	 * @since   4.0.0
 	 */
 	public function featureArticle($title)
 	{
@@ -38,6 +63,14 @@ class Content extends Admin
 		$I->seeNumberOfElements(ContentListPage::$seeFeatured, 1);
 	}
 
+	/**
+	 * Helper function to set article access level
+	 *
+	 * @param   string  $title
+	 * @param   string  $accessLevel
+	 *
+	 * @since   4.0.0
+	 */
 	public function setArticleAccessLevel($title, $accessLevel)
 	{
 		$I = $this;
@@ -54,6 +87,13 @@ class Content extends Admin
 		$I->see($accessLevel, ContentListPage::$seeAccessLevel);
 	}
 
+	/**
+	 * Helper function to unpublish article
+	 *
+	 * @param   string  $title
+	 *
+	 * @since   4.0.0
+	 */
 	public function unPublishArticle($title)
 	{
 		$I = $this;
@@ -61,18 +101,46 @@ class Content extends Admin
 		$I->waitForElement(ContentListPage::$filterSearch, TIMEOUT);
 		$I->searchForItem($title);
 		$I->checkAllResults();
+		// Unpublish
 		$I->clickToolbarButton('unpublish');
 		$I->seeNumberOfElements(ContentListPage::$seeUnpublished, 1);
 	}
 
+	/**
+	 * Helper function to publish article
+	 *
+	 * @param   string  $title
+	 *
+	 * @since   4.0.0
+	 */
+	public function publishArticle($title)
+	{
+		$I = $this;
+		$I->amOnPage(ContentListPage::$url);
+		$I->waitForElement(ContentListPage::$filterSearch, TIMEOUT);
+		$I->searchForItem($title);
+		$I->checkAllResults();
+		$I->clickToolbarButton('publish');
+		// Success message
+		$I->see('1 article published.', Administrator\AdminPage::$systemMessageContainer);
+	}
+
+	/**
+	 * Helper function to trash article
+	 *
+	 * @param   string  $title
+	 *
+	 * @since   4.0.0
+	 */
 	public function trashArticle($title)
 	{
 		$I = $this;
 		$I->amOnPage(ContentListPage::$url);
 		$I->waitForElement(ContentListPage::$filterSearch, TIMEOUT);
-		$this->articleManagerPage->haveItemUsingSearch($title);
+		$this->searchForItem($title);
+		$I->checkAllResults();
+		// Trash
 		$I->clickToolbarButton('trash');
 		$I->searchForItem($title);
-		$I->dontSee($title);
 	}
 }
