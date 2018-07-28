@@ -134,7 +134,7 @@ class MenuItemCest
 		$I->click(MenuItemListPage::$checkItemOne);
 		// check in button
 		$I->clickToolbarButton('check-in');
-		/ Assertion
+		// Assertion
 		$I->see('1 menu item checked in',AdminPage::$systemMessageContainer);
 	}
 
