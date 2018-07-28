@@ -76,7 +76,7 @@ class MenuItemStep extends Admin
 		$I->click('Select');
 		$I->waitForElement(MenuItemFormPage::$menuTypeModal, TIMEOUT);
 		$I->switchToIFrame("Menu Item Type");
-		$I->waitForElement(['link' => $menuItemType], TIMEOUT);
+		$I->waitForElement($menuItemType, TIMEOUT);
 		// Menu Item Type
 		$I->click($menuItemType);
 		// Option in Menu Item type
@@ -112,7 +112,7 @@ class MenuItemStep extends Admin
 						// Search
 						$I->searchForItem($title);
 						$I->see($title);
-						$I->click(['link' => $title]);
+						$I->click($title);
 						$I->switchToPreviousTab();
 						break;
 					case 'Single Article' :
@@ -122,7 +122,7 @@ class MenuItemStep extends Admin
 						// Search
 						$I->searchForItem($title);
 						$I->see($title);
-						$I->click(['link' => $title]);
+						$I->click($title);
 						$I->switchToPreviousTab();
 						break;
 					case 'Featured Article':
@@ -134,7 +134,7 @@ class MenuItemStep extends Admin
 						// Search
 						$I->searchForItem($title);
 						$I->see($title);
-						$I->click(['link' => $title]);
+						$I->click($title);
 						$I->switchToPreviousTab();
 						break;
 					case 'Create Article':
@@ -174,7 +174,7 @@ class MenuItemStep extends Admin
 						// Search
 						$I->searchForItem('Uncategorised');
 						$I->see('Uncategorised');
-						$I->click(['link' => 'Uncategorised']);
+						$I->click('Uncategorised');
 						$I->switchToPreviousTab();
 						break;
 					case 'Single Contact' :
@@ -184,7 +184,7 @@ class MenuItemStep extends Admin
 						// Search
 						$I->searchForItem($title);
 						$I->see($title);
-						$I->click(['link' => $title]);
+						$I->click($title);
 						$I->switchToPreviousTab();
 						break;
 				}
@@ -205,7 +205,7 @@ class MenuItemStep extends Admin
 						$I->switchToIFrame('Select or Change Category');
 						$I->searchForItem($title);
 						$I->see($title);
-						$I->click(['link' => $title]);
+						$I->click($title);
 						$I->switchToPreviousTab();
 						break;
 					case 'Single News Feed' :
@@ -214,7 +214,7 @@ class MenuItemStep extends Admin
 						$I->switchToIFrame('Select or Change News Feed');
 						$I->searchForItem($title);
 						$I->see($title);
-						$I->click(['link' => $title]);
+						$I->click($title);
 						$I->switchToPreviousTab();
 						break;
 				}
