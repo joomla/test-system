@@ -38,9 +38,6 @@ tput sgr0 -T xterm
 # Switch to Joomla base directory
 cd $JOOMLA_BASE
 
-# Install dependencies
-npm install
-
 apache2ctl -D FOREGROUND &
 google-chrome --version
 chmod 755 libraries/vendor/joomla-projects/selenium-server-standalone/bin/webdrivers/chrome/linux/chromedriver
