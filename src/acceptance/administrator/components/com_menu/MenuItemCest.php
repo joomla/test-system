@@ -31,8 +31,8 @@ class MenuItemCest
 	 */
 	public function __construct()
 	{
-		$this->menuItemName = 'Menu Item Test 1';
-		$this->menuItemAlias = 'Menu Item Alias Test 1';
+		$this->menuItemName = 'Menu Item Test';
+		$this->menuItemAlias = 'Menu Item Alias Test';
 	}
 	
 	/**
@@ -84,7 +84,7 @@ class MenuItemCest
 		// Assertion
 		$I->setFilter('select status', 'Unpublished');
 		$I->searchForItem($this->menuItemName);
-		$I->seeElement(['link' => $this->menuItemName]);
+		$I->seeElement($this->menuItemName);
 	}
 
 	/**
@@ -110,7 +110,7 @@ class MenuItemCest
 		// Assertion
 		$I->setFilter('select status', 'Published');
 		$I->searchForItem($this->menuItemName);
-		$I->seeElement(['link' => $this->menuItemName]);
+		$I->seeElement($this->menuItemName);
 	}
 
 	/**
@@ -199,6 +199,6 @@ class MenuItemCest
 		// Assertion
 		$I->setFilter('select status', 'Trashed');
 		$I->searchForItem($this->menuItemName);
-		$I->seeElement(['link' => $this->menuItemName]);
+		$I->seeElement($this->menuItemName);
 	}
 }

@@ -28,6 +28,14 @@ class MenuItemFormPage
 	public static $menuItemTitle = '#jform_title';
 
 	/**
+	 * Search Input
+	 *
+	 * @var   string
+	 * @since 4.0.0
+	 */
+	public static $searchInput = '#filter_search';
+
+	/**
 	 * Menu Item Alias
 	 *
 	 * @var   string
@@ -89,7 +97,7 @@ class MenuItemFormPage
 	 * @var    string
 	 * @since  4.0.0
 	 */
-	public static $archiveArticles = 'Archived Articles';
+		public static $archiveArticles = 'Archived Articles';
 
 	/**
 	 * Success Message
@@ -147,12 +155,5 @@ class MenuItemFormPage
 	 */
 	public static $wrapperUrl =  '#jform_params_url';
 
-	/**
-	 * Select wrapper url
-	 *
-	 * @var    string
-	 * @since  4.0.0
-	 */
-	public static $filterSearch = '#filter_search';
 }
 
