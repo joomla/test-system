@@ -79,9 +79,10 @@ class ArticleMenuCest
 		$I->setFilter('select status', 'Unpublished');
 		$I->searchForItem($this->articleTitle);
 		$I->see($this->articleTitle);
+		// FrontEnd Assertion
 		$I = new FrontEnd($scenario);
-        $I->articleIsNotVisible($this->menuItemName, $this->articleTitle);
-        $I->see('The requested page can\'t be found.');
+        	$I->articleIsNotVisible($this->menuItemName, $this->articleTitle);
+		$I->see('The requested page can\'t be found.');
 	}
 
 	/**
@@ -107,7 +108,7 @@ class ArticleMenuCest
 		$I->see($this->articleTitle);
 		// FrontEnd Assertion
 		$I = new FrontEnd($scenario);
-        $I->articleIsVisible($this->menuItemName, $this->articleTitle);
+        	$I->articleIsVisible($this->menuItemName, $this->articleTitle);
 	}
 
 	/**
@@ -133,7 +134,7 @@ class ArticleMenuCest
 		$I->see($this->articleTitle);
 		// FrontEnd Assertion
 		$I = new FrontEnd($scenario);
-        $I->articleIsNotVisible($this->menuItemName, $this->articleTitle);
-        $I->see('The requested page can\'t be found.');
+        	$I->articleIsNotVisible($this->menuItemName, $this->articleTitle);
+        	$I->see('The requested page can\'t be found.');
 	}
 }
