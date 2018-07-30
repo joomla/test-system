@@ -9,7 +9,7 @@
 use Step\Acceptance\Administrator\Content as ContentStep;
 use Step\Acceptance\Administrator\MenuItemStep as MenuItemStep;
 use Page\Acceptance\Administrator\ContentListPage;
-use Step\Acceptance\Site\FrontEnd as FrontEnd;
+use Step\Acceptance\Site\FrontEnd;
 
 /**
  * Class ArticleMenuCest
@@ -49,7 +49,7 @@ class ArticleMenuCest
 	/**
 	 * Create Menu For Article
 	 *
-	 * @param   MenuItemStep $I Acceptance Tester
+	 * @param  MenuItemStep $I Acceptance Tester
 	 *
 	 * @return void
 	 */
@@ -79,9 +79,9 @@ class ArticleMenuCest
 		$I->setFilter('select status', 'Unpublished');
 		$I->searchForItem($this->articleTitle);
 		$I->see($this->articleTitle);
-		// FrontEnd Assertion
-		FrontEnd::articleIsNotVisible($I, $this->menuItemName, $this->articleTitle);
-		$I->see('The requested page can\'t be found.');
+		$I = new FrontEnd($scenario);
+        $I->articleIsNotVisible($this->menuItemName, $this->articleTitle);
+        $I->see('The requested page can\'t be found.');
 	}
 
 	/**
@@ -106,7 +106,8 @@ class ArticleMenuCest
 		$I->searchForItem($this->articleTitle);
 		$I->see($this->articleTitle);
 		// FrontEnd Assertion
-		FrontEnd::articleIsVisible($I, $this->menuItemName, $this->articleTitle);
+		$I = new FrontEnd($scenario);
+        $I->articleIsVisible($this->menuItemName, $this->articleTitle);
 	}
 
 	/**
@@ -131,7 +132,8 @@ class ArticleMenuCest
 		$I->searchForItem($this->articleTitle);
 		$I->see($this->articleTitle);
 		// FrontEnd Assertion
-		FrontEnd::articleIsNotVisible($I, $this->menuItemName, $this->articleTitle);
-		$I->see('The requested page can\'t be found.');
+		$I = new FrontEnd($scenario);
+        $I->articleIsNotVisible($this->menuItemName, $this->articleTitle);
+        $I->see('The requested page can\'t be found.');
 	}
 }

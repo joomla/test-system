@@ -21,14 +21,14 @@ class FrontEnd extends \AcceptanceTester
 	/**
 	 * Check whether article is not Visible on front end
 	 *
-	 * @param   \AcceptanceTester $I             The Acceptance Tester
 	 * @param   string            $menuItemName  Menu Item Name
 	 * @param   string            $articleName   Article Name
 	 *
 	 * @return void
 	 */
-	public static function articleIsVisible(\AcceptanceTester $I, $menuItemName, $articleName)
+	public function articleIsVisible($menuItemName, $articleName)
 	{
+	    $I = $this;		
 		$I->comment('Check the menu item on site After publishing it');
 		$I->amOnPage(FrontPage::$url);
 		$I->see($menuItemName);
@@ -39,14 +39,14 @@ class FrontEnd extends \AcceptanceTester
 	/**
 	 * Check whether article is not Visible on front end
 	 *
-	 * @param   \AcceptanceTester $I             The Acceptance Tester
 	 * @param   string            $menuItemName  Menu Item Name
 	 * @param   string            $articleName   Article Name
 	 *
 	 * @return void
 	 */
-	public static function articleIsNotVisible(\AcceptanceTester $I, $menuItemName, $articleName)
+	public function articleIsNotVisible($menuItemName, $articleName)
 	{
+		$I = $this;
 		$I->comment('Check the menu item on site After publishing it');
 		$I->amOnPage(FrontPage::$url);
 		$I->see($menuItemName);
