@@ -28,7 +28,7 @@ class FrontEnd extends \AcceptanceTester
 	 */
 	public function articleIsVisible($menuItemName, $articleName)
 	{
-	    $I = $this;		
+		$I = $this;		
 		$I->comment('Check the menu item on site After publishing it');
 		$I->amOnPage(FrontPage::$url);
 		$I->see($menuItemName);
