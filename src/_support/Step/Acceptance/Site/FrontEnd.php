@@ -9,7 +9,6 @@
 namespace Step\Acceptance\Site;
 
 use Page\Acceptance\Site\FrontPage;
-
 /**
  * Acceptance Step object class contains suits for Front End.
  *
@@ -22,46 +21,46 @@ class FrontEnd extends \AcceptanceTester
 	/**
 	 * Check whether Item is not Visible on front end
 	 *
-	 * @param   \AcceptanceTester $I             The Acceptance Tester
-	 * @param   string            $itemName  Menu Item Name
+	 * @param   string  $itemName  Menu Item Name
 	 *
 	 * @return void
 	 */
-	public static function notVisible(\AcceptanceTester $I, $itemName)
+	public function notVisible($itemName)
 	{
+        $I = $this;
 		$I->comment('Make sure the menu item is not on site After unpublishing it');
 		$I->amOnPage(FrontPage::$url);
-		// Assertion
+        // Assertion
 		$I->dontSee($itemName);
 	}
 
 	/**
 	 * Check whether Item is Visible on front end
 	 *
-	 * @param   \AcceptanceTester $I            Acceptance Tester
-	 * @param   string            $itemName Menu Item Name
+	 * @param   string  $itemName Menu Item Name
 	 *
 	 * @return void
 	 */
-	public static function isVisible(\AcceptanceTester $I, $itemName)
+	public function isVisible($itemName)
 	{
+        $I = $this;
 		$I->comment('Check the menu item on site After publishing it');
 		$I->amOnPage(FrontPage::$url);
-		// Assertion
+        // Assertion
 		$I->see($itemName);
 	}
 
 	/**
 	 * Check whether article is not Visible on front end
 	 *
-	 * @param   \AcceptanceTester $I             The Acceptance Tester
-	 * @param   string            $menuItemName  Menu Item Name
-	 * @param   string            $articleName   Article Name
+	 * @param   string  $menuItemName  Menu Item Name
+	 * @param   string  $articleName   Article Name
 	 *
 	 * @return void
 	 */
-	public static function articleIsVisible(\AcceptanceTester $I, $menuItemName, $articleName)
+	public function articleIsVisible($menuItemName, $articleName)
 	{
+	    $I = $this;
 		$I->comment('Check the menu item on site After publishing it');
 		$I->amOnPage(FrontPage::$url);
 		$I->see($menuItemName);
@@ -72,14 +71,14 @@ class FrontEnd extends \AcceptanceTester
 	/**
 	 * Check whether article is not Visible on front end
 	 *
-	 * @param   \AcceptanceTester $I             The Acceptance Tester
-	 * @param   string            $menuItemName  Menu Item Name
-	 * @param   string            $articleName   Article Name
+	 * @param   string  $menuItemName  Menu Item Name
+	 * @param   string  $articleName   Article Name
 	 *
 	 * @return void
 	 */
-	public static function articleIsNotVisible(\AcceptanceTester $I, $menuItemName, $articleName)
+	public function articleIsNotVisible($menuItemName, $articleName)
 	{
+	    $I = $this;
 		$I->comment('Check the menu item on site After publishing it');
 		$I->amOnPage(FrontPage::$url);
 		$I->see($menuItemName);

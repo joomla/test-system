@@ -29,11 +29,11 @@ class CategoryMenuCest
 	 */
 	public function __construct()
 	{
-		$this->categoryTitle = 'Joomla category';
-		$this->articleTitle = 'Joomla Article';
+		$this->categoryTitle = 'Joomla category453';
+		$this->articleTitle = 'Joomla Article2453';
 		$this->articleContent = 'This is the content for Article Joomla Org';
-		$this->menuItemName = 'Menu Item';
-		$this->menuItemAlias = 'MIAJOrg';
+		$this->menuItemName = 'Menu Item943';
+		$this->menuItemAlias = 'MIAJOrg923';
 	}
 
 	/**
@@ -73,7 +73,7 @@ class CategoryMenuCest
 	/**
 	 * Publish Menu Items
 	 *
-	 * @param   MenuItemStep $I Acceptance Tester
+	 * @param  MenuItemStep $I Acceptance Tester
 	 *
 	 * @throws \Exception
 	 *
@@ -81,17 +81,17 @@ class CategoryMenuCest
 	 */
 	public function createMenuForCategory(MenuItemStep $I)
 	{
-        $I->createMenuItem($this->menuItemName, $this->menuItemAlias, $this->categoryTitle, 'Articles', 'Category Blog');
+		$I->createMenuItem($this->menuItemName, $this->menuItemAlias, $this->categoryTitle, 'Articles', 'Category Blog');
 	}
 
 	/**
 	 * Unpublish Menu Items and check front end
 	 *
-	 * @param   \AcceptanceTester $I Acceptance Tester
-	 *
+	 * @param   \AcceptanceTester $I         Acceptance Tester
+	 * @param   string            $scenario  Scenario
 	 * @return  void
 	 */
-	public function unpublishMenuItems(\AcceptanceTester $I)
+	public function unpublishMenuItems(\AcceptanceTester $I, $scenario)
 	{
 		$I->comment('I am going to unpublish a menu');
 		$I->doAdministratorLogin();
@@ -107,21 +107,23 @@ class CategoryMenuCest
 		$I->click(MenuItemListPage::$checkItemOne);
 		$I->clickToolbarButton('unpublish');
 		// Assertion
-        $I->setFilter('select status', 'Unpublished');
-        $I->searchForItem($this->menuItemName);
+		$I->setFilter('select status', 'Unpublished');
+		$I->searchForItem($this->menuItemName);
 		$I->see($this->menuItemName);
-		// Check In FrontEnd
-		FrontEnd::notVisible($I,$this->menuItemName);
+		// FrontEnd Assertion
+		$I = new FrontEnd($scenario);
+		$I->notVisible($this->menuItemName, $this->articleTitle);
 	}
 
 	/**
 	 * Publish Menu Items
 	 *
-	 * @param   \AcceptanceTester $I Acceptance Tester
+	 * @param   \AcceptanceTester $I         Acceptance Tester
+	 * @param   string            $scenario  Scenario
 	 *
 	 * @return  void
 	 */
-	public function publishMenuItems(\AcceptanceTester $I)
+	public function publishMenuItems(\AcceptanceTester $I, $scenario)
 	{
 		$I->comment('I am going to publish a menu');
 		$I->doAdministratorLogin();
@@ -137,22 +139,24 @@ class CategoryMenuCest
 		$I->click(MenuItemListPage::$checkItemOne);
 		// Publish
 		$I->clickToolbarButton('publish');
-        // Assertion
-        $I->setFilter('select status', 'Published');
-        $I->searchForItem($this->menuItemName);
-		$I->see($this->menuItemName);		
-		// FrontEnd
-		FrontEnd::isVisible($I,$this->menuItemName);
+		// Assertion
+		$I->setFilter('select status', 'Published');
+		$I->searchForItem($this->menuItemName);
+		$I->see($this->menuItemName);
+		// FrontEnd Assertion
+		$I = new FrontEnd($scenario);
+		$I->isVisible($this->menuItemName, $this->articleTitle);
 	}
 
 	/**
 	 * Set Menu Item To Home
 	 *
-	 * @param   \AcceptanceTester $I Acceptance Tester
+	 * @param   \AcceptanceTester $I         Acceptance Tester
+	 * @param   string            $scenario  Scenario
 	 *
 	 * @return  void
 	 */
-	public function setMenuItemHome(\AcceptanceTester $I)
+	public function setMenuItemHome(\AcceptanceTester $I, $scenario)
 	{
 		$I->comment('I am going to set a menu item home');
 		$I->doAdministratorLogin();
@@ -167,20 +171,22 @@ class CategoryMenuCest
 		$I->click(MenuItemListPage::$checkItemOne);
 		//Set To Home
 		$I->click(MenuItemListPage::$homeButton);
-		//Check In FrontEnd
-		FrontEnd::isVisible($I,$this->menuItemName);
+		// FrontEnd Assertion
+		$I = new FrontEnd($scenario);
+		$I->isVisible($this->menuItemName, $this->articleTitle);
 	}
 
 	/**
 	 * Rebuild Menu Items
 	 *
-	 * @param   \AcceptanceTester $I Acceptance Tester
+	 * @param   \AcceptanceTester $I         Acceptance Tester
+	 * @param   string            $scenario  Scenario
 	 *
 	 * @return  void
 	 *
 	 * @since   4.0.0
 	 */
-	public function rebuildMenuItems(\AcceptanceTester $I)
+	public function rebuildMenuItems(\AcceptanceTester $I, $scenario)
 	{
 		$I->comment('I am going to rebuild a menu item');
 		$I->doAdministratorLogin();
@@ -197,18 +203,20 @@ class CategoryMenuCest
 		$I->clickToolbarButton('rebuild');
 		// Success message
 		$I->see('Menu items list rebuilt', AdminPage::$systemMessageContainer);
-		// Check In FrontEnd
-		FrontEnd::isVisible($I,$this->menuItemName);
+		// FrontEnd Assertion
+		$I = new FrontEnd($scenario);
+		$I->isVisible($this->menuItemName, $this->articleTitle);
 	}
 
 	/**
 	 * Trash Menu Items
 	 *
-	 * @param   \AcceptanceTester $I Acceptance Tester
+	 * @param   \AcceptanceTester $I         Acceptance Tester
+	 * @param   string            $scenario  Scenario
 	 *
 	 * @return  void
 	 */
-	public function trashMenuItems(\AcceptanceTester $I)
+	public function trashMenuItems(\AcceptanceTester $I, $scenario)
 	{
 		$I->comment('I am going to trash a menu item');
 		$I->doAdministratorLogin();
@@ -227,12 +235,13 @@ class CategoryMenuCest
 		$I->click(MenuItemListPage::$checkItemOne);
 		// Trash
 		$I->clickToolbarButton('trash');
-        // Backend Assertion
-        $I->setFilter('select status', 'Trashed');
-        $I->searchForItem($this->menuItemName);
+		// Backend Assertion
+		$I->setFilter('select status', 'Trashed');
+		$I->searchForItem($this->menuItemName);
 		$I->see($this->menuItemName);
-		// Check In FrontEnd
-		FrontEnd::notVisible($I,$this->menuItemName);
+		// FrontEnd Assertion
+		$I = new FrontEnd($scenario);
+		$I->notVisible($this->menuItemName, $this->articleTitle);
 	}
 }
 
