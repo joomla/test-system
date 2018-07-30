@@ -27,10 +27,10 @@ class FrontEnd extends \AcceptanceTester
 	 */
 	public function notVisible($itemName)
 	{
-        $I = $this;
+        	$I = $this;
 		$I->comment('Make sure the menu item is not on site After unpublishing it');
 		$I->amOnPage(FrontPage::$url);
-        // Assertion
+        	// Assertion
 		$I->dontSee($itemName);
 	}
 
@@ -43,10 +43,10 @@ class FrontEnd extends \AcceptanceTester
 	 */
 	public function isVisible($itemName)
 	{
-        $I = $this;
+        	$I = $this;
 		$I->comment('Check the menu item on site After publishing it');
 		$I->amOnPage(FrontPage::$url);
-        // Assertion
+        	// Assertion
 		$I->see($itemName);
 	}
 
@@ -60,7 +60,7 @@ class FrontEnd extends \AcceptanceTester
 	 */
 	public function articleIsVisible($menuItemName, $articleName)
 	{
-	    $I = $this;
+	    	$I = $this;
 		$I->comment('Check the menu item on site After publishing it');
 		$I->amOnPage(FrontPage::$url);
 		$I->see($menuItemName);
@@ -78,7 +78,7 @@ class FrontEnd extends \AcceptanceTester
 	 */
 	public function articleIsNotVisible($menuItemName, $articleName)
 	{
-	    $I = $this;
+	    	$I = $this;
 		$I->comment('Check the menu item on site After publishing it');
 		$I->amOnPage(FrontPage::$url);
 		$I->see($menuItemName);
