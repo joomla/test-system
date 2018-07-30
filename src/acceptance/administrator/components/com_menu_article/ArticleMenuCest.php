@@ -110,7 +110,7 @@ class ArticleMenuCest
 	}
 
 	/**
-	 * Trah Article
+	 * Trash Article
 	 *
 	 * @param   \AcceptanceTester $I        Acceptance Tester
 	 * @param   string            $scenario Scenario
