@@ -51,14 +51,6 @@ class ContentListPage extends AdminListPage
 	public static $toggleEditor = "Toggle editor";
 
 	/**
-	 * Locator for article's featured icon
-	 *
-	 * @var    string
-	 * @since  4.0.0
-	 */
-	public static $seeFeatured = "//table[@id='articleList']//*//span[@class='icon-featured']";
-
-	/**
 	 * Locator for article's name field
 	 *
 	 * @var    string
