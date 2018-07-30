@@ -25,9 +25,9 @@ class ArticleMenuCest
 {
 	public function __construct()
 	{
-		$this->articleTitle = 'Test Article 1';
+		$this->articleTitle = 'Test Article';
 		$this->articleContent = 'This is to test article with menuitem';
-		$this->menuItemName = 'Menu Item 1';
+		$this->menuItemName = 'Test Menu Item';
 		$this->menuItemAlias = 'MenuItem';
 	}
 
