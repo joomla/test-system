@@ -51,14 +51,6 @@ class ContentListPage extends AdminListPage
 	public static $toggleEditor = "Toggle editor";
 
 	/**
-	 * Locator for article's name field
-	 *
-	 * @var    string
-	 * @since  4.0.0
-	 */
-	public static $seeAccessLevel =  "//table[@id='articleList']//tr[1]//td[5]";
-
-	/**
 	 * Locator for selecting Article's category
 	 *
 	 * @var    array
@@ -81,6 +73,38 @@ class ContentListPage extends AdminListPage
 	* @since  4.0.0
 	*/
 	public static $selectCategory = "//div[@id='jform_catid_chzn']";
+	
+	/**
+	 * Select Menu
+	 *
+	 * @var    string
+	 * @since  4.0.0
+	 */
+	public static $selectMenu =  '#menutype';
+
+	/**
+	 * Select Menu Menu
+	 *
+	 * @var    string
+	 * @since  4.0.0
+	 */
+	public static $selectMainMenu = '//select[@id="menutype"]/option[@value="mainmenu"]';
+
+	/**
+	 * Select  the checkbox status
+	 *
+	 * @var   string
+	 * @since 4.0.0
+	 */
+	public static $checkItemOne =  '#cb0';
+
+	/**
+	 * Select Home Button
+	 *
+	 * @var    string
+	 * @since  4.0.0
+	 */
+	public static $homeButton = '#toolbar-default';
 
 	/**
 	 * Method to create new article
