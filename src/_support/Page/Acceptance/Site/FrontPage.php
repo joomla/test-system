@@ -24,7 +24,7 @@ class FrontPage extends \AcceptanceTester
 	 * @var    string
 	 * @since  3.7.3
 	 */
-	public static $url = 'index.php';
+	public static $url = '/';
 
 	/**
 	 * Locator for alert message in frontend.

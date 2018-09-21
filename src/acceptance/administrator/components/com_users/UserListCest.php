@@ -16,13 +16,15 @@ use Page\Acceptance\Administrator\UserListPage;
  */
 class UserListCest
 {
+
 	public function __construct()
 	{
-		$this->username = "TestUser101";
-		$this->password = "testUser101";
-		$this->name = "User Testing 101 Joomla";
-		$this->email = "TestbotJoomla101@joomla.org";
+		$this->username = "testUser";
+		$this->password = "test";
+		$this->name = "Test Bot";
+		$this->email = "Testbot@example.com";
 	}
+
 	/**
 	 * Create a user
 	 *
@@ -37,41 +39,26 @@ class UserListCest
 		$I->comment('I am going to create a user');
 		$I->doAdministratorLogin();
 		$this->toggleSendMail($I);
+
 		$I->amOnPage(UserListPage::$url);
 		$I->checkForPhpNoticesOrWarnings();
+
 		$I->waitForText(UserListPage::$pageTitleText);
 
-		// New
 		$I->click(UserListPage::$newButton);
+
 		$I->waitForElement(UserListPage::$accountDetailsTab);
 		$I->checkForPhpNoticesOrWarnings();
+
 		$this->fillUserForm($I, $this->name, $this->username, $this->password, $this->email);
 
-		// Make him SuperUser
-		$I->click(['link' => 'Assigned User Groups']);
-		$I->click(UserListPage::$superUserCheckBox);
-
-		// Save
 		$I->clickToolbarButton("Save");
 		$I->waitForText(UserListPage::$pageTitleText);
 		$I->seeSystemMessage(UserListPage::$successMessage);
 
-		// Verfication 1
-		$I->amOnPage(UserListPage::$url);
-		$I->searchForItem($this->username);
-
-		//Verification 2
 		$I->checkForPhpNoticesOrWarnings();
-		$I->doAdministratorLogout();
-		$I->doAdministratorLogin($this->username,$this->password);
-		$I->amOnPage(UserListPage::$url);
-		$I->searchForItem($this->username);
-
-		// Verification 3 : Frontend Verification
-		$I->doFrontEndLogin($this->username,$this->password);
-		$I->scrollTo(UserListPage::$userGreeting);
-		$I->see('Hi '.$this->name,UserListPage::$userGreeting);
 	}
+
 	/**
 	 * Edit a user
 	 *
@@ -99,7 +86,7 @@ class UserListCest
 
 		$this->fillUserForm($I, $this->name, $this->username, $this->password, $this->email);
 
-		$I->clickToolbarButton("save");
+		$I->clickToolbarButton("Save");
 		$I->waitForText(UserListPage::$pageTitleText);
 
 		$I->seeSystemMessage(UserListPage::$successMessage);
@@ -129,7 +116,7 @@ class UserListCest
 		$I->fillField(UserListPage::$password2Field, $password);
 		$I->fillField(UserListPage::$emailField, $email);
 	}
-
+	
 	/**
 	 * Method to set Send Email to "NO"
 	 *

@@ -10,6 +10,7 @@
 use Page\Acceptance\Administrator\MenuListPage;
 use Page\Acceptance\Administrator\MenuFormPage;
 use Page\Acceptance\Administrator\AdminPage;
+
 /**
  * Administrator Menu Tests
  *
@@ -17,19 +18,6 @@ use Page\Acceptance\Administrator\AdminPage;
  */
 class MenuCest
 {
-	/**
-	 * Variables Initialised
-	 *
-	 * menuTitle   string
-	 * type        string
-	 * description string
-	 */
-	public function __construct()
-	{
-		$this->menuTitle = 'Joomla Org Menu Test99';
-		$this->type = 'JoomlaOrgMenuTest99';
-		$this->description = 'Joomla! is a free and open-source content management system for publishing web content, developed by Open Source Matters, Inc. It is built on a model–view–controller web application framework that can be used independently of the CMS';
-	}
 	/**
 	 * Create a menu
 	 *
@@ -44,26 +32,23 @@ class MenuCest
 		$I->comment('I am going to create a menu');
 		$I->doAdministratorLogin();
 
-		// On Page Menu
 		$I->amOnPage(MenuListPage::$url);
 		$I->checkForPhpNoticesOrWarnings();
+
 		$I->waitForText(MenuListPage::$pageTitleText);
 		$I->click(['id' => "menu-collapse"]);
 
-		// New
 		$I->clickToolbarButton('new');
 		$I->waitForText(MenuFormPage::$pageTitleText);
 		$I->checkForPhpNoticesOrWarnings();
-		$this->fillMenuInformation($I, $this->menuTitle, $this->type, $this->description);
 
-		// Save And Close
-		$I->click(MenuFormPage::$dropDownToggle);
-		$I->clickToolbarButton('save & close');
+		$this->fillMenuInformation($I, 'Test Menu');
 
-		// Wait For Text
+		$I->clickToolbarButton('save');
 		$I->waitForText(MenuListPage::$pageTitleText);
 		$I->checkForPhpNoticesOrWarnings();
 	}
+
 
 	/**
 	 * Fill out the menu information form
@@ -77,50 +62,10 @@ class MenuCest
 	 *
 	 * @return  void
 	 */
-	protected function fillMenuInformation($I, $title, $type, $description)
+	protected function fillMenuInformation($I, $title, $type = 'Test', $description = 'Automated Testing')
 	{
 		$I->fillField(MenuFormPage::$fieldTitle, $title);
 		$I->fillField(MenuFormPage::$fieldMenuType, $type);
 		$I->fillField(MenuFormPage::$fieldMenuDescription, $description);
 	}
-	/**
-	 * Rebuild a menu
-	 *
-	 * @param   AcceptanceTester  $I  The AcceptanceTester Object
-	 *
-	 * @since  __DEPLOY_VERSION__
-	 *
-	 * @return  void
-	 */
-	public function rebuildMenu(\AcceptanceTester $I)
-	{
-		$I->comment('I am going to rebuild a menu');
-		$I->doAdministratorLogin();
-		$I->amOnPage(MenuListPage::$url);
-		$I->checkForPhpNoticesOrWarnings();
-		$I->searchForItem($this->menuTitle);
-		$I->click(MenuListPage::$menuSelect);
-		$I->clickToolbarButton('rebuild');
-		$I->see('Successfully rebuilt',AdminPage::$systemMessageContainer);
-	}
-	/**
-	 * Delete A Menu
-	 *
-	 * @param   AcceptanceTester  $I  The AcceptanceTester Object
-	 *
-	 * @since  __DEPLOY_VERSION__
-	 *
-	 * @return  void
-	 */
-	public function deleteMenu(\AcceptanceTester $I)
-	{
-		$I->comment('I am going to delete a menu');
-		$I->doAdministratorLogin();
-		$I->amOnPage(MenuListPage::$url);
-		$I->checkForPhpNoticesOrWarnings();
-		$I->searchForItem($this->menuTitle);
-		$I->click(MenuListPage::$menuSelect);
-		$I->clickToolbarButton('delete');
-	}
-
 }

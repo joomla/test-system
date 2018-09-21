@@ -11,51 +11,46 @@ namespace Step\Acceptance\Administrator;
 
 use Page\Acceptance\Administrator\ContentListPage;
 use Page\Acceptance\Administrator;
-use Step\Acceptance\Site\FrontEnd;
 
 /**
  * Acceptance Step object class contains suits for Content Manager.
  *
  * @package  Step\Acceptance\Administrator
  *
- * @since    __DEPLOY_VERSION__
+ * @since    4.0.0
  */
 class Content extends Admin
 {
 	/**
 	 * Create A New Article
 	 *
-	 * @param   string  $title     The Title Of Article
-	 * @param   string  $body      The Content Of Article
-	 * @param   string  $category  The category
+	 * @param   string  $title
 	 *
-	 * @since   __DEPLOY_VERSION__
-	 * @return void
+	 * @since   4.0.0
 	 */
 	public function createArticle($title, $body, $category)
 	{	
-		$I = $this;
-		$I->amOnPage(ContentListPage::$url);
-		//$I->waitForElement(ArticleManagerPage::$filterSearch, TIMEOUT);
-		$I->clickToolbarButton('new');
-		ContentListPage::fillContentCreateForm($I,$title, $body);
-		if ($category != 'null')
+	   	$I = $this;
+	   	$I->amOnPage(ContentListPage::$url);
+	   	$I->clickToolbarButton('new');
+	   	ContentListPage::fillContentCreateForm($I,$title, $body);
+	   	if ($category != '')
 		{
-			$I->click(ContentListPage::$selectCategory);
-			$I->fillField(ContentListPage::$fillCategory,$category);
-			$I->pressKey(ContentListPage::$fillCategory,\Facebook\WebDriver\WebDriverKeys::ENTER);
-		}
-		$I->click(ContentListPage::$dropDownToggle);
-		$I->clickToolbarButton('save & close');
-		$I->searchForItem($title);
+	   		$I->click(ContentListPage::$selectCategory);
+	   		$I->fillField(ContentListPage::$fillCategory,$category);
+	   		$I->pressKey(ContentListPage::$fillCategory,\Facebook\WebDriver\WebDriverKeys::ENTER);
+	   	}
+	   	$I->click(ContentListPage::$dropDownToggle);
+	   	$I->clickToolbarButton('save & close');
+	   	$I->searchForItem($title);
 	}
+
 	/**
-	 * Helper function to create a new Article
+	 * Helper function to feature an Article
 	 *
-	 * @param   string  $title  The Title Of Article
+	 * @param   string  $title
 	 *
-	 * @since   __DEPLOY_VERSION__
-	 * @return void
+	 * @since   4.0.0
 	 */
 	public function featureArticle($title)
 	{
@@ -67,14 +62,14 @@ class Content extends Admin
 		$I->clickToolbarButton('feature');
 		$I->seeNumberOfElements(ContentListPage::$seeFeatured, 1);
 	}
+
 	/**
-	 * Helper function to create a new Article
+	 * Helper function to set article access level
 	 *
-	 * @param   string  $title       The Title Of Article
-	 * @param   string  $accessLevel Access Level
+	 * @param   string  $title
+	 * @param   string  $accessLevel
 	 *
-	 * @since   __DEPLOY_VERSION__
-	 * @return void
+	 * @since   4.0.0
 	 */
 	public function setArticleAccessLevel($title, $accessLevel)
 	{
@@ -91,13 +86,13 @@ class Content extends Admin
 		$I->waitForElement(ContentListPage::$filterSearch, TIMEOUT);
 		$I->see($accessLevel, ContentListPage::$seeAccessLevel);
 	}
+
 	/**
-	 * Helper function to create a new Article
+	 * Helper function to unpublish article
 	 *
-	 * @param   string  $title  The Title Of Article
+	 * @param   string  $title
 	 *
-	 * @since   __DEPLOY_VERSION__
-	 * @return void
+	 * @since   4.0.0
 	 */
 	public function unPublishArticle($title)
 	{
@@ -106,17 +101,17 @@ class Content extends Admin
 		$I->waitForElement(ContentListPage::$filterSearch, TIMEOUT);
 		$I->searchForItem($title);
 		$I->checkAllResults();
-
+		// Unpublish
 		$I->clickToolbarButton('unpublish');
 		$I->seeNumberOfElements(ContentListPage::$seeUnpublished, 1);
 	}
+
 	/**
-	 * Helper function to create a new Article
+	 * Helper function to publish article
 	 *
-	 * @param   string  $title  The Title Of Article
+	 * @param   string  $title
 	 *
-	 * @since   __DEPLOY_VERSION__
-	 * @return void
+	 * @since   4.0.0
 	 */
 	public function publishArticle($title)
 	{
@@ -126,17 +121,16 @@ class Content extends Admin
 		$I->searchForItem($title);
 		$I->checkAllResults();
 		$I->clickToolbarButton('publish');
-
 		// Success message
 		$I->see('1 article published.', Administrator\AdminPage::$systemMessageContainer);
 	}
+
 	/**
-	 * Helper function to create a new Article
+	 * Helper function to trash article
 	 *
-	 * @param   string  $title  The Title Of Article
+	 * @param   string  $title
 	 *
-	 * @since   __DEPLOY_VERSION__
-	 * @return void
+	 * @since   4.0.0
 	 */
 	public function trashArticle($title)
 	{
@@ -145,8 +139,8 @@ class Content extends Admin
 		$I->waitForElement(ContentListPage::$filterSearch, TIMEOUT);
 		$this->searchForItem($title);
 		$I->checkAllResults();
+		// Trash
 		$I->clickToolbarButton('trash');
 		$I->searchForItem($title);
-		FrontEnd::notVisible($I, $title);
 	}
 }
