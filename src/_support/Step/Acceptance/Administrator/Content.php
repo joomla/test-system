@@ -120,6 +120,7 @@ class Content extends Admin
 		$I->searchForItem($title);
 		$I->checkAllResults();
 		$I->clickToolbarButton('publish');
+		// Success message
 		$I->see('1 article published.', Administrator\AdminPage::$systemMessageContainer);
 	}
 
@@ -137,6 +138,7 @@ class Content extends Admin
 		$I->waitForElement(ContentListPage::$filterSearch, TIMEOUT);
 		$this->searchForItem($title);
 		$I->checkAllResults();
+		// Trash
 		$I->clickToolbarButton('trash');
 		$I->searchForItem($title);
 		$I->dontSee($title);
