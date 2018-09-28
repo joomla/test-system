@@ -77,6 +77,7 @@ class UserListCest
 
 		$I->amOnPage(UserListPage::$url);
 		$I->waitForText(UserListPage::$pageTitleText);
+		$I->click('#menu-collapse-icon');
 
 		$I->click(UserListPage::$userCheckbox);
 		$I->click($this->name);
