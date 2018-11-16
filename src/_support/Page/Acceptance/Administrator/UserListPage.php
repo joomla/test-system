@@ -33,7 +33,7 @@ class UserListPage extends AdminListPage
 	 * @since  3.7.3
 	 */
 	public static $pageTitleText = "Users";
-	
+
 	/**
 	 * Edit Button
 	 *
@@ -49,6 +49,14 @@ class UserListPage extends AdminListPage
 	 * @since  3.7.3
 	 */
 	public static $userCheckbox = ['id' => 'cb1'];
+
+	/**
+	 * Locator for the row (Checkbox is no longer clickable in j4..)
+	 *
+	 * @var    array
+	 * @since  4.0.0
+	 */
+	public static $userRow = ['class' => 'row1'];
 
 	/**
 	 * Save Button

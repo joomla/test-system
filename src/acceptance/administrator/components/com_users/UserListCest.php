@@ -79,7 +79,7 @@ class UserListCest
 		$I->waitForText(UserListPage::$pageTitleText);
 		$I->click('#menu-collapse-icon');
 
-		$I->click(UserListPage::$userCheckbox);
+		$I->click(UserListPage::$userRow);
 		$I->click($this->name);
 
 		$I->waitForElement(UserListPage::$accountDetailsTab);
@@ -117,7 +117,7 @@ class UserListCest
 		$I->fillField(UserListPage::$password2Field, $password);
 		$I->fillField(UserListPage::$emailField, $email);
 	}
-	
+
 	/**
 	 * Method to set Send Email to "NO"
 	 *
