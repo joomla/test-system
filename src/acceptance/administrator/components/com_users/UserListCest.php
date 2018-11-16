@@ -79,7 +79,6 @@ class UserListCest
 		$I->waitForText(UserListPage::$pageTitleText);
 		$I->click('#menu-collapse-icon');
 
-		$I->click(UserListPage::$userRow);
 		$I->click($this->name);
 
 		$I->waitForElement(UserListPage::$accountDetailsTab);
