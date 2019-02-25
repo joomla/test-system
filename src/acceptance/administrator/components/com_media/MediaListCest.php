@@ -344,6 +344,7 @@ class MediaListCest
 		$I->waitForElement($testFileItem);
 		$I->click($testFileItem);
 		$I->click(MediaListPage::$toolbarDeleteButton);
+		$I->click(MediaListPage::$toolbarModalDeleteButton);
 		$I->seeSystemMessage('Item deleted.');
 		$I->waitForElementNotVisible($testFileItem);
 		$I->dontSeeElement($testFileName);
