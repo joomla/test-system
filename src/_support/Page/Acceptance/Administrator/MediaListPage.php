@@ -163,6 +163,14 @@ class MediaListPage extends AdminListPage
 	public static $toolbarDeleteButton = '//button[contains(@onclick, \'onClickDelete\')]';
 
 	/**
+	 * The delete button in the toolbar
+	 *
+	 * @var    string
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static $toolbarModalDeleteButton = '//button[contains(@onclick, \'deleteItem\')]';
+
+	/**
 	 * The select all button
 	 *
 	 * @var    array
