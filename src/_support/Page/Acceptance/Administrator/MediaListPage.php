@@ -168,7 +168,7 @@ class MediaListPage extends AdminListPage
 	 * @var    string
 	 * @since  __DEPLOY_VERSION__
 	 */
-	public static $toolbarModalDeleteButton = '//button[contains(@onclick, \'deleteItem\')]';
+	public static $toolbarModalDeleteButton = ['id' => 'media-delete-item'];
 
 	/**
 	 * The select all button
