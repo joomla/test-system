@@ -369,6 +369,8 @@ class MediaListCest
 		$I->waitForElement($testFolderItem);
 		$I->click($testFolderItem);
 		$I->click(MediaListPage::$toolbarDeleteButton);
+		$I->waitForElement(MediaListPage::$toolbarModalDeleteButton);
+		$I->click(MediaListPage::$toolbarModalDeleteButton);
 		$I->seeSystemMessage('Item deleted.');
 		$I->waitForElementNotVisible($testFolderItem);
 		$I->dontSeeElement($testFolderItem);
@@ -397,6 +399,8 @@ class MediaListCest
 		$I->click($testFileItem1);
 		$I->clickHoldingShiftkey($testFileItem2);
 		$I->click(MediaListPage::$toolbarDeleteButton);
+		$I->waitForElement(MediaListPage::$toolbarModalDeleteButton);
+		$I->click(MediaListPage::$toolbarModalDeleteButton);
 		$I->seeSystemMessage('Item deleted.');
 		$I->waitForElementNotVisible($testFileItem1);
 		$I->waitForElementNotVisible($testFileItem2);
