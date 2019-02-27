@@ -364,7 +364,7 @@ class MediaListPage extends AdminListPage
 	 */
 	public static function itemActionMenuToggler($itemName)
 	{
-		return self::itemXpath($itemName) . '//a[@class= \'action-toggle\']';
+		return self::itemXpath($itemName) . '//button[@class= \'action-toggle\']';
 	}
 
 	/**
@@ -379,7 +379,7 @@ class MediaListPage extends AdminListPage
 	 */
 	public static function itemAction($itemName, $actionName)
 	{
-		return self::itemXpath($itemName) . '//a[@class= \''. $actionName .'\']';
+		return self::itemXpath($itemName) . '//button[@class= \''. $actionName .'\']';
 	}
 
 	/**
