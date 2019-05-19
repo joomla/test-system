@@ -20,23 +20,6 @@ use Page\Acceptance\Administrator\ContentListPage;
  */
 class Content extends Admin
 {
-	/**
-	 * Helper function to create a new Article
-	 *
-	 * @param   string  $title
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	public function featureArticle($title)
-	{
-		$I = $this;
-		$I->amOnPage(ContentListPage::$url);
-		$I->waitForElement(ContentListPage::$filterSearch, TIMEOUT);
-		$I->searchForItem($title);
-		$I->checkAllResults();
-		$I->clickToolbarButton('feature');
-		$I->seeNumberOfElements(ContentListPage::$seeFeatured, 1);
-	}
 
 	public function setArticleAccessLevel($title, $accessLevel)
 	{
@@ -52,17 +35,6 @@ class Content extends Admin
 		$I->clickToolbarButton('Save & Close');
 		$I->waitForElement(ContentListPage::$filterSearch, TIMEOUT);
 		$I->see($accessLevel, ContentListPage::$seeAccessLevel);
-	}
-
-	public function unPublishArticle($title)
-	{
-		$I = $this;
-		$I->amOnPage(ContentListPage::$url);
-		$I->waitForElement(ContentListPage::$filterSearch, TIMEOUT);
-		$I->searchForItem($title);
-		$I->checkAllResults();
-		$I->clickToolbarButton('unpublish');
-		$I->seeNumberOfElements(ContentListPage::$seeUnpublished, 1);
 	}
 
 	public function trashArticle($title)
