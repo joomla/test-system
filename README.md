@@ -1,3 +1,5 @@
+NOTE - This repository has been archived for now.
+
 # System testing (browser based) package for Joomla
 
 ### Abstract
